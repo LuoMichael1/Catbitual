@@ -1,39 +1,40 @@
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-
 
 public class Menu extends JPanel{
     
     private JLabel message;
-    
+    private int messagePadding = 15;
+
     public Menu() {
-        setBackground(new Color(10, 10, 10));
-
+        
+        setBackground(new Color(15, 15, 15));
         this.setLayout(new BorderLayout());
+        this.setFocusable(true);        
 
-        JLayeredPane layeredPane = new JLayeredPane();
 
-        layeredPane.setPreferredSize(new Dimension(1280, 720));
 
-        this.setFocusable(true);
-        
-        
-        message = new JLabel("Hello :D");
-        message.setFont(loadFont("test", 12));
-        message.setBounds(Main.WIDTH / 2 - (100), Main.HEIGHT - 70, 200, 10);
-        
         // message
-        this.add(message);
+        message = new JLabel("Good Morning, Human");
+        message.setFont(FontMaker.loadFont("Assets/Fonts/Helvetica-Bold.ttf", 75));
+        message.setForeground(Color.white);
+        
+        // center image
+        message.setBorder(BorderFactory.createEmptyBorder(messagePadding,messagePadding,messagePadding,messagePadding));
+
+        this.add(message, BorderLayout.CENTER);
+        
+        
+
+        revalidate();
+        repaint();
     }
     
-    public static Font loadFont(String path, float size) {
-        Font font = null;
-        try {
-            font = Font.createFont(0, new File(path)).deriveFont(size);
-        } catch (Exception e) {
-            System.out.println("Couldn't get font");
-        }
-        return font;
+    public void paintComponent(Graphics g) {
+
+        // enables antialiasing on the text
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
     }
 }
