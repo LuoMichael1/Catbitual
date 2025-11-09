@@ -8,12 +8,14 @@ public class Menu extends JPanel{
     private JLabel message;
     private int messagePadding = 15;
     private Room room = new Room(Main.width/2, Main.height/2, 1);
+    private Cat cat = new Cat(Main.width/2, Main.height/2);
     private Timer timer;
 
     public Menu() {
         
-        setBackground(new Color(15, 15, 15));
-        //setBackground(Color.WHITE);
+        //setBackground(new Color(15, 15, 15));
+        //setBackground(Color.YELLOW);
+        setBackground(new Color(243, 169, 169));
         this.setLayout(new BorderLayout());
         this.setFocusable(true);        
 
@@ -22,14 +24,12 @@ public class Menu extends JPanel{
 
         // message
         message = new JLabel("Good Morning, Human");
-        message.setFont(FontMaker.loadFont("Assets/Fonts/RobotoMono-Bold.ttf", (float)(Main.height*0.09)));
+        message.setFont(FontMaker.loadFont("Assets/Fonts/Helvetica-Bold.ttf", (float)(Main.height*0.09)));
         message.setForeground(Color.white);
         
         // center image
         message.setBorder(BorderFactory.createEmptyBorder(messagePadding,messagePadding,messagePadding,messagePadding));
         this.add(message, BorderLayout.NORTH);
-        textEffects("Good Morning, Human");
-        //this.add(j, BorderLayout.NORTH);
 
 
         timer = new Timer(100, new ActionListener() {
@@ -38,7 +38,7 @@ public class Menu extends JPanel{
                 repaint();
             }}
         );
-        timer.start();
+        //timer.start();
 
         
         revalidate();
@@ -63,7 +63,7 @@ public class Menu extends JPanel{
     public void paintComponent(Graphics g) {
         super.paintComponent(g);  
         room.drawRoom(g);
-        
+        cat.drawCat(g);
 
         // enables antialiasing on the text
         Graphics2D g2d = (Graphics2D) g;
