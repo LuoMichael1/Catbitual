@@ -12,7 +12,8 @@ public class Menu extends JPanel{
         this.setLayout(new BorderLayout());
         this.setFocusable(true);        
 
-
+        //JPanel j = new JPanel();
+        //j.setBackground(new Color(15, 15, 15));
 
         // message
         message = new JLabel("Good Morning, Human");
@@ -21,10 +22,9 @@ public class Menu extends JPanel{
         
         // center image
         message.setBorder(BorderFactory.createEmptyBorder(messagePadding,messagePadding,messagePadding,messagePadding));
-
-        this.add(message, BorderLayout.CENTER);
+        this.add(message, BorderLayout.NORTH);
         
-        
+        //this.add(j, BorderLayout.NORTH);
 
         revalidate();
         repaint();
