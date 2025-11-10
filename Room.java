@@ -5,7 +5,7 @@ import javax.swing.ImageIcon;
 
 public class Room extends Entities {
     
-    static ImageIcon roomImage = new ImageIcon("Assets/Images/isoroom1.png");
+    static ImageIcon roomImage = new ImageIcon("Assets/Images/isoroom2.png");
     static final int roomSizeX = 1920;
     static final int roomSizeY = 1080;
 

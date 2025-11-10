@@ -24,8 +24,8 @@ public class Menu extends JPanel{
 
         // message
         message = new JLabel("Good Morning, Human");
-        message.setFont(FontMaker.loadFont("Assets/Fonts/Helvetica-Bold.ttf", (float)(Main.height*0.09)));
-        message.setForeground(Color.white);
+        message.setFont(FontMaker.loadFont("Assets/Fonts/RobotoMono-Bold.ttf", (float)(Main.height*0.09)));
+        message.setForeground(new Color(254, 227, 232));
         
         // center image
         message.setBorder(BorderFactory.createEmptyBorder(messagePadding,messagePadding,messagePadding,messagePadding));
@@ -38,7 +38,7 @@ public class Menu extends JPanel{
                 repaint();
             }}
         );
-        //timer.start();
+        timer.start();
 
         
         revalidate();
