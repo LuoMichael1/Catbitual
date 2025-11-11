@@ -7,8 +7,8 @@ public class Menu extends JPanel{
     
     private JLabel message;
     private int messagePadding = 15;
-    private Room room = new Room(Main.width/2, Main.height/2, 1);
-    private Cat cat = new Cat(Main.width/2, Main.height/2);
+    private Room room = new Room("Room", Main.width/2, Main.height/2, 0.7);
+    private Cat cat = new Cat("Cat", Main.width/2, Main.height/2);
     private Timer timer;
 
     public Menu() {
@@ -19,8 +19,9 @@ public class Menu extends JPanel{
         this.setLayout(new BorderLayout());
         this.setFocusable(true);        
 
-        //JPanel j = new JPanel();
-        //j.setBackground(new Color(15, 15, 15));
+        JPanel j = new JPanel();
+        j.setBackground(new Color(15, 15, 15));
+        this.add(j, BorderLayout.EAST);
 
         // message
         message = new JLabel("Good Morning, Human");

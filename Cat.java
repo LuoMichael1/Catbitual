@@ -6,14 +6,52 @@ public class Cat extends Entities{
     static ImageIcon catImage = new ImageIcon("Assets/Images/blackcat2.png");
     static final int sizeX = 1024;
     static final int sizeY = 1024;
-    
+    private String breed;
+    private double food;
+    private double water;
+    private double happiness;
 
-    public Cat (int xPos, int yPos) {
-        super(xPos, yPos);
+    public Cat (String name, int xPos, int yPos, String breed, double water, double happiness) {
+        super(name, xPos, yPos);
         System.out.println(catImage.getImageLoadStatus());
-        
+        this.breed = breed;
+        this.water = water;
+        this.happiness = happiness;
     }
+    public Cat (String name, int xPos, int yPos) {
+        super(name, xPos, yPos);
+        System.out.println(catImage.getImageLoadStatus());
+        breed = "Black";
+        water = 100;
+        happiness = 100;
+    }
+
     public void drawCat(Graphics g) {
         g.drawImage(catImage.getImage(), super.getxPos()-200, super.getyPos(), super.getxPos()+200, super.getyPos()+400, 0, 0, sizeX, sizeX, null);
+    }
+
+    public String getBreed() {
+        return breed;
+    }
+    public void setBreed(String breed) {
+        this.breed = breed;
+    }
+    public double getFood() {
+        return food;
+    }
+    public void setFood(double food) {
+        this.food = food;
+    }
+    public double getWater() {
+        return water;
+    }
+    public void setWater(double water) {
+        this.water = water;
+    }
+    public double getHappiness() {
+        return happiness;
+    }
+    public void setHappiness(double happiness) {
+        this.happiness = happiness;
     }
 }

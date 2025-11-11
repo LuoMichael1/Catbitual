@@ -1,17 +1,18 @@
 // A Habit and task tracker with cats!!
 
+
 import javax.swing.*;
 import java.awt.*;
 
 public class Main {
 
     // Constants
-    public static final int FPS = 30;
+    public static final int FPS = 24;
     static CardLayout cardLayout;
     static JPanel p = new JPanel(new CardLayout());
 
-    static int width = 1;
-    static int height = 1;
+    static int width = 1;   // width of the display in pixels
+    static int height = 1;  // height of the display in pixels
 
     public static void main(String[] args) {
         
@@ -19,17 +20,16 @@ public class Main {
         GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         width = gd.getDisplayMode().getWidth();
         height = gd.getDisplayMode().getHeight();
-        //print("" + width + " : " + height);
+
 
         JFrame f = new JFrame("Catbitual :3");
         f.setUndecorated(false);
         f.setResizable(true);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setExtendedState(Frame.MAXIMIZED_BOTH);
+        f.setExtendedState(Frame.MAXIMIZED_BOTH);         // makes the window full screen
         
-
-        //ImageIcon test = new ImageIcon("images/favicon.png");
-        //f.setIconImage(test.getImage());
+        ImageIcon favicon = new ImageIcon("Assets/Images/favicon.png");
+        f.setIconImage(favicon.getImage());
 
         Menu menu = new Menu();
 
@@ -45,14 +45,13 @@ public class Main {
     }
     
     public static void print(String text) {
-        System.out.println(text);
-    }
+        System.out.println(text);}
+
     static public void nextCard() {
         cardLayout.next(p);}
 
     static public void showCard(String name) {
-        cardLayout.show(p, name);
-    }
+        cardLayout.show(p, name);}
 
     static public void addCard(JPanel jPanel, String name) {
         p.add(jPanel, name);}

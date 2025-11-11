@@ -1,0 +1,3 @@
+Name: Human
+Coins: 0
+Furniture
