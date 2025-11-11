@@ -16,9 +16,26 @@ public class Room extends Entities {
         System.out.println("Room: " + roomImage.getImageLoadStatus());
     }
     
+    public void addEntity(Entities entity) {
+
+    }
+    public void removeEntity(){
+        
+    }
+    public void removeEntity(int pos){
+        
+    }
+    public void setX(int x){
+        
+    }
+    public void setY(int y){
+        
+    }
+
     // draws the room in the center of the screen
     public void drawRoom(Graphics g) {
         g.drawImage(roomImage.getImage(), (int)(Main.width-roomSizeX*scale)/2, 0, (int)(Main.width+roomSizeX*scale)/2, (int)(roomSizeY*scale), 0, 0, roomSizeX, roomSizeY, null);
     }
 
+    
 }
