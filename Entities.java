@@ -21,16 +21,16 @@ public abstract class Entities {
     }
 
 
-    public void setxPos(int xPos) {
+    public void setX(int xPos) {
         this.xPos = xPos;
     }
-    public void setyPos(int yPos) {
+    public void setY(int yPos) {
         this.yPos = yPos;
     }
-    public int getxPos() {
+    public int getX() {
         return xPos;
     }
-    public int getyPos() {
+    public int getY() {
         return yPos;
     }
     public void setName(String name) {

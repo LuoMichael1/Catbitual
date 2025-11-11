@@ -2,8 +2,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class Menu extends JPanel{
+public class Menu extends JPanel implements MouseListener, KeyListener, ComponentListener{
     
     private JLabel message;
     private int messagePadding = 15;
@@ -18,6 +24,7 @@ public class Menu extends JPanel{
         setBackground(new Color(243, 169, 169));
         this.setLayout(new BorderLayout());
         this.setFocusable(true);        
+        this.addMouseListener(this);
 
         JPanel j = new JPanel();
         j.setBackground(new Color(15, 15, 15));
@@ -69,6 +76,79 @@ public class Menu extends JPanel{
         // enables antialiasing on the text
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+    }
+
+
+    public void componentResized(ComponentEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'componentResized'");
+    }
+
+    public void componentMoved(ComponentEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'componentMoved'");
+    }
+
+    public void componentShown(ComponentEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'componentShown'");
+    }
+
+    public void componentHidden(ComponentEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'componentHidden'");
+    }
+
+    public void keyTyped(KeyEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'keyTyped'");
+    }
+
+    public void keyPressed(KeyEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'keyPressed'");
+    }
+
+    public void keyReleased(KeyEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'keyReleased'");
+    }
+
+    public void mouseClicked(MouseEvent e) {
+        Main.print("Outside: " + e);
+        if (e.getX() >= cat.getX()) {
+            Main.print("Inside: " + e);
+            cat.setX(e.getX());
+            repaint();
+        }
+    }
+
+    public void mousePressed(MouseEvent e) {
+        Main.print("Outside: " + e);
+        if (e.getX() != cat.getX()) {
+            Main.print("Inside: " + e);
+            cat.setX(e.getX());
+            cat.setY(e.getY());
+            repaint();
+        }
+        // TODO Auto-generated method stub
+        //throw new UnsupportedOperationException("Unimplemented method 'mousePressed'");
+    }
+
+    public void mouseReleased(MouseEvent e) {
+        // TODO Auto-generated method stub
+        //throw new UnsupportedOperationException("Unimplemented method 'mouseReleased'");
+    }
+
+    public void mouseEntered(MouseEvent e) {
+        // TODO Auto-generated method stub
+        //throw new UnsupportedOperationException("Unimplemented method 'mouseEntered'");
+        Main.print("hiii mouse entered");
+    }
+
+    public void mouseExited(MouseEvent e) {
+        // TODO Auto-generated method stub
+        //throw new UnsupportedOperationException("Unimplemented method 'mouseExited'");
     }
     
 }

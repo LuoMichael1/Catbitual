@@ -27,7 +27,7 @@ public class Cat extends Entities{
     }
 
     public void drawCat(Graphics g) {
-        g.drawImage(catImage.getImage(), super.getxPos()-200, super.getyPos(), super.getxPos()+200, super.getyPos()+400, 0, 0, sizeX, sizeX, null);
+        g.drawImage(catImage.getImage(), super.getX()-200, super.getY(), super.getX()+200, super.getY()+400, 0, 0, sizeX, sizeX, null);
     }
 
     public String getBreed() {

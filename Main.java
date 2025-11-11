@@ -11,8 +11,8 @@ public class Main {
     static CardLayout cardLayout;
     static JPanel p = new JPanel(new CardLayout());
 
-    static int width = 1;   // width of the display in pixels
-    static int height = 1;  // height of the display in pixels
+    static int width = 1080;   // initial width of the display in pixels
+    static int height = 720;  // initial height of the display in pixels
 
     public static void main(String[] args) {
         
