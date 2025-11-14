@@ -3,7 +3,7 @@ import javax.swing.ImageIcon;
 
 public class Cat extends Entities{
     
-    static ImageIcon catImage = new ImageIcon("Assets/Images/blackcat2.png");
+    static ImageIcon catImage = new ImageIcon("Assets/Images/blackcat.png");
     static final int sizeX = 1024;
     static final int sizeY = 1024;
     private String breed;
@@ -29,7 +29,7 @@ public class Cat extends Entities{
     public void drawCat(Graphics g) {
         g.drawImage(catImage.getImage(), super.getX()-200, super.getY(), super.getX()+200, super.getY()+400, 0, 0, sizeX, sizeX, null);
     }
-
+    
     public String getBreed() {
         return breed;
     }

@@ -10,9 +10,10 @@ public class Room extends Entities {
     static final int roomSizeY = 1080;
     private double scale = 1;
 
-    public Room (String name, int xPos, int yPos, double scale) {
+    public Room (String name, int xPos, int yPos) {
         super(name, xPos, yPos);
-        this.scale = scale;
+        this.scale = Main.height/((double)roomSizeY);
+        Main.print("scale: " + scale);
         System.out.println("Room: " + roomImage.getImageLoadStatus());
     }
     

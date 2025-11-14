@@ -42,6 +42,15 @@ public abstract class Entities {
     public void moveTo(int xPos, int yPos) {
         
     }
+    public void adjustScale() {
+        
+    }
+
+    // method returns true if the point on the screen is within the displayed entitiy
+    public boolean withinBounds(int x, int y) {
+        Main.print("" + x + " : " + y);
+        return (x>(xPos-200) && x<1920);
+    }
 
 
 

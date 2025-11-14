@@ -1,3 +1,5 @@
+// The main screen of the app from which the functionality of the app is accessed
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -9,18 +11,17 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+
 public class Menu extends JPanel implements MouseListener, KeyListener, ComponentListener{
     
     private JLabel message;
     private int messagePadding = 15;
-    private Room room = new Room("Room", Main.width/2, Main.height/2, 0.7);
+    private Room room = new Room("Room", Main.width/2, Main.height/2);
     private Cat cat = new Cat("Cat", Main.width/2, Main.height/2);
     private Timer timer;
 
     public Menu() {
-        
-        //setBackground(new Color(15, 15, 15));
-        //setBackground(Color.YELLOW);
+    
         setBackground(new Color(243, 169, 169));
         this.setLayout(new BorderLayout());
         this.setFocusable(true);        
@@ -48,7 +49,6 @@ public class Menu extends JPanel implements MouseListener, KeyListener, Componen
         );
         timer.start();
 
-        
         revalidate();
         repaint();
     }
@@ -66,8 +66,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, Componen
     }
     
 
-
-
+    
     public void paintComponent(Graphics g) {
         super.paintComponent(g);  
         room.drawRoom(g);
@@ -79,75 +78,67 @@ public class Menu extends JPanel implements MouseListener, KeyListener, Componen
     }
 
 
+
+
+
     public void componentResized(ComponentEvent e) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'componentResized'");
     }
 
     public void componentMoved(ComponentEvent e) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'componentMoved'");
     }
 
     public void componentShown(ComponentEvent e) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'componentShown'");
     }
 
     public void componentHidden(ComponentEvent e) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'componentHidden'");
     }
 
     public void keyTyped(KeyEvent e) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'keyTyped'");
     }
 
     public void keyPressed(KeyEvent e) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'keyPressed'");
     }
 
     public void keyReleased(KeyEvent e) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'keyReleased'");
     }
 
     public void mouseClicked(MouseEvent e) {
-        Main.print("Outside: " + e);
+        //Main.print("testClicked1: " + e);
         if (e.getX() >= cat.getX()) {
-            Main.print("Inside: " + e);
-            cat.setX(e.getX());
-            repaint();
+            //Main.print("testClicked2: " + e);
+            //cat.setX(e.getX());
+            //repaint();
         }
     }
 
     public void mousePressed(MouseEvent e) {
         Main.print("Outside: " + e);
-        if (e.getX() != cat.getX()) {
+        if (cat.withinBounds(e.getX(), e.getY())) {
             Main.print("Inside: " + e);
             cat.setX(e.getX());
             cat.setY(e.getY());
             repaint();
         }
-        // TODO Auto-generated method stub
         //throw new UnsupportedOperationException("Unimplemented method 'mousePressed'");
     }
 
     public void mouseReleased(MouseEvent e) {
-        // TODO Auto-generated method stub
         //throw new UnsupportedOperationException("Unimplemented method 'mouseReleased'");
     }
 
     public void mouseEntered(MouseEvent e) {
-        // TODO Auto-generated method stub
         //throw new UnsupportedOperationException("Unimplemented method 'mouseEntered'");
         Main.print("hiii mouse entered");
     }
 
     public void mouseExited(MouseEvent e) {
-        // TODO Auto-generated method stub
         //throw new UnsupportedOperationException("Unimplemented method 'mouseExited'");
     }
     
