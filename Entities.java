@@ -9,8 +9,10 @@ public abstract class Entities {
     private int ySize;
     private String name;
 
-    public Entities(String name, int x, int y) {
+    public Entities(String name, int x, int y, int xSize, int ySize) {
         this.name = name;
+        this.xSize = xSize;
+        this.ySize = ySize;
         xPos = x;
         yPos = y;
     }
@@ -18,6 +20,8 @@ public abstract class Entities {
         this.name = name;
         xPos = 0;
         yPos = 0;
+        xSize = 100;
+        ySize = 100;
     }
 
 
@@ -49,7 +53,7 @@ public abstract class Entities {
     // method returns true if the point on the screen is within the displayed entitiy
     public boolean withinBounds(int x, int y) {
         Main.print("" + x + " : " + y);
-        return (x>(xPos-200) && x<1920);
+        return (x>(xPos-200) && x<xPos+200);
     }
 
 

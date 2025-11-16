@@ -11,7 +11,7 @@ public class Room extends Entities {
     private double scale = 1;
 
     public Room (String name, int xPos, int yPos) {
-        super(name, xPos, yPos);
+        super(name, xPos, yPos, roomSizeX, roomSizeY);
         this.scale = Main.height/((double)roomSizeY);
         Main.print("scale: " + scale);
         System.out.println("Room: " + roomImage.getImageLoadStatus());

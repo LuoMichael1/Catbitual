@@ -122,8 +122,8 @@ public class Menu extends JPanel implements MouseListener, KeyListener, Componen
         Main.print("Outside: " + e);
         if (cat.withinBounds(e.getX(), e.getY())) {
             Main.print("Inside: " + e);
-            cat.setX(e.getX());
-            cat.setY(e.getY());
+            cat.setX(e.getX()+100);
+            cat.setY(e.getY()-100);
             repaint();
         }
         //throw new UnsupportedOperationException("Unimplemented method 'mousePressed'");

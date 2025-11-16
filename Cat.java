@@ -12,14 +12,14 @@ public class Cat extends Entities{
     private double happiness;
 
     public Cat (String name, int xPos, int yPos, String breed, double water, double happiness) {
-        super(name, xPos, yPos);
+        super(name, xPos, yPos, sizeX, sizeY);
         System.out.println(catImage.getImageLoadStatus());
         this.breed = breed;
         this.water = water;
         this.happiness = happiness;
     }
     public Cat (String name, int xPos, int yPos) {
-        super(name, xPos, yPos);
+        super(name, xPos, yPos, sizeX, sizeY);
         System.out.println(catImage.getImageLoadStatus());
         breed = "Black";
         water = 100;
