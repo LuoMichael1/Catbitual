@@ -25,6 +25,13 @@ public class Cat extends Entities{
         water = 100;
         happiness = 100;
     }
+    public void grabbed() {
+        catImage = new ImageIcon("Assets/Images/blackcat-grabbed.png");
+    }
+    public void notGrabbed() {
+        catImage = new ImageIcon("Assets/Images/blackcat.png");
+    }
+
 
     public void drawCat(Graphics g) {
         g.drawImage(catImage.getImage(), super.getX()-200, super.getY(), super.getX()+200, super.getY()+400, 0, 0, sizeX, sizeX, null);

@@ -1,31 +1,36 @@
-// The main screen of the app from which the functionality of the app is accessed
+// The main screen of the app
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 
-public class Menu extends JPanel implements MouseListener, KeyListener, ComponentListener{
+public class Menu extends JPanel implements MouseListener, KeyListener, MouseMotionListener{
     
     private JLabel message;
     private int messagePadding = 15;
-    private Room room = new Room("Room", Main.width/2, Main.height/2);
+    //private Room room = new Room("Room", Main.width/2, Main.height/2);
     private Cat cat = new Cat("Cat", Main.width/2, Main.height/2);
     private Timer timer;
+    private boolean grabbed = false;
+
+    private Color bgColor = new Color(254, 227, 232);
+    private Color color1 = new Color(15, 15, 15);
+    private Color color2 = new Color(243, 169, 169);
 
     public Menu() {
-    
-        setBackground(new Color(243, 169, 169));
+        
+        setBackground(bgColor);
         this.setLayout(new BorderLayout());
         this.setFocusable(true);        
         this.addMouseListener(this);
+        this.addMouseMotionListener(this);
 
         JPanel j = new JPanel();
         j.setBackground(new Color(15, 15, 15));
@@ -34,7 +39,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, Componen
         // message
         message = new JLabel("Good Morning, Human");
         message.setFont(FontMaker.loadFont("Assets/Fonts/RobotoMono-Bold.ttf", (float)(Main.height*0.09)));
-        message.setForeground(new Color(254, 227, 232));
+        message.setForeground(color2);
         
         // center image
         message.setBorder(BorderFactory.createEmptyBorder(messagePadding,messagePadding,messagePadding,messagePadding));
@@ -69,7 +74,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, Componen
     
     public void paintComponent(Graphics g) {
         super.paintComponent(g);  
-        room.drawRoom(g);
+        //room.drawRoom(g);
         cat.drawCat(g);
 
         // enables antialiasing on the text
@@ -80,66 +85,46 @@ public class Menu extends JPanel implements MouseListener, KeyListener, Componen
 
 
 
-
-    public void componentResized(ComponentEvent e) {
-        throw new UnsupportedOperationException("Unimplemented method 'componentResized'");
-    }
-
-    public void componentMoved(ComponentEvent e) {
-        throw new UnsupportedOperationException("Unimplemented method 'componentMoved'");
-    }
-
-    public void componentShown(ComponentEvent e) {
-        throw new UnsupportedOperationException("Unimplemented method 'componentShown'");
-    }
-
-    public void componentHidden(ComponentEvent e) {
-        throw new UnsupportedOperationException("Unimplemented method 'componentHidden'");
-    }
-
-    public void keyTyped(KeyEvent e) {
-        throw new UnsupportedOperationException("Unimplemented method 'keyTyped'");
-    }
-
-    public void keyPressed(KeyEvent e) {
-        throw new UnsupportedOperationException("Unimplemented method 'keyPressed'");
-    }
-
-    public void keyReleased(KeyEvent e) {
-        throw new UnsupportedOperationException("Unimplemented method 'keyReleased'");
-    }
-
-    public void mouseClicked(MouseEvent e) {
-        //Main.print("testClicked1: " + e);
-        if (e.getX() >= cat.getX()) {
-            //Main.print("testClicked2: " + e);
-            //cat.setX(e.getX());
-            //repaint();
+    // Mouse Events
+    
+    public void mousePressed(MouseEvent e) {
+        if (cat.withinBounds(e.getX(), e.getY()) && !grabbed) {
+            Main.print("Cat Grabbed ----");
+            grabbed = true;
+            cat.grabbed();
+            repaint();
         }
     }
-
-    public void mousePressed(MouseEvent e) {
-        Main.print("Outside: " + e);
-        if (cat.withinBounds(e.getX(), e.getY())) {
-            Main.print("Inside: " + e);
+    public void mouseReleased(MouseEvent e) {
+        if (grabbed) {
+            Main.print("Cat Released ----");
+            grabbed = false;
+            cat.notGrabbed();
+        }
+        
+    }
+    public void mouseDragged(MouseEvent e) {
+        if (grabbed) {
             cat.setX(e.getX()+100);
             cat.setY(e.getY()-100);
             repaint();
         }
-        //throw new UnsupportedOperationException("Unimplemented method 'mousePressed'");
     }
 
-    public void mouseReleased(MouseEvent e) {
-        //throw new UnsupportedOperationException("Unimplemented method 'mouseReleased'");
+    public void keyTyped(KeyEvent e) {
     }
-
+    public void keyPressed(KeyEvent e) {
+    }
+    public void keyReleased(KeyEvent e) {
+    }
+    public void mouseClicked(MouseEvent e) {
+    }
     public void mouseEntered(MouseEvent e) {
-        //throw new UnsupportedOperationException("Unimplemented method 'mouseEntered'");
-        Main.print("hiii mouse entered");
+    }
+    public void mouseExited(MouseEvent e) {
+    }
+    public void mouseMoved(MouseEvent e) {
     }
 
-    public void mouseExited(MouseEvent e) {
-        //throw new UnsupportedOperationException("Unimplemented method 'mouseExited'");
-    }
     
 }
