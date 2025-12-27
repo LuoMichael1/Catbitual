@@ -26,7 +26,7 @@ public class Cat extends Entities{
         happiness = 100;
     }
     public void grabbed() {
-        catImage = new ImageIcon("Assets/Images/blackcat-grabbed.png");
+        catImage = new ImageIcon("Assets/Images/blackcat-grabbed2.png");
     }
     public void notGrabbed() {
         catImage = new ImageIcon("Assets/Images/blackcat.png");
