@@ -15,7 +15,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     
     private JLabel message;
     private int messagePadding = 15;
-    //private Room room = new Room("Room", Main.width/2, Main.height/2);
+    private Room room = new Room("Room", 0, 0);
     private Cat cat = new Cat("Cat", Main.width/2, Main.height/2);
     private Timer timer;
     private boolean grabbed = false;
@@ -74,7 +74,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     
     public void paintComponent(Graphics g) {
         super.paintComponent(g);  
-        //room.drawRoom(g);
+        room.drawRoom(g);
         cat.drawCat(g);
 
         // enables antialiasing on the text
