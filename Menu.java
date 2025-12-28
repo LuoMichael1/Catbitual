@@ -18,7 +18,6 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     private Room room = new Room("Room", 0, 0);
     private Cat cat = new Cat("Cat", Main.width/2, Main.height/2);
     private Timer timer;
-    private boolean grabbed = false;
 
     private Color bgColor = new Color(254, 227, 232);
     private Color color1 = new Color(15, 15, 15);
@@ -88,25 +87,25 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     // Mouse Events
     
     public void mousePressed(MouseEvent e) {
-        if (cat.withinBounds(e.getX(), e.getY()) && !grabbed) {
+        if (cat.withinBounds(e.getX(), e.getY()) && !cat.getGrabbed()) {
             Main.print("Cat Grabbed ----");
-            grabbed = true;
             cat.grabbed();
             repaint();
         }
     }
     public void mouseReleased(MouseEvent e) {
-        if (grabbed) {
-            Main.print("Cat Released ----");
-            grabbed = false;
-            cat.notGrabbed();
+        if (cat.getGrabbed()) {
+            Main.print("Cat Dropped ----");
+            cat.dropped();
+            repaint();
         }
         
     }
     public void mouseDragged(MouseEvent e) {
-        if (grabbed) {
+        if (cat.getGrabbed()) {
             cat.setX(e.getX()+100);
             cat.setY(e.getY()-100);
+            
             repaint();
         }
     }

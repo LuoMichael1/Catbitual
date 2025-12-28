@@ -11,6 +11,9 @@ public class Cat extends Entities{
     private double water;
     private double happiness;
 
+    // states for the cat
+    private boolean grabbed = false;
+
     public Cat (String name, int xPos, int yPos, String breed, double water, double happiness) {
         super(name, xPos, yPos, sizeX, sizeY);
         System.out.println(catImage.getImageLoadStatus());
@@ -27,9 +30,16 @@ public class Cat extends Entities{
     }
     public void grabbed() {
         catImage = new ImageIcon("Assets/Images/blackcat-grabbed2.png");
+        grabbed = true;
     }
-    public void notGrabbed() {
+
+    public void dropped() {
         catImage = new ImageIcon("Assets/Images/blackcat.png");
+        grabbed = false;
+        
+        // don't allow the cat to be dropped onto the wall, move the cat down to the floor
+        if (super.yPos < Room.floorHeight) 
+            super.yPos = Room.floorHeight;
     }
 
 
@@ -60,5 +70,10 @@ public class Cat extends Entities{
     }
     public void setHappiness(double happiness) {
         this.happiness = happiness;
+    }
+    
+
+    public boolean getGrabbed() {
+        return grabbed;
     }
 }

@@ -10,6 +10,8 @@ public class Room extends Entities {
     static final int roomSizeY = 1080;
     private double scale = 1;
 
+    static final int floorHeight = 310;   // the distance from the top of the screen to the start of the floor in pixels
+
     public Room (String name, int xPos, int yPos) {
         super(name, xPos, yPos, roomSizeX, roomSizeY);
         this.scale = Main.height/((double)roomSizeY);

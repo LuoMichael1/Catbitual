@@ -2,8 +2,8 @@
 
 public abstract class Entities {
     
-    private int xPos;
-    private int yPos;
+    protected int xPos;
+    protected int yPos;
     private int scale = 1;
     private int xSize;
     private int ySize;
