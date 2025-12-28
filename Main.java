@@ -37,21 +37,12 @@ public class Main {
         f.setIconImage(favicon.getImage());
 
         
-        addCard(menu, "Menu");
-        
+        addCard(menu, "Menu"); 
         cardLayout = (CardLayout) p.getLayout();
         showCard("Menu");
 
-
-        // menu will not show otherwise
-        f.setVisible(true);
+        f.setVisible(true);   // menu will not show otherwise
     }
-    
-
-
-    public static void print(String text) {
-        System.out.println(text);}
-
 
     // Custorm CardLayout methods
     static public void nextCard() {

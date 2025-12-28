@@ -31,6 +31,10 @@ public abstract class Entities {
     public void setY(int yPos) {
         this.yPos = yPos;
     }
+    public void setPosition(int xPos, int yPos) {
+        this.xPos = xPos;
+        this.yPos = yPos;
+    }
     public int getX() {
         return xPos;
     }
@@ -52,7 +56,7 @@ public abstract class Entities {
 
     // method returns true if the point on the screen is within the displayed entitiy
     public boolean withinBounds(int x, int y) {
-        Main.print("" + x + " : " + y);
+        //Main.print("" + x + " : " + y);
         return (x>(xPos-200) && x<xPos+200);
     }
 

@@ -3,7 +3,10 @@ import javax.swing.ImageIcon;
 
 public class Cat extends Entities{
     
-    static ImageIcon catImage = new ImageIcon("Assets/Images/blackcat.png");
+    static ImageIcon basicCatImage = new ImageIcon("Assets/Images/blackcat.png");
+    static ImageIcon grabbedCatImage = new ImageIcon("Assets/Images/blackcat-grabbed2.png");
+    private ImageIcon catImage = basicCatImage;
+    
     static final int sizeX = 1024;
     static final int sizeY = 1024;
     private String breed;
@@ -16,27 +19,26 @@ public class Cat extends Entities{
 
     public Cat (String name, int xPos, int yPos, String breed, double water, double happiness) {
         super(name, xPos, yPos, sizeX, sizeY);
-        System.out.println(catImage.getImageLoadStatus());
         this.breed = breed;
         this.water = water;
         this.happiness = happiness;
     }
     public Cat (String name, int xPos, int yPos) {
         super(name, xPos, yPos, sizeX, sizeY);
-        System.out.println(catImage.getImageLoadStatus());
         breed = "Black";
         water = 100;
         happiness = 100;
     }
     public void grabbed() {
-        catImage = new ImageIcon("Assets/Images/blackcat-grabbed2.png");
+        //Main.print("Cat Grabbed ----");
+        catImage = grabbedCatImage;
         grabbed = true;
     }
-
     public void dropped() {
-        catImage = new ImageIcon("Assets/Images/blackcat.png");
+        //Main.print("Cat Dropped ----");
+        catImage = basicCatImage;
         grabbed = false;
-        
+
         // don't allow the cat to be dropped onto the wall, move the cat down to the floor
         if (super.yPos < Room.floorHeight) 
             super.yPos = Room.floorHeight;
@@ -71,8 +73,6 @@ public class Cat extends Entities{
     public void setHappiness(double happiness) {
         this.happiness = happiness;
     }
-    
-
     public boolean getGrabbed() {
         return grabbed;
     }

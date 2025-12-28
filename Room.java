@@ -15,7 +15,7 @@ public class Room extends Entities {
     public Room (String name, int xPos, int yPos) {
         super(name, xPos, yPos, roomSizeX, roomSizeY);
         this.scale = Main.height/((double)roomSizeY);
-        Main.print("scale: " + scale);
+        //System.out.println("scale: " + scale);
         System.out.println("Room: " + roomImage.getImageLoadStatus());
     }
     
@@ -37,7 +37,7 @@ public class Room extends Entities {
 
     // draws the room in the center of the screen
     public void drawRoom(Graphics g) {
-        g.drawImage(roomImage.getImage(), (int)(Main.width-roomSizeX*scale)/2, 0, (int)(Main.width+roomSizeX*scale)/2, (int)(roomSizeY*scale), 0, 0, roomSizeX, roomSizeY, null);
+        g.drawImage(roomImage.getImage(), 0, 0, Main.width, Main.height, 0, 0, roomSizeX, roomSizeY, null);
     }
 
     

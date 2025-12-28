@@ -11,7 +11,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 
-public class Menu extends JPanel implements MouseListener, KeyListener, MouseMotionListener{
+public class Menu extends JPanel implements MouseListener, KeyListener, MouseMotionListener, ActionListener{
     
     private JLabel message;
     private int messagePadding = 15;
@@ -19,32 +19,35 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     private Cat cat = new Cat("Cat", Main.width/2, Main.height/2);
     private Timer timer;
 
-    private Color bgColor = new Color(254, 227, 232);
+    //private Color bgColor = Color.WHITE;//new Color(254, 227, 232);
     private Color color1 = new Color(15, 15, 15);
     private Color color2 = new Color(243, 169, 169);
 
+    private JButton b1;
+    private JButton b2;
+    private JButton b3;
+    private JButton b4;
+    private JButton b5;
+
+
     public Menu() {
         
-        setBackground(bgColor);
+        //setBackground(bgColor);
         this.setLayout(new BorderLayout());
         this.setFocusable(true);        
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
-
-        JPanel j = new JPanel();
-        j.setBackground(new Color(15, 15, 15));
-        this.add(j, BorderLayout.EAST);
 
         // message
         message = new JLabel("Good Morning, Human");
         message.setFont(FontMaker.loadFont("Assets/Fonts/RobotoMono-Bold.ttf", (float)(Main.height*0.09)));
         message.setForeground(color2);
         
-        // center image
+        // center message
         message.setBorder(BorderFactory.createEmptyBorder(messagePadding,messagePadding,messagePadding,messagePadding));
         this.add(message, BorderLayout.NORTH);
 
-
+        // update message
         timer = new Timer(100, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 textEffects("good morning human");
@@ -53,12 +56,34 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         );
         timer.start();
 
+
+        // buttons
+        JPanel sideBar = new JPanel();
+        sideBar.setLayout(new BoxLayout(sideBar, BoxLayout.Y_AXIS));
+        b1 = new JButton(new ImageIcon("Assets/Icons/pet.png"));
+        b2 = new JButton(new ImageIcon("Assets/Icons/furniture.png"));
+        b3 = new JButton(new ImageIcon("Assets/Icons/book.png"));
+        b4 = new JButton(new ImageIcon("Assets/Icons/clipboard.png"));
+        b5 = new JButton(new ImageIcon("Assets/Icons/fish.png"));
+
+        b1.addActionListener(this);
+        b2.addActionListener(this);
+        b3.addActionListener(this);
+        b4.addActionListener(this);
+        b5.addActionListener(this);
+
+        this.add(sideBar, BorderLayout.WEST);
+        sideBar.add(b1);
+        sideBar.add(b2);
+        sideBar.add(b3);
+        sideBar.add(b4);
+        sideBar.add(b5);
         revalidate();
         repaint();
     }
     
-    static final String validCharacters = "abcdefghijklmnopqrstuvwxyz!@#$%&?";
-    
+
+    static final String validCharacters = "abcdefghijklmnopqrstuvwxyz!@#$%&?";  
     private void textEffects (String text) {
         char[] newtext = text.toCharArray();
         for (int i=0; i<text.length(); i++) {
@@ -88,14 +113,12 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     
     public void mousePressed(MouseEvent e) {
         if (cat.withinBounds(e.getX(), e.getY()) && !cat.getGrabbed()) {
-            Main.print("Cat Grabbed ----");
             cat.grabbed();
             repaint();
         }
     }
     public void mouseReleased(MouseEvent e) {
         if (cat.getGrabbed()) {
-            Main.print("Cat Dropped ----");
             cat.dropped();
             repaint();
         }
@@ -103,9 +126,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     }
     public void mouseDragged(MouseEvent e) {
         if (cat.getGrabbed()) {
-            cat.setX(e.getX()+100);
-            cat.setY(e.getY()-100);
-            
+            cat.setPosition(e.getX()+100, e.getY()-100);
             repaint();
         }
     }
@@ -123,6 +144,26 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     public void mouseExited(MouseEvent e) {
     }
     public void mouseMoved(MouseEvent e) {
+    }
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == b1) {
+            System.out.println("1");
+        }
+        else if (e.getSource() == b2) {
+            System.out.println("2");
+        }
+        else if (e.getSource() == b3) {
+            System.out.println("3");
+        }
+        else if (e.getSource() == b4) {
+            System.out.println("4");
+        }
+        else if (e.getSource() == b5) {
+            System.out.println("5");
+        }
+        else {
+            System.out.println("Error??????");
+        }
     }
 
     
