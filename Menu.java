@@ -13,15 +13,15 @@ import java.awt.event.MouseMotionListener;
 
 public class Menu extends JPanel implements MouseListener, KeyListener, MouseMotionListener, ActionListener{
     
-    private JLabel message;
-    private int messagePadding = 15;
+    //private JLabel message;
+    //private int messagePadding = 15;
     private Room room = new Room("Room", 0, 0);
     private Cat cat = new Cat("Cat", Main.width/2, Main.height/2);
-    private Timer timer;
+    //private Timer timer;
 
     //private Color bgColor = Color.WHITE;//new Color(254, 227, 232);
-    private Color color1 = new Color(15, 15, 15);
-    private Color color2 = new Color(243, 169, 169);
+    //private Color color1 = new Color(15, 15, 15);
+    //private Color color2 = new Color(243, 169, 169);
 
     private JButton b1;
     private JButton b2;
@@ -30,6 +30,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     private JButton b5;
     private JPanel tasklist;
     private JPanel catinfo;
+    private ClipMenu[] clipMenus = new ClipMenu[5];
 
     public Menu() {
         
@@ -39,25 +40,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
 
-        /*  message
-        message = new JLabel("Good Morning, Human");
-        message.setFont(FontMaker.loadFont("Assets/Fonts/RobotoMono-Bold.ttf", (float)(Main.height*0.09)));
-        message.setForeground(color2);
-        
-        // center message
-        message.setBorder(BorderFactory.createEmptyBorder(messagePadding,messagePadding,messagePadding,messagePadding));
-        this.add(message, BorderLayout.NORTH);
-
-        // update message
-        timer = new Timer(100, new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                textEffects("good morning human");
-                repaint();
-            }}
-        );
-        timer.start();
-        */
-
+       
         // sidebar buttons
         JPanel sideBar = new JPanel();
         sideBar.setLayout(new BoxLayout(sideBar, BoxLayout.Y_AXIS));
@@ -84,53 +67,29 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         JLayeredPane center = new JLayeredPane();
         this.add(center, BorderLayout.CENTER);
 
-        tasklist = new JPanel();
-        tasklist.setLayout(new BoxLayout(tasklist, BoxLayout.Y_AXIS));
-        tasklist.setBounds(Main.width/2-450-100, 100, 900, 1000);
-        JLabel taskTitle = new JLabel("To-Do List");
-        taskTitle.setFont(FontMaker.loadFont("Assets/Fonts/PatrickHand-Regular.ttf", (float)(Main.height*0.11)));
-        tasklist.add(taskTitle);
-        tasklist.setEnabled(false);
-        tasklist.setVisible(false);
-        center.add(tasklist, Integer.valueOf(1));
+        clipMenus[0] = new ClipMenu("Cat Info");
+        clipMenus[1] = new ClipMenu("Pet Store");
+        clipMenus[2] = new ClipMenu("Habits");
+        clipMenus[3] = new ClipMenu("To-Do List");
+        clipMenus[4] = new ClipMenu("Score");
+
+        for (int i=0; i<clipMenus.length; i++) {
+            center.add(clipMenus[i], Integer.valueOf(i));
+        }
 
         //add all the tasks to the to-do list
         for (int i=0; i<15; i++) {
-            tasklist.add(new JButton("Task: " + i));
+            clipMenus[3].add(new JButton("Task: " + i));
         }
 
-
-        catinfo = new JPanel();
-        catinfo.setLayout(new BoxLayout(catinfo, BoxLayout.Y_AXIS));
-        catinfo.setBounds(Main.width/2-450-100, 100, 900, 1000);
-        JLabel catTitle = new JLabel("How is your Cat?");
-        catTitle.setFont(FontMaker.loadFont("Assets/Fonts/PatrickHand-Regular.ttf", (float)(Main.height*0.11)));
-        catinfo.add(catTitle);
-        catinfo.add(new JLabel("Name: " + cat.getName()));
-        catinfo.add(new JLabel("Food: " + cat.getFood()));
-        catinfo.add(new JLabel("Water: " + cat.getWater()));
-        catinfo.add(new JLabel("Happiness: " + cat.getHappiness()));
-        catinfo.setEnabled(false);
-        catinfo.setVisible(false);
-        center.add(catinfo, Integer.valueOf(2));
+        clipMenus[4].add(new JLabel("Name: " + cat.getName()));
+        clipMenus[4].add(new JLabel("Food: " + cat.getFood()));
+        clipMenus[4].add(new JLabel("Water: " + cat.getWater()));
+        clipMenus[4].add(new JLabel("Happiness: " + cat.getHappiness()));
 
         revalidate();
         repaint();
     }
-    
-    /*
-    static final String validCharacters = "abcdefghijklmnopqrstuvwxyz!@#$%&?";  
-    private void textEffects (String text) {
-        char[] newtext = text.toCharArray();
-        for (int i=0; i<text.length(); i++) {
-            if (Math.random()>0.7 && newtext[i] != ' ') {
-                newtext[i] = validCharacters.charAt((int)(Math.random()*30));
-            }
-        }
-        message.setText("" + String.valueOf(newtext));
-    }
-    */
-
     
     public void paintComponent(Graphics g) {
         super.paintComponent(g);  
@@ -184,36 +143,27 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         // there has to be a way to turn each popup menu into an object so that this mess of if statements can be turned into a loop
         if (e.getSource() == b1) {
             System.out.println("1");
+            clipMenus[0].toggleVisibility();
+            repaint();
         }
         else if (e.getSource() == b2) {
             System.out.println("2");
+            clipMenus[1].toggleVisibility();
+            repaint();
         }
         else if (e.getSource() == b3) {
             System.out.println("3");
+            clipMenus[2].toggleVisibility();
+            repaint();
         }
         else if (e.getSource() == b4) {
             System.out.println("4");
-
-            if (tasklist.isVisible()) {
-                tasklist.setEnabled(false);
-                tasklist.setVisible(false);
-            }
-            else {
-                tasklist.setEnabled(true);
-                tasklist.setVisible(true);
-            }
+            clipMenus[3].toggleVisibility();
             repaint();
         }
         else if (e.getSource() == b5) {
             System.out.println("5");
-            if (catinfo.isVisible()) {
-                catinfo.setEnabled(false);
-                catinfo.setVisible(false);
-            }
-            else {
-                catinfo.setEnabled(true);
-                catinfo.setVisible(true);
-            }
+            clipMenus[4].toggleVisibility();
             repaint();
         }
         else {
