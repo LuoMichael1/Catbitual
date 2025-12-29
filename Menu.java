@@ -28,7 +28,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     private JButton b3;
     private JButton b4;
     private JButton b5;
-    private JPanel test;
+    private JPanel tasklist;
 
     public Menu() {
         
@@ -80,16 +80,24 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         sideBar.add(b5);
         
 
-        JLayeredPane tasklist = new JLayeredPane();
-        test = new JPanel();
-        test.setLayout(new BoxLayout(test, BoxLayout.Y_AXIS));
+        JLayeredPane center = new JLayeredPane();
+        tasklist = new JPanel();
+        tasklist.setLayout(new BoxLayout(tasklist, BoxLayout.Y_AXIS));
 
-        test.setBounds(Main.width/2-450-100, 100, 900, 1000);
-        test.add(new JLabel("To-Do List"));
-        test.setEnabled(false);
-        test.setVisible(false);
-        tasklist.add(test, Integer.valueOf(1));
-        this.add(tasklist, BorderLayout.CENTER);
+        tasklist.setBounds(Main.width/2-450-100, 100, 900, 1000);
+        JLabel title = new JLabel("To-Do List");
+        title.setFont(FontMaker.loadFont("Assets/Fonts/PatrickHand-Regular.ttf", (float)(Main.height*0.11)));
+        tasklist.add(title);
+        tasklist.setEnabled(false);
+        tasklist.setVisible(false);
+        center.add(tasklist, Integer.valueOf(1));
+        this.add(center, BorderLayout.CENTER);
+
+        //add all the tasks to the to-do list
+        for (int i=0; i<15; i++) {
+            tasklist.add(new JButton("Task: " + i));
+        }
+
 
         revalidate();
         repaint();
@@ -168,13 +176,13 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         else if (e.getSource() == b4) {
             System.out.println("4");
 
-            if (test.isVisible()) {
-                test.setEnabled(false);
-                test.setVisible(false);
+            if (tasklist.isVisible()) {
+                tasklist.setEnabled(false);
+                tasklist.setVisible(false);
             }
             else {
-                test.setEnabled(true);
-                test.setVisible(true);
+                tasklist.setEnabled(true);
+                tasklist.setVisible(true);
             }
             repaint();
         }
