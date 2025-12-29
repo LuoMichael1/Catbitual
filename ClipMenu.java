@@ -1,5 +1,7 @@
 // clipboard styled menus
 
+import java.awt.Color;
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -11,7 +13,7 @@ public class ClipMenu extends JPanel{
 
     public ClipMenu(String title) {
         System.out.println("Width, Height: " + Main.width + " " + Main.height);
-
+        this.setBackground(Color.WHITE);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setBounds((int)(Main.width*0.5)-menuWidth/2-temp_sidebar_width, 100, menuWidth, 1000);
         JLabel h1 = new JLabel(title);

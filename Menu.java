@@ -79,7 +79,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
 
         //add all the tasks to the to-do list
         for (int i=0; i<15; i++) {
-            clipMenus[3].add(new JButton("Task: " + i));
+            clipMenus[3].add(new Task("Task: " + i, "Testing", 10, i));
         }
 
         clipMenus[4].add(new JLabel("Name: " + cat.getName()));
