@@ -6,10 +6,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class ClipMenu extends JPanel{
+    private int menuWidth = Main.width/2;
+    private int temp_sidebar_width = 100;
 
     public ClipMenu(String title) {
+        System.out.println("Width, Height: " + Main.width + " " + Main.height);
+
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.setBounds(Main.width/2-450-100, 100, 900, 1000);
+        this.setBounds((int)(Main.width*0.5)-menuWidth/2-temp_sidebar_width, 100, menuWidth, 1000);
         JLabel h1 = new JLabel(title);
         h1.setFont(FontMaker.loadFont("Assets/Fonts/PatrickHand-Regular.ttf", (float)(Main.height*0.11)));
         this.add(h1);

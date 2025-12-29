@@ -28,9 +28,9 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     private JButton b3;
     private JButton b4;
     private JButton b5;
-    private JPanel tasklist;
-    private JPanel catinfo;
     private ClipMenu[] clipMenus = new ClipMenu[5];
+    private ClipMenu currentMenu = null;
+    private int menuIndex = -1;
 
     public Menu() {
         
@@ -140,36 +140,59 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     }
     public void actionPerformed(ActionEvent e) {
 
-        // there has to be a way to turn each popup menu into an object so that this mess of if statements can be turned into a loop
+        // gets which button was pressed
         if (e.getSource() == b1) {
             System.out.println("1");
-            clipMenus[0].toggleVisibility();
-            repaint();
+            menuIndex = 0;
         }
         else if (e.getSource() == b2) {
             System.out.println("2");
-            clipMenus[1].toggleVisibility();
-            repaint();
+            menuIndex = 1;
         }
         else if (e.getSource() == b3) {
             System.out.println("3");
-            clipMenus[2].toggleVisibility();
-            repaint();
+            menuIndex = 2;
         }
         else if (e.getSource() == b4) {
             System.out.println("4");
-            clipMenus[3].toggleVisibility();
-            repaint();
+            menuIndex = 3;
         }
         else if (e.getSource() == b5) {
             System.out.println("5");
-            clipMenus[4].toggleVisibility();
-            repaint();
+            menuIndex = 4;
         }
         else {
             System.out.println("Error?");
         }
+
+        // changes the menu based on the button that was pressed
+        // currently we don't check if the action is from a button, but we should
+        
+        // check if there is currently a menu open
+        if (currentMenu == null) {
+            currentMenu = clipMenus[menuIndex];
+            currentMenu.toggleVisibility();
+            repaint();
+        }
+        // check if the menu opened was the same as the currently open menu, in this case it closes it
+        else if (currentMenu == clipMenus[menuIndex]) {
+            currentMenu.toggleVisibility();
+            currentMenu = null;
+            repaint();
+        }
+        // otherwise, open the menu and display it
+        else {
+            currentMenu.toggleVisibility();
+            currentMenu = clipMenus[menuIndex];
+            currentMenu.toggleVisibility();
+            repaint();
+        }
+        
     }
+
+
+
+    
 
     
 }

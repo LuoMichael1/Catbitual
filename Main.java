@@ -16,9 +16,7 @@ public class Main {
 
     public static void main(String[] args) {
         
-        // Creating JPanels
-        Menu menu = new Menu();
-
+        
         // gets the screen size of the current monitor in pixels
         GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         width = gd.getDisplayMode().getWidth();
@@ -36,6 +34,8 @@ public class Main {
         ImageIcon favicon = new ImageIcon("Assets/Images/favicon.png");
         f.setIconImage(favicon.getImage());
 
+        // Creating JPanels
+        Menu menu = new Menu();
         
         addCard(menu, "Menu"); 
         cardLayout = (CardLayout) p.getLayout();
