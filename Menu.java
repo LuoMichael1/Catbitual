@@ -28,7 +28,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     private JButton b3;
     private JButton b4;
     private JButton b5;
-
+    private JPanel test;
 
     public Menu() {
         
@@ -38,7 +38,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
 
-        // message
+        /*  message
         message = new JLabel("Good Morning, Human");
         message.setFont(FontMaker.loadFont("Assets/Fonts/RobotoMono-Bold.ttf", (float)(Main.height*0.09)));
         message.setForeground(color2);
@@ -55,7 +55,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
             }}
         );
         timer.start();
-
+        */
 
         // buttons
         JPanel sideBar = new JPanel();
@@ -78,11 +78,24 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         sideBar.add(b3);
         sideBar.add(b4);
         sideBar.add(b5);
+        
+
+        JLayeredPane tasklist = new JLayeredPane();
+        test = new JPanel();
+        test.setLayout(new BoxLayout(test, BoxLayout.Y_AXIS));
+
+        test.setBounds(Main.width/2-450-100, 100, 900, 1000);
+        test.add(new JLabel("To-Do List"));
+        test.setEnabled(false);
+        test.setVisible(false);
+        tasklist.add(test, Integer.valueOf(1));
+        this.add(tasklist, BorderLayout.CENTER);
+
         revalidate();
         repaint();
     }
     
-
+    /*
     static final String validCharacters = "abcdefghijklmnopqrstuvwxyz!@#$%&?";  
     private void textEffects (String text) {
         char[] newtext = text.toCharArray();
@@ -93,7 +106,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         }
         message.setText("" + String.valueOf(newtext));
     }
-    
+    */
 
     
     public void paintComponent(Graphics g) {
@@ -107,10 +120,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     }
 
 
-
-
     // Mouse Events
-    
     public void mousePressed(MouseEvent e) {
         if (cat.withinBounds(e.getX(), e.getY()) && !cat.getGrabbed()) {
             cat.grabbed();
@@ -157,6 +167,16 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         }
         else if (e.getSource() == b4) {
             System.out.println("4");
+
+            if (test.isVisible()) {
+                test.setEnabled(false);
+                test.setVisible(false);
+            }
+            else {
+                test.setEnabled(true);
+                test.setVisible(true);
+            }
+            repaint();
         }
         else if (e.getSource() == b5) {
             System.out.println("5");
