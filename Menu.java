@@ -29,6 +29,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     private JButton b4;
     private JButton b5;
     private JPanel tasklist;
+    private JPanel catinfo;
 
     public Menu() {
         
@@ -57,7 +58,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         timer.start();
         */
 
-        // buttons
+        // sidebar buttons
         JPanel sideBar = new JPanel();
         sideBar.setLayout(new BoxLayout(sideBar, BoxLayout.Y_AXIS));
         b1 = new JButton(new ImageIcon("Assets/Icons/pet.png"));
@@ -79,25 +80,39 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         sideBar.add(b4);
         sideBar.add(b5);
         
-
+        // popup menus in the center
         JLayeredPane center = new JLayeredPane();
+        this.add(center, BorderLayout.CENTER);
+
         tasklist = new JPanel();
         tasklist.setLayout(new BoxLayout(tasklist, BoxLayout.Y_AXIS));
-
         tasklist.setBounds(Main.width/2-450-100, 100, 900, 1000);
-        JLabel title = new JLabel("To-Do List");
-        title.setFont(FontMaker.loadFont("Assets/Fonts/PatrickHand-Regular.ttf", (float)(Main.height*0.11)));
-        tasklist.add(title);
+        JLabel taskTitle = new JLabel("To-Do List");
+        taskTitle.setFont(FontMaker.loadFont("Assets/Fonts/PatrickHand-Regular.ttf", (float)(Main.height*0.11)));
+        tasklist.add(taskTitle);
         tasklist.setEnabled(false);
         tasklist.setVisible(false);
         center.add(tasklist, Integer.valueOf(1));
-        this.add(center, BorderLayout.CENTER);
 
         //add all the tasks to the to-do list
         for (int i=0; i<15; i++) {
             tasklist.add(new JButton("Task: " + i));
         }
 
+
+        catinfo = new JPanel();
+        catinfo.setLayout(new BoxLayout(catinfo, BoxLayout.Y_AXIS));
+        catinfo.setBounds(Main.width/2-450-100, 100, 900, 1000);
+        JLabel catTitle = new JLabel("How is your Cat?");
+        catTitle.setFont(FontMaker.loadFont("Assets/Fonts/PatrickHand-Regular.ttf", (float)(Main.height*0.11)));
+        catinfo.add(catTitle);
+        catinfo.add(new JLabel("Name: " + cat.getName()));
+        catinfo.add(new JLabel("Food: " + cat.getFood()));
+        catinfo.add(new JLabel("Water: " + cat.getWater()));
+        catinfo.add(new JLabel("Happiness: " + cat.getHappiness()));
+        catinfo.setEnabled(false);
+        catinfo.setVisible(false);
+        center.add(catinfo, Integer.valueOf(2));
 
         revalidate();
         repaint();
@@ -162,8 +177,11 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     public void mouseExited(MouseEvent e) {
     }
     public void mouseMoved(MouseEvent e) {
+        // idea, check if the mouse moves over the cat, which then can be used to trigger a petting animation?????????
     }
     public void actionPerformed(ActionEvent e) {
+
+        // there has to be a way to turn each popup menu into an object so that this mess of if statements can be turned into a loop
         if (e.getSource() == b1) {
             System.out.println("1");
         }
@@ -188,9 +206,18 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         }
         else if (e.getSource() == b5) {
             System.out.println("5");
+            if (catinfo.isVisible()) {
+                catinfo.setEnabled(false);
+                catinfo.setVisible(false);
+            }
+            else {
+                catinfo.setEnabled(true);
+                catinfo.setVisible(true);
+            }
+            repaint();
         }
         else {
-            System.out.println("Error??????");
+            System.out.println("Error?");
         }
     }
 
