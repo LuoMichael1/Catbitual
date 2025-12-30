@@ -37,7 +37,10 @@ public class Main {
         // Creating JPanels
         Menu menu = new Menu();
         
+        
         addCard(menu, "Menu"); 
+        
+        
         cardLayout = (CardLayout) p.getLayout();
         showCard("Menu");
 
