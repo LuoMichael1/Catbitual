@@ -2,8 +2,9 @@
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-
+import java.awt.Graphics;
 import javax.swing.BorderFactory;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -27,18 +28,23 @@ public class Task extends JPanel{
         this.deadLine = deadLine;
         this.priority = priority;
 
+        JCheckBox cb =new JCheckBox();
+        this.add(cb, BorderLayout.WEST);
+
         JLabel titleLabel = new JLabel(title);
         titleLabel.setFont(FontMaker.loadFont("Assets/Fonts/PatrickHand-Regular.ttf", (float)(Main.height*0.03)));
-        this.add(titleLabel, BorderLayout.WEST);
-        JLabel descriptionLabel = new JLabel(description);
-        descriptionLabel.setFont(FontMaker.loadFont("Assets/Fonts/PatrickHand-Regular.ttf", (float)(Main.height*0.03)));
-        this.add(descriptionLabel, BorderLayout.CENTER);
+        this.add(titleLabel, BorderLayout.CENTER);
+        //JLabel descriptionLabel = new JLabel(description);
+        //descriptionLabel.setFont(FontMaker.loadFont("Assets/Fonts/PatrickHand-Regular.ttf", (float)(Main.height*0.03)));
+        //this.add(descriptionLabel, BorderLayout.CENTER);
         JLabel deadLineLabel = new JLabel(""+deadLine);
         deadLineLabel.setFont(FontMaker.loadFont("Assets/Fonts/PatrickHand-Regular.ttf", (float)(Main.height*0.03)));
         this.add(deadLineLabel, BorderLayout.EAST);
         JLabel priorityLabel = new JLabel("" + priority);
         priorityLabel.setFont(FontMaker.loadFont("Assets/Fonts/PatrickHand-Regular.ttf", (float)(Main.height*0.03)));
         this.add(priorityLabel, BorderLayout.EAST);
+
+        repaint();
     }
     public Task(String title, String description, int deadLine) {
         this.title = title;
@@ -71,6 +77,12 @@ public class Task extends JPanel{
     }
     public void increasePriority() {
         priority++;
+    }
+
+
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
     }
 
 }

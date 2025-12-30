@@ -9,6 +9,9 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 
 public class Menu extends JPanel implements MouseListener, KeyListener, MouseMotionListener, ActionListener{
@@ -73,9 +76,24 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
             center.add(clipMenus[i], Integer.valueOf(i));
         }
 
+
         //add all the tasks to the to-do list
-        for (int i=0; i<15; i++) {
-            clipMenus[3].add(new Task("Task: " + i, "Testing", 10, i));
+        Scanner filesc;
+        ArrayList<String> taskdata = new ArrayList<String>();
+
+        try {
+            filesc = new Scanner(new File("Userdata/tasklist.txt"));
+            
+            while (filesc.hasNextLine()) {
+                taskdata.add(filesc.nextLine());
+            }
+        } catch (Exception e) {
+            System.out.println("Could not read task file " + e);
+        }
+        System.out.print(taskdata.toString());
+        
+        for (int i=0; i<taskdata.size(); i++) {
+            clipMenus[3].add(new Task(taskdata.get(i), "Testing", 10, i));
         }
 
         clipMenus[4].add(new JLabel("Name: " + cat.getName()));
