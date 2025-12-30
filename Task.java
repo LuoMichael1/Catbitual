@@ -3,6 +3,7 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -19,7 +20,7 @@ public class Task extends JPanel{
         this.setVisible(true);
         this.setBackground(new Color(230,230,230));
         this.setLayout(new BorderLayout());
-        //this.setSize(500, 200);
+        this.setBorder(BorderFactory.createLineBorder(Color.WHITE,7));
 
         this.title = title;
         this.description = description;
@@ -34,10 +35,10 @@ public class Task extends JPanel{
         this.add(descriptionLabel, BorderLayout.CENTER);
         JLabel deadLineLabel = new JLabel(""+deadLine);
         deadLineLabel.setFont(FontMaker.loadFont("Assets/Fonts/PatrickHand-Regular.ttf", (float)(Main.height*0.03)));
-        this.add(deadLineLabel, BorderLayout.CENTER);
+        this.add(deadLineLabel, BorderLayout.EAST);
         JLabel priorityLabel = new JLabel("" + priority);
         priorityLabel.setFont(FontMaker.loadFont("Assets/Fonts/PatrickHand-Regular.ttf", (float)(Main.height*0.03)));
-        this.add(priorityLabel, BorderLayout.CENTER);
+        this.add(priorityLabel, BorderLayout.EAST);
     }
     public Task(String title, String description, int deadLine) {
         this.title = title;

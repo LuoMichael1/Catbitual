@@ -23,11 +23,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     //private Color color1 = new Color(15, 15, 15);
     //private Color color2 = new Color(243, 169, 169);
 
-    private JButton b1;
-    private JButton b2;
-    private JButton b3;
-    private JButton b4;
-    private JButton b5;
+    private JButton[] sideButtons = new JButton[5];
     private ClipMenu[] clipMenus = new ClipMenu[5];
     private ClipMenu currentMenu = null;
     private int menuIndex = -1;
@@ -44,24 +40,24 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         // sidebar buttons
         JPanel sideBar = new JPanel();
         sideBar.setLayout(new BoxLayout(sideBar, BoxLayout.Y_AXIS));
-        b1 = new JButton(new ImageIcon("Assets/Icons/pet.png"));
-        b2 = new JButton(new ImageIcon("Assets/Icons/furniture.png"));
-        b3 = new JButton(new ImageIcon("Assets/Icons/book.png"));
-        b4 = new JButton(new ImageIcon("Assets/Icons/clipboard.png"));
-        b5 = new JButton(new ImageIcon("Assets/Icons/fish.png"));
-
-        b1.addActionListener(this);
-        b2.addActionListener(this);
-        b3.addActionListener(this);
-        b4.addActionListener(this);
-        b5.addActionListener(this);
-
         this.add(sideBar, BorderLayout.WEST);
-        sideBar.add(b1);
-        sideBar.add(b2);
-        sideBar.add(b3);
-        sideBar.add(b4);
-        sideBar.add(b5);
+        sideBar.setOpaque(false);
+
+        sideButtons[0] = new JButton(new ImageIcon("Assets/Icons/pet.png"));
+        sideButtons[1] = new JButton(new ImageIcon("Assets/Icons/furniture.png"));
+        sideButtons[2] = new JButton(new ImageIcon("Assets/Icons/book.png"));
+        sideButtons[3] = new JButton(new ImageIcon("Assets/Icons/clipboard.png"));
+        sideButtons[4] = new JButton(new ImageIcon("Assets/Icons/fish.png"));
+
+        for (int i=0; i<sideButtons.length; i++) {
+            sideButtons[i].addActionListener(this);
+
+            // remove the gradient and border effect
+            sideButtons[i].setContentAreaFilled(false);
+            sideButtons[i].setBorderPainted(false);
+
+            sideBar.add(sideButtons[i]);
+        }
         
         // popup menus in the center
         JLayeredPane center = new JLayeredPane();
@@ -141,30 +137,13 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     public void actionPerformed(ActionEvent e) {
 
         // gets which button was pressed
-        if (e.getSource() == b1) {
-            System.out.println("1");
-            menuIndex = 0;
+        for (int i=0; i<sideButtons.length; i++) {
+            if (e.getSource() == sideButtons[i]) {
+                System.out.println(i);
+                menuIndex = i;
+            }
         }
-        else if (e.getSource() == b2) {
-            System.out.println("2");
-            menuIndex = 1;
-        }
-        else if (e.getSource() == b3) {
-            System.out.println("3");
-            menuIndex = 2;
-        }
-        else if (e.getSource() == b4) {
-            System.out.println("4");
-            menuIndex = 3;
-        }
-        else if (e.getSource() == b5) {
-            System.out.println("5");
-            menuIndex = 4;
-        }
-        else {
-            System.out.println("Error?");
-        }
-
+    
         // changes the menu based on the button that was pressed
         // currently we don't check if the action is from a button, but we should
         
@@ -188,11 +167,5 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
             repaint();
         }
         
-    }
-
-
-
-    
-
-    
+    }    
 }
