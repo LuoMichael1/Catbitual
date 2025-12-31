@@ -36,10 +36,10 @@ public class Main {
 
         // Creating JPanels
         Menu menu = new Menu();
-        
+        RewardScreen rewardScreen = new RewardScreen();
         
         addCard(menu, "Menu"); 
-        
+        addCard(rewardScreen, "rewardScreen"); 
         
         cardLayout = (CardLayout) p.getLayout();
         showCard("Menu");
