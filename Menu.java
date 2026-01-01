@@ -30,7 +30,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     private ClipMenu[] clipMenus = new ClipMenu[5];
     private ClipMenu currentMenu = null;
     private int menuIndex = -1;
-    private FocusScreen focusScreen;
+    private PreFocusScreen prefocusScreen;
 
     public Menu() {
         
@@ -41,8 +41,8 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         this.addMouseMotionListener(this);
 
         //set up the focus screen
-        focusScreen = new FocusScreen();
-        Main.addCard(focusScreen, "FocusScreen");
+        prefocusScreen = new PreFocusScreen();
+        Main.addCard(prefocusScreen, "prefocus");
        
         // sidebar buttons
         JPanel sideBar = new JPanel();
@@ -171,8 +171,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         
         // check if there is currently a menu open
         if (menuIndex == 0) {
-            focusScreen.startTimer();
-            Main.showCard("FocusScreen");
+            Main.showCard("prefocus");
         }
         else if (currentMenu == null) {
             currentMenu = clipMenus[menuIndex];

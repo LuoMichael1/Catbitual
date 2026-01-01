@@ -7,11 +7,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
     
-public class FocusScreen extends JPanel implements MouseListener{
+public class FocusScreen extends JPanel implements MouseListener, ActionListener{
     // need to show time, 
     // have a button to pause and exit
     // maybe music and dark/minimal mode
@@ -19,30 +20,56 @@ public class FocusScreen extends JPanel implements MouseListener{
 
     private Timer timer;
     private int timecount;
-    public FocusScreen() {
+    private int increment = 0;
+    private JButton b1 = new JButton("End");
+
+    public FocusScreen(int option) {        
+        
         this.setLayout(new BorderLayout());
         this.setFocusable(true);        
         this.addMouseListener(this);
 
+
+        int delay = 1000; // 1 second
+        
+        // option 1 is count down from a time
+        // option 2 is count up from zero until stopped
+        if (option == 1) {
+            increment = -1;
+            timecount = 5;
+        }
+        else if (option == 2) {
+            increment = 1;
+            timecount = 0;
+        }
+
         JLabel time = new JLabel();
         time.setFont(FontMaker.loadFont("Assets/Fonts/PatrickHand-Regular.ttf", (float)(Main.height*0.1)));
-        timecount = 5;  // 1200 - 20mins in seconds
         time.setText(convertSeconds(timecount));
         this.add(time);
         this.repaint();
-        int delay = 1000; // 1 second
+
         ActionListener count = new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-                timecount = timecount-1;
+            public void actionPerformed(ActionEvent e) {
+                timecount = timecount + increment;
                 time.setText(convertSeconds(timecount));
                 repaint();
 
-                if (timecount <= 0) {
+                if (timecount <= 0 && option == 1) {
                     timer.stop();
+                    Main.showCard("rewardScreen");
+                }
+                else if (option == 2 && e.getSource()==b1) {
                     Main.showCard("rewardScreen");
                 }
             }
         };
+        
+        if (option == 2) {
+            b1.addActionListener(count);
+            this.add(b1, BorderLayout.SOUTH);
+        }
+
         timer = new Timer(delay, count);
     }
 
@@ -73,5 +100,7 @@ public class FocusScreen extends JPanel implements MouseListener{
         // enables antialiasing on the text
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+    }
+    public void actionPerformed(ActionEvent e) {
     }
 }
