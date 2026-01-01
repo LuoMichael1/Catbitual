@@ -84,7 +84,11 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         //add all the tasks to the to-do list
         Scanner filesc;
         ArrayList<String> taskdata = new ArrayList<String>();
-
+        
+        JPanel scrollPanel = new JPanel();
+        scrollPanel.setLayout(new BoxLayout(scrollPanel, BoxLayout.Y_AXIS));
+        
+        //scrollPane.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         try {
             filesc = new Scanner(new File("Userdata/tasklist.txt"));
             
@@ -97,8 +101,11 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         System.out.print(taskdata.toString());
         
         for (int i=0; i<taskdata.size(); i++) {
-            clipMenus[3].add(new Task(taskdata.get(i), "Testing", 10, i));
+            scrollPanel.add(new Task(taskdata.get(i), "Testing", 10, i));
         }
+        JScrollPane scrollPane = new JScrollPane(scrollPanel);
+        //scrollPane.add(scrollPanel);
+        clipMenus[3].add(scrollPane);
 
         clipMenus[4].add(new JLabel("Name: " + cat.getName()));
         clipMenus[4].add(new JLabel("Food: " + cat.getFood()));

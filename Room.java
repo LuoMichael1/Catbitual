@@ -8,13 +8,12 @@ public class Room extends Entities {
     static ImageIcon roomImage = new ImageIcon("Assets/Images/roombg1.png");
     static final int roomSizeX = 1920;
     static final int roomSizeY = 1080;
-    private double scale = 1;
 
     static final int floorHeight = 310;   // the distance from the top of the screen to the start of the floor in pixels
 
     public Room (String name, int xPos, int yPos) {
         super(name, xPos, yPos, roomSizeX, roomSizeY);
-        this.scale = Main.height/((double)roomSizeY);
+        //this.scale = Main.height/((double)roomSizeY);
         //System.out.println("scale: " + scale);
         System.out.println("Room: " + roomImage.getImageLoadStatus());
     }
