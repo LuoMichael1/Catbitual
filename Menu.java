@@ -80,6 +80,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
             center.add(clipMenus[i], Integer.valueOf(i));
         }
 
+        clipMenus[1].add(new PetStore());
 
         //add all the tasks to the to-do list
         Scanner filesc;
