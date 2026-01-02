@@ -5,9 +5,9 @@ import javax.swing.ImageIcon;
 
 public class Room extends Entities {
     
-    static ImageIcon roomImage = new ImageIcon("Assets/Images/roombg2.png");
-    static final int roomSizeX = 1920;
-    static final int roomSizeY = 1080;
+    static ImageIcon roomImage = new ImageIcon("Assets/Images/roombg.png");
+    static final int roomSizeX = 640;
+    static final int roomSizeY = 360;
 
     static final int floorHeight = 310;   // the distance from the top of the screen to the start of the floor in pixels
 
