@@ -88,7 +88,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         
         JPanel scrollPanel = new JPanel();
         scrollPanel.setLayout(new BoxLayout(scrollPanel, BoxLayout.Y_AXIS));
-        
+
         //scrollPane.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         try {
             filesc = new Scanner(new File("Userdata/tasklist.txt"));
@@ -105,7 +105,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
             scrollPanel.add(new Task(taskdata.get(i), "Testing", 10, i));
         }
         JScrollPane scrollPane = new JScrollPane(scrollPanel);
-        //scrollPane.add(scrollPanel);
+        scrollPane.setBorder(null);
         clipMenus[3].add(scrollPane);
 
         clipMenus[4].add(new JLabel("Name: " + cat.getName()));

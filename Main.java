@@ -16,6 +16,12 @@ public class Main {
 
     public static void main(String[] args) {
         
+        // set look and feel
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
         
         // gets the screen size of the current monitor in pixels
         GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();

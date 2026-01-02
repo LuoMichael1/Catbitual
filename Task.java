@@ -26,7 +26,8 @@ public class Task extends JPanel{
         this.description = description;
         this.deadLine = deadLine;
         this.priority = priority;
-
+        
+        
         JCheckBox cb =new JCheckBox();
         this.add(cb, BorderLayout.WEST);
 

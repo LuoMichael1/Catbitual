@@ -7,6 +7,7 @@ public class PetStore extends JScrollPane {
     
     public PetStore() {
 
+        this.setBorder(null);
         JPanel scrollPanel = new JPanel();
         scrollPanel.setLayout(new GridLayout(0,2, 10, 10));
         
