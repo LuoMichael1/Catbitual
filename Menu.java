@@ -91,7 +91,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
 
         //add all the tasks to the to-do list
         Scanner filesc;
-        ArrayList<String> taskdata = new ArrayList<String>();
+        ArrayList<String[]> taskdata = new ArrayList<String[]>();
         
         JPanel scrollPanel = new JPanel();
         scrollPanel.setBackground(Color.WHITE);
@@ -100,9 +100,18 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         //scrollPane.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         try {
             filesc = new Scanner(new File("Userdata/tasklist.txt"));
-            
+            int counter = 0;
             while (filesc.hasNextLine()) {
-                taskdata.add(filesc.nextLine());
+                counter++;
+                System.out.println("Count: " + counter);
+                int temp = filesc.nextInt();
+                filesc.nextLine();
+                String[] tasks = new String[temp];
+
+                for (int i=0; i<temp; i++) {
+                    tasks[i] = (filesc.nextLine());
+                }
+                taskdata.add(tasks);
             }
         } catch (Exception e) {
             System.out.println("Could not read task file " + e);
