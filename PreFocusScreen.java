@@ -10,6 +10,8 @@ import java.awt.event.MouseListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import com.formdev.flatlaf.FlatClientProperties;
     
 public class PreFocusScreen extends JPanel implements MouseListener, ActionListener{
 
@@ -28,6 +30,11 @@ public class PreFocusScreen extends JPanel implements MouseListener, ActionListe
         
         b1 = new JButton("5 sec");
         b2 = new JButton("Free Focus");
+        
+        //make buttons round
+        b1.putClientProperty(FlatClientProperties.BUTTON_TYPE, FlatClientProperties.BUTTON_TYPE_ROUND_RECT);
+        b2.putClientProperty(FlatClientProperties.BUTTON_TYPE, FlatClientProperties.BUTTON_TYPE_ROUND_RECT);
+        
         b1.addActionListener(this);
         b2.addActionListener(this);
         this.add(b1);
