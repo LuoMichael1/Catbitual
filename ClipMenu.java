@@ -6,7 +6,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class ClipMenu extends JPanel{
+public class ClipMenu extends RoundedPanel{
     private int menuWidth = Main.width/2;
     private int temp_sidebar_width = 100;
 

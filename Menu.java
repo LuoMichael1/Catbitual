@@ -94,6 +94,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         ArrayList<String> taskdata = new ArrayList<String>();
         
         JPanel scrollPanel = new JPanel();
+        scrollPanel.setBackground(Color.WHITE);
         scrollPanel.setLayout(new BoxLayout(scrollPanel, BoxLayout.Y_AXIS));
 
         //scrollPane.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -109,7 +110,13 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         System.out.print(taskdata.toString());
         
         for (int i=0; i<taskdata.size(); i++) {
-            scrollPanel.add(new Task(taskdata.get(i), "Testing", 10, i));
+            // create a jpanel to put the task in so that padding can be added
+            JPanel j = new JPanel();
+            j.setBorder(BorderFactory.createLineBorder(Color.white,4));
+            j.setOpaque(false);
+            j.setLayout(new GridLayout(1,1));
+            j.add(new Task(taskdata.get(i), "Testing", 10, i));
+            scrollPanel.add(j);
         }
         JScrollPane scrollPane = new JScrollPane(scrollPanel);
         scrollPane.setBorder(null);
