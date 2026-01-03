@@ -18,7 +18,7 @@ public class Task extends JPanel{
     public Task(String title, String description, int deadLine, int priority) {
         this.setFocusable(true);        
         this.setVisible(true);
-        this.setBackground(new Color(230,230,230));
+        this.setBackground(new Color(240, 240, 240));
         this.setLayout(new BorderLayout());
         this.setBorder(BorderFactory.createLineBorder(Color.WHITE,7));
 
