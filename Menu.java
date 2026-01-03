@@ -25,6 +25,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     //private Color bgColor = Color.WHITE;//new Color(254, 227, 232);
     //private Color color1 = new Color(15, 15, 15);
     //private Color color2 = new Color(243, 169, 169);
+    public static double scale = Main.height/1080.0;
 
     private JButton[] sideButtons = new JButton[5];
     private ClipMenu[] clipMenus = new ClipMenu[5];
@@ -50,11 +51,17 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         this.add(sideBar, BorderLayout.WEST);
         sideBar.setOpaque(false);
 
-        sideButtons[0] = new JButton(new ImageIcon("Assets/Icons/pet.png"));
-        sideButtons[1] = new JButton(new ImageIcon("Assets/Icons/furniture.png"));
-        sideButtons[2] = new JButton(new ImageIcon("Assets/Icons/book.png"));
-        sideButtons[3] = new JButton(new ImageIcon("Assets/Icons/clipboard.png"));
-        sideButtons[4] = new JButton(new ImageIcon("Assets/Icons/fish.png"));
+        ImageIcon pet = new ImageIcon("Assets/Icons/pet.png");
+        ImageIcon furniture = new ImageIcon("Assets/Icons/furniture.png");
+        ImageIcon book = new ImageIcon("Assets/Icons/book.png");
+        ImageIcon clipboard = new ImageIcon("Assets/Icons/clipboard.png");
+        ImageIcon fish = new ImageIcon("Assets/Icons/fish.png");
+
+        sideButtons[0] = new JButton(new ImageIcon(pet.getImage().getScaledInstance((int)(100*scale), (int)(100*scale), Image.SCALE_SMOOTH)));
+        sideButtons[1] = new JButton(new ImageIcon(furniture.getImage().getScaledInstance((int)(100*scale), (int)(100*scale), Image.SCALE_SMOOTH)));
+        sideButtons[2] = new JButton(new ImageIcon(book.getImage().getScaledInstance((int)(100*scale), (int)(100*scale), Image.SCALE_SMOOTH)));
+        sideButtons[3] = new JButton(new ImageIcon(clipboard.getImage().getScaledInstance((int)(100*scale), (int)(100*scale), Image.SCALE_SMOOTH)));
+        sideButtons[4] = new JButton(new ImageIcon(fish.getImage().getScaledInstance((int)(100*scale), (int)(100*scale), Image.SCALE_SMOOTH)));
 
         for (int i=0; i<sideButtons.length; i++) {
             sideButtons[i].addActionListener(this);

@@ -13,7 +13,9 @@ public class Cat extends Entities{
     private double food;
     private double water;
     private double happiness;
-
+    private double scale = Main.height/1080.0;
+    private int drawsizeX = (int)(400*scale);
+    private int drawsizeY = (int)(400*scale);
     // states for the cat
     private boolean grabbed = false;
 
@@ -46,7 +48,7 @@ public class Cat extends Entities{
 
 
     public void drawCat(Graphics g) {
-        g.drawImage(catImage.getImage(), super.getX()-200, super.getY(), super.getX()+200, super.getY()+400, 0, 0, sizeX, sizeX, null);
+        g.drawImage(catImage.getImage(), super.getX()-drawsizeX/2, super.getY(), super.getX()+drawsizeX/2, super.getY()+drawsizeY, 0, 0, sizeX, sizeX, null);
     }
     
     public String getBreed() {
