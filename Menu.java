@@ -156,6 +156,15 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         }
         JScrollPane scrollPane = new JScrollPane(scrollPaneloutside);
         scrollPane.setBorder(null);
+
+        JPanel footerContainer = new JPanel();
+        RoundedPanel footer = new RoundedPanel();
+        footer.setPreferredSize(new Dimension((int)(ClipMenu.menuWidth*0.8),200));
+        footerContainer.add(footer);
+        footerContainer.setOpaque(false);
+        footerContainer.setBorder(BorderFactory.createLineBorder(Color.white,10));
+        scrollPanel.add(footerContainer);
+
         clipMenus[3].add(scrollPane);
 
         clipMenus[4].add(new JLabel("Name: " + cat.getName()));
