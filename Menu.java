@@ -94,7 +94,34 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         ArrayList<String[]> taskdata = new ArrayList<String[]>();
         
         JPanel scrollPanel = new JPanel();
+        JPanel scrollPaneloutside = new JPanel();
+        scrollPaneloutside.setLayout(new GridBagLayout());
+
+        GridBagConstraints c = new GridBagConstraints();
+        c.ipadx = 10;
+        c.weightx = 1;
+        c.weighty = 1;
+        c.gridx = 1;
+        c.anchor = GridBagConstraints.PAGE_START;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        
+        scrollPaneloutside.add(scrollPanel,c);
+        
+        c.weightx = 0;
+        c.gridx = 0;
+        c.fill = GridBagConstraints.VERTICAL;
+        JPanel spacer = new JPanel();
+        spacer.setBackground(Color.WHITE);
+        scrollPaneloutside.add(spacer, c);
+
+        c.gridx = 2;
+        spacer = new JPanel();
+        spacer.setBackground(Color.WHITE);
+        scrollPaneloutside.add(spacer, c);
+
+        
         scrollPanel.setBackground(Color.WHITE);
+        scrollPanel.setBorder(BorderFactory.createLineBorder(Color.white,7));
         scrollPanel.setLayout(new BoxLayout(scrollPanel, BoxLayout.Y_AXIS));
 
         //scrollPane.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -121,13 +148,13 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         for (int i=0; i<taskdata.size(); i++) {
             // create a jpanel to put the task in so that padding can be added
             JPanel j = new JPanel();
-            j.setBorder(BorderFactory.createLineBorder(Color.white,4));
+            j.setBorder(BorderFactory.createLineBorder(Color.white,10));
             j.setOpaque(false);
             j.setLayout(new GridLayout(1,1));
             j.add(new Task(taskdata.get(i), "Testing", 10, i));
             scrollPanel.add(j);
         }
-        JScrollPane scrollPane = new JScrollPane(scrollPanel);
+        JScrollPane scrollPane = new JScrollPane(scrollPaneloutside);
         scrollPane.setBorder(null);
         clipMenus[3].add(scrollPane);
 

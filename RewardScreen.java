@@ -18,7 +18,7 @@ public class RewardScreen extends JPanel implements MouseListener{
         this.addMouseListener(this);
 
         JLabel text = new JLabel("Yippie, time for a break");
-        text.setFont(FontMaker.loadFont("Assets/Fonts/PatrickHand-Regular.ttf", (float)(Main.height*0.1)));
+        text.setFont(FontMaker.h1);
         this.add(text);
     }
 

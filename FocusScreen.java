@@ -44,7 +44,7 @@ public class FocusScreen extends JPanel implements MouseListener, ActionListener
         }
 
         JLabel time = new JLabel();
-        time.setFont(FontMaker.loadFont("Assets/Fonts/PatrickHand-Regular.ttf", (float)(Main.height*0.1)));
+        time.setFont(FontMaker.h1);
         time.setText(convertSeconds(timecount));
         this.add(time);
         this.repaint();

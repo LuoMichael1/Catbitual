@@ -14,6 +14,9 @@ public class Main {
 
     public static int width = 1920;   // initial width of the display in pixels
     public static int height = 1080;   // initial height of the display in pixels
+    public static int scalex;
+    public static int scaley;
+    // Font sizes
 
     public static void main(String[] args) {
         
@@ -30,7 +33,11 @@ public class Main {
         width = gd.getDisplayMode().getWidth();
         height = gd.getDisplayMode().getHeight();
 
+        // set the scaling of elements based on the screensize assuming default is 1920 x 1080
+        scalex = width/1920;
+        scaley = height/1080;
 
+        // create the JFrame
         JFrame f = new JFrame("Catbitual :3");
         f.setUndecorated(false);
         f.setResizable(true);
@@ -55,7 +62,7 @@ public class Main {
         f.setVisible(true);   // menu will not show otherwise
     }
 
-    // Custorm CardLayout methods
+    // Custom CardLayout methods, makes things a little easier
     static public void nextCard() {
         cardLayout.next(p);}
 

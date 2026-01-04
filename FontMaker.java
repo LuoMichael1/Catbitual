@@ -13,4 +13,12 @@ public class FontMaker {
         }
         return font;
     }
+
+    // preset fonts
+    public static final Font h1 = loadFont("Assets/Fonts/PatrickHand-Regular.ttf", (float)(Main.height*0.07*Main.scaley));
+    public static final Font p = loadFont("Assets/Fonts/PatrickHand-Regular.ttf", (float)(Main.height*0.023*Main.scaley));
 }
+
+
+
+

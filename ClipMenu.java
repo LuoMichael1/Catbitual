@@ -16,7 +16,7 @@ public class ClipMenu extends RoundedPanel{
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setBounds((int)(Main.width*0.5)-menuWidth/2-temp_sidebar_width, 100, menuWidth, 1000);
         JLabel h1 = new JLabel(title);
-        h1.setFont(FontMaker.loadFont("Assets/Fonts/PatrickHand-Regular.ttf", (float)(Main.height*0.07)));
+        h1.setFont(FontMaker.h1);
         this.add(h1);
         this.setEnabled(false);
         this.setVisible(false);

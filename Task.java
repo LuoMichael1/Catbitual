@@ -43,7 +43,7 @@ public class Task extends RoundedPanel{
         this.add(cb, c);
 
         JLabel titleLabel = new JLabel(title[0]);
-        titleLabel.setFont(FontMaker.loadFont("Assets/Fonts/PatrickHand-Regular.ttf", (float)(Main.height*0.03)));
+        titleLabel.setFont(FontMaker.p);
         c.gridwidth = 2;
         c.gridx = 1;
         c.gridy = 0;
@@ -52,7 +52,7 @@ public class Task extends RoundedPanel{
         
 
         JLabel deadLineLabel = new JLabel(""+deadLine);
-        deadLineLabel.setFont(FontMaker.loadFont("Assets/Fonts/PatrickHand-Regular.ttf", (float)(Main.height*0.03)));
+        deadLineLabel.setFont(FontMaker.p);
         c.gridwidth = 1;
         c.gridx = 3;
         c.gridy = 0;
@@ -60,7 +60,7 @@ public class Task extends RoundedPanel{
 
 
         JLabel priorityLabel = new JLabel("" + priority);
-        priorityLabel.setFont(FontMaker.loadFont("Assets/Fonts/PatrickHand-Regular.ttf", (float)(Main.height*0.03)));
+        priorityLabel.setFont(FontMaker.p);
         c.gridx = 4;
         c.weightx = 0.0;
         this.add(priorityLabel, c);
@@ -80,7 +80,7 @@ public class Task extends RoundedPanel{
             this.add(ckb, c);
 
             JLabel t = new JLabel(title[i]);
-            t.setFont(FontMaker.loadFont("Assets/Fonts/PatrickHand-Regular.ttf", (float)(Main.height*0.03)));
+            t.setFont(FontMaker.p);
             c.gridx = 2;
             c.gridy = i;
             //c.weightx = 0.5;
@@ -91,7 +91,7 @@ public class Task extends RoundedPanel{
             this.add(new JPanel(), c);
 
             JLabel p = new JLabel("" + priority);
-            p.setFont(FontMaker.loadFont("Assets/Fonts/PatrickHand-Regular.ttf", (float)(Main.height*0.03)));
+            p.setFont(FontMaker.p);
             c.gridx = 4;
             c.gridy = i;
             c.weightx = 0.0;

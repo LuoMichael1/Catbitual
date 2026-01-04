@@ -25,7 +25,7 @@ public class PreFocusScreen extends JPanel implements MouseListener, ActionListe
         this.addMouseListener(this);
     
         JLabel text = new JLabel("How long are you focusing?");
-        text.setFont(FontMaker.loadFont("Assets/Fonts/PatrickHand-Regular.ttf", (float)(Main.height*0.1)));
+        text.setFont(FontMaker.h1);
         this.add(text);
         
         b1 = new JButton("5 sec");
