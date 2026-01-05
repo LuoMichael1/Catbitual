@@ -47,7 +47,7 @@ public class Main {
 
         // Creating JPanels
         Menu menu = new Menu();
-        RewardScreen rewardScreen = new RewardScreen();
+        FocusScreenReward rewardScreen = new FocusScreenReward();
         
         addCard(menu, "Menu"); 
         addCard(rewardScreen, "rewardScreen");

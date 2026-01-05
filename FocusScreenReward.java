@@ -9,17 +9,18 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
     
-public class RewardScreen extends JPanel implements MouseListener{
+public class FocusScreenReward extends JPanel implements MouseListener{
 
-    public RewardScreen() {
+    public FocusScreenReward() {
         this.setLayout(new BorderLayout());
         this.setFocusable(true);        
         this.addMouseListener(this);
 
-        JLabel text = new JLabel("Yippie, time for a break");
+        JLabel text = new JLabel("Yippie, time for a break", SwingConstants.CENTER);
         text.setFont(FontMaker.h1);
-        this.add(text);
+        this.add(text, BorderLayout.CENTER);
     }
 
     public void mouseClicked(MouseEvent e) {

@@ -3,7 +3,7 @@ import java.awt.*;
 
 import javax.swing.ImageIcon;
 
-public class Room extends Entities {
+public class Room {
     
     static ImageIcon roomImage = new ImageIcon("Assets/Images/roombg.png");
     static final int roomSizeX = 640;
@@ -11,8 +11,8 @@ public class Room extends Entities {
 
     static final int floorHeight = 310;   // the distance from the top of the screen to the start of the floor in pixels
 
-    public Room (String name, int xPos, int yPos) {
-        super(name, xPos, yPos, roomSizeX, roomSizeY);
+    public Room () {
+        //super(name, xPos, yPos, roomSizeX, roomSizeY);
         //this.scale = Main.height/((double)roomSizeY);
         //System.out.println("scale: " + scale);
         System.out.println("Room: " + roomImage.getImageLoadStatus());

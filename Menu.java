@@ -20,10 +20,10 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     
     //private JLabel message;
     //private int messagePadding = 15;
-    private Room room = new Room("Room", 0, 0);
+    private Room room = new Room();
     private Cat cat = new Cat("Cat", Main.width/2, Main.height/2);
     //private Timer timer;
-
+    private static ArrayList<Entities> entities = new ArrayList<Entities>();
     //private Color bgColor = Color.WHITE;//new Color(254, 227, 232);
     //private Color color1 = new Color(15, 15, 15);
     //private Color color2 = new Color(243, 169, 169);
@@ -33,7 +33,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     private ClipMenu[] clipMenus = new ClipMenu[6];
     private ClipMenu currentMenu = null;
     private int menuIndex = -1;
-    private PreFocusScreen prefocusScreen;
+    private FocusScreenSetup prefocusScreen;
 
 
     // image icons for the sidebar buttons
@@ -54,7 +54,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         this.addComponentListener(this);
 
         //set up the focus screen
-        prefocusScreen = new PreFocusScreen();
+        prefocusScreen = new FocusScreenSetup();
         Main.addCard(prefocusScreen, "prefocus");
        
         // sidebar buttons
@@ -86,7 +86,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         clipMenus[0] = new ClipMenu("Cat Info");
         clipMenus[1] = new ClipMenu("Pet Store");
         clipMenus[2] = new ClipMenu("Habits");
-        clipMenus[3] = new ClipMenu("To-Do List");
+        clipMenus[3] = new TaskMenu("To-Do List");
         clipMenus[4] = new ClipMenu("Score");
         clipMenus[5] = new ClipMenu("Settings");
 
@@ -96,83 +96,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
 
         clipMenus[1].add(new PetStore());
 
-        //add all the tasks to the to-do list
-        Scanner filesc;
-        ArrayList<String[]> taskdata = new ArrayList<String[]>();
         
-        JPanel scrollPanel = new JPanel();
-        JPanel scrollPaneloutside = new JPanel();
-        scrollPaneloutside.setLayout(new GridBagLayout());
-
-        GridBagConstraints c = new GridBagConstraints();
-        c.ipadx = 10;
-        c.weightx = 1;
-        c.weighty = 1;
-        c.gridx = 1;
-        c.anchor = GridBagConstraints.PAGE_START;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        
-        scrollPaneloutside.add(scrollPanel,c);
-        
-        c.weightx = 0;
-        c.gridx = 0;
-        c.fill = GridBagConstraints.VERTICAL;
-        JPanel spacer = new JPanel();
-        spacer.setBackground(Color.WHITE);
-        scrollPaneloutside.add(spacer, c);
-
-        c.gridx = 2;
-        spacer = new JPanel();
-        spacer.setBackground(Color.WHITE);
-        scrollPaneloutside.add(spacer, c);
-
-        
-        scrollPanel.setBackground(Color.WHITE);
-        scrollPanel.setBorder(BorderFactory.createLineBorder(Color.white,7));
-        scrollPanel.setLayout(new BoxLayout(scrollPanel, BoxLayout.Y_AXIS));
-
-        //scrollPane.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        try {
-            filesc = new Scanner(new File("Userdata/tasklist.txt"));
-            //int counter = 0;
-            while (filesc.hasNextLine()) {
-                //counter++;
-                //System.out.println("Count: " + counter);
-                int temp = filesc.nextInt();
-                filesc.nextLine();
-                String[] tasks = new String[temp];
-
-                for (int i=0; i<temp; i++) {
-                    tasks[i] = (filesc.nextLine());
-                }
-                taskdata.add(tasks);
-            }
-        } catch (Exception e) {
-            System.out.println("Could not read task file " + e);
-        }
-        //System.out.print(taskdata.toString());
-        
-        for (int i=0; i<taskdata.size(); i++) {
-            // create a jpanel to put the task in so that padding can be added
-            JPanel j = new JPanel();
-            j.setBorder(BorderFactory.createLineBorder(Color.white,10));
-            j.setOpaque(false);
-            j.setLayout(new GridLayout(1,1));
-            j.add(new Task(taskdata.get(i), "Testing", 10, i));
-            scrollPanel.add(j);
-        }
-        JScrollPane scrollPane = new JScrollPane(scrollPaneloutside);
-        scrollPane.setBorder(null);
-
-        JPanel footerContainer = new JPanel();
-        RoundedPanel footer = new RoundedPanel();
-        footer.setPreferredSize(new Dimension((int)(ClipMenu.menuWidth*0.8),200));
-        footerContainer.add(footer);
-        footerContainer.setOpaque(false);
-        footerContainer.setBorder(BorderFactory.createLineBorder(Color.white,10));
-        scrollPanel.add(footerContainer);
-
-        clipMenus[3].add(scrollPane);
 
         clipMenus[4].add(new JLabel("Name: " + cat.getName()));
         clipMenus[4].add(new JLabel("Food: " + cat.getFood()));
@@ -187,6 +111,10 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         super.paintComponent(g);  
         room.drawRoom(g);
         cat.drawCat(g);
+
+        for (int i=0; i<entities.size(); i++) {
+            entities.get(i).draw(g);
+        }
 
         // enables antialiasing on the text
         Graphics2D g2d = (Graphics2D) g;
@@ -286,4 +214,8 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     }
     public void componentHidden(ComponentEvent e) {
     }    
+
+    public static void addEntity(Entities e) {
+        entities.add(e);
+    }
 }

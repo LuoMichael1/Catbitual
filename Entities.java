@@ -1,5 +1,10 @@
 //Entities
 
+import java.awt.Graphics;
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
+
 public abstract class Entities {
     
     protected int xPos;
@@ -8,6 +13,7 @@ public abstract class Entities {
     private int xSize;
     private int ySize;
     private String name;
+    private ImageIcon image;
 
     public Entities(String name, int x, int y, int xSize, int ySize) {
         this.name = name;
@@ -22,6 +28,14 @@ public abstract class Entities {
         yPos = 0;
         xSize = 100;
         ySize = 100;
+    }
+    public Entities(String name, int x, int y, int xSize, int ySize, ImageIcon img) {
+        this.name = name;
+        this.xSize = xSize;
+        this.ySize = ySize;
+        this.image = img;
+        xPos = x;
+        yPos = y;
     }
 
 
@@ -60,6 +74,9 @@ public abstract class Entities {
         return (x>(xPos-200) && x<xPos+200);
     }
 
+    public void draw(Graphics g) {
+        g.drawImage(image.getImage(), xPos, yPos, null);
+    }
 
 
 }

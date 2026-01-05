@@ -13,13 +13,13 @@ import javax.swing.JPanel;
 
 import com.formdev.flatlaf.FlatClientProperties;
     
-public class PreFocusScreen extends JPanel implements MouseListener, ActionListener{
+public class FocusScreenSetup extends JPanel implements MouseListener, ActionListener{
 
     private FocusScreen fcs;
     private JButton b1;
     private JButton b2;
 
-    public PreFocusScreen() {
+    public FocusScreenSetup() {
         //this.setLayout(new BorderLayout());
         this.setFocusable(true);        
         this.addMouseListener(this);
