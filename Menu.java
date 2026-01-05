@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -14,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public class Menu extends JPanel implements MouseListener, KeyListener, MouseMotionListener, ActionListener{
+public class Menu extends JPanel implements MouseListener, KeyListener, MouseMotionListener, ActionListener, ComponentListener{
     
     //private JLabel message;
     //private int messagePadding = 15;
@@ -27,19 +29,29 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     //private Color color2 = new Color(243, 169, 169);
     public static double scale = Main.height/1080.0;
 
-    private JButton[] sideButtons = new JButton[5];
-    private ClipMenu[] clipMenus = new ClipMenu[5];
+    private JButton[] sideButtons = new JButton[6];
+    private ClipMenu[] clipMenus = new ClipMenu[6];
     private ClipMenu currentMenu = null;
     private int menuIndex = -1;
     private PreFocusScreen prefocusScreen;
 
+
+    // image icons for the sidebar buttons
+    private ImageIcon pet = new ImageIcon("Assets/Icons/pet.png");
+    private ImageIcon furniture = new ImageIcon("Assets/Icons/furniture.png");
+    private ImageIcon book = new ImageIcon("Assets/Icons/book.png");
+    private ImageIcon clipboard = new ImageIcon("Assets/Icons/clipboard.png");
+    private ImageIcon fish = new ImageIcon("Assets/Icons/fish.png");
+    private ImageIcon settings = new ImageIcon("Assets/Icons/cog.png");
+
+    
     public Menu() {
         
-        //setBackground(bgColor);
         this.setLayout(new BorderLayout());
         this.setFocusable(true);        
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
+        this.addComponentListener(this);
 
         //set up the focus screen
         prefocusScreen = new PreFocusScreen();
@@ -48,28 +60,22 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         // sidebar buttons
         JPanel sideBar = new JPanel();
         sideBar.setLayout(new BoxLayout(sideBar, BoxLayout.Y_AXIS));
-        this.add(sideBar, BorderLayout.WEST);
         sideBar.setOpaque(false);
-
-        ImageIcon pet = new ImageIcon("Assets/Icons/pet.png");
-        ImageIcon furniture = new ImageIcon("Assets/Icons/furniture.png");
-        ImageIcon book = new ImageIcon("Assets/Icons/book.png");
-        ImageIcon clipboard = new ImageIcon("Assets/Icons/clipboard.png");
-        ImageIcon fish = new ImageIcon("Assets/Icons/fish.png");
+        this.add(sideBar, BorderLayout.WEST);
 
         sideButtons[0] = new JButton(new ImageIcon(pet.getImage().getScaledInstance((int)(100*scale), (int)(100*scale), Image.SCALE_SMOOTH)));
         sideButtons[1] = new JButton(new ImageIcon(furniture.getImage().getScaledInstance((int)(100*scale), (int)(100*scale), Image.SCALE_SMOOTH)));
         sideButtons[2] = new JButton(new ImageIcon(book.getImage().getScaledInstance((int)(100*scale), (int)(100*scale), Image.SCALE_SMOOTH)));
         sideButtons[3] = new JButton(new ImageIcon(clipboard.getImage().getScaledInstance((int)(100*scale), (int)(100*scale), Image.SCALE_SMOOTH)));
         sideButtons[4] = new JButton(new ImageIcon(fish.getImage().getScaledInstance((int)(100*scale), (int)(100*scale), Image.SCALE_SMOOTH)));
+        sideButtons[5] = new JButton(new ImageIcon(settings.getImage().getScaledInstance((int)(100*scale), (int)(100*scale), Image.SCALE_SMOOTH)));
 
         for (int i=0; i<sideButtons.length; i++) {
-            sideButtons[i].addActionListener(this);
-
             // remove the gradient and border effect
             sideButtons[i].setContentAreaFilled(false);
             sideButtons[i].setBorderPainted(false);
 
+            sideButtons[i].addActionListener(this);
             sideBar.add(sideButtons[i]);
         }
         
@@ -82,6 +88,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         clipMenus[2] = new ClipMenu("Habits");
         clipMenus[3] = new ClipMenu("To-Do List");
         clipMenus[4] = new ClipMenu("Score");
+        clipMenus[5] = new ClipMenu("Settings");
 
         for (int i=0; i<clipMenus.length; i++) {
             center.add(clipMenus[i], Integer.valueOf(i));
@@ -127,10 +134,10 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         //scrollPane.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         try {
             filesc = new Scanner(new File("Userdata/tasklist.txt"));
-            int counter = 0;
+            //int counter = 0;
             while (filesc.hasNextLine()) {
-                counter++;
-                System.out.println("Count: " + counter);
+                //counter++;
+                //System.out.println("Count: " + counter);
                 int temp = filesc.nextInt();
                 filesc.nextLine();
                 String[] tasks = new String[temp];
@@ -143,7 +150,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         } catch (Exception e) {
             System.out.println("Could not read task file " + e);
         }
-        System.out.print(taskdata.toString());
+        //System.out.print(taskdata.toString());
         
         for (int i=0; i<taskdata.size(); i++) {
             // create a jpanel to put the task in so that padding can be added
@@ -259,5 +266,24 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
             repaint();
         }
         
+    }
+
+    public void componentResized(ComponentEvent e) {
+        Main.width = e.getComponent().getWidth();
+        Main.height = e.getComponent().getHeight();
+        System.out.println(Main.width);
+
+        for (int i=0; i<clipMenus.length; i++) {
+            clipMenus[i].initializeSize();
+        }
+
+        repaint();
+    }
+
+    public void componentMoved(ComponentEvent e) {
+    }
+    public void componentShown(ComponentEvent e) {
+    }
+    public void componentHidden(ComponentEvent e) {
     }    
 }
