@@ -76,7 +76,7 @@ public class TaskMenu extends ClipMenu{
         for (int i=0; i<taskdata.size(); i++) {
             // create a jpanel to put the task in so that padding can be added
             JPanel j = new JPanel();
-            j.setBorder(BorderFactory.createLineBorder(Color.white,10));
+            j.setBorder(BorderFactory.createLineBorder(Color.white,2));
             j.setOpaque(false);
             j.setLayout(new GridLayout(1,1));
             j.add(new Task(taskdata.get(i), "Testing", 10, i));

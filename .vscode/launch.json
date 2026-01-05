@@ -9,6 +9,13 @@
             "name": "Main",
             "request": "launch",
             "mainClass": "Main",
+            "projectName": "Catbitual_3a2951d0"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "Main",
             "projectName": "Catbitual_9ee390db"
         },
         {

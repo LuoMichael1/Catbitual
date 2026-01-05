@@ -17,10 +17,10 @@ public class Main {
 
     public static int width = 1920;   // initial width of the display in pixels
     public static int height = 1080;   // initial height of the display in pixels
-    public static int scalex;
-    public static int scaley;
+    public static double scalex = 1;
+    public static double scaley = 1;
 
-    public void main(String[] args) {
+    public static void main(String[] args) {
         
         // set look and feel
         try {
@@ -80,8 +80,8 @@ public class Main {
         height = gd.getDisplayMode().getHeight();
 
         // set the scaling of elements based on the screensize assuming default is 1920 x 1080
-        scalex = width/1920;
-        scaley = height/1080;
+        scalex = width/1920.0;
+        scaley = height/1080.0;
     }
 
 }

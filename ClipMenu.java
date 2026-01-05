@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 public class ClipMenu extends RoundedPanel{
     public static int menuWidth = 0;
     private int temp_sidebar_width = 100;
+    private int topOffSet = (int)(100*Main.scaley);
 
     public ClipMenu(String title) {
         System.out.println("Width, Height: " + Main.width + " " + Main.height);
@@ -37,7 +38,7 @@ public class ClipMenu extends RoundedPanel{
 
     public void initializeSize() {
         menuWidth = Main.width/2;
-        this.setBounds((int)(Main.width*0.5)-menuWidth/2-temp_sidebar_width, 100, menuWidth, Main.height-100);
+        this.setBounds((int)(Main.width*0.5)-menuWidth/2-temp_sidebar_width, topOffSet, menuWidth, Main.height-topOffSet);
     }
 
 }
