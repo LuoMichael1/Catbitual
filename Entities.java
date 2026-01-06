@@ -1,7 +1,6 @@
 //Entities
 
 import java.awt.Graphics;
-import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
@@ -14,6 +13,7 @@ public abstract class Entities {
     private int ySize;
     private String name;
     private ImageIcon image;
+    private boolean grabbed = false;
 
     public Entities(String name, int x, int y, int xSize, int ySize) {
         this.name = name;
@@ -36,6 +36,15 @@ public abstract class Entities {
         this.image = img;
         xPos = x;
         yPos = y;
+    }
+    public void grabbed() {
+        grabbed = true;
+    }
+    public void dropped() {
+        grabbed = false;
+    }
+    public boolean getGrabbed() {
+        return grabbed;
     }
 
 
@@ -68,10 +77,10 @@ public abstract class Entities {
         
     }
 
-    // method returns true if the point on the screen is within the displayed entitiy
+    // method returns true if the point on the screen is within the displayed entity
     public boolean withinBounds(int x, int y) {
         //Main.print("" + x + " : " + y);
-        return (x>(xPos-200) && x<xPos+200);
+        return (x>(xPos-200) && x<xPos+200 && y>(yPos-200) && y<yPos+200);  // the +/- 200 represent the offset of the cat image so that the image appears centred
     }
 
     public void draw(Graphics g) {

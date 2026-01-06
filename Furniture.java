@@ -5,8 +5,8 @@ import javax.swing.ImageIcon;
 public class Furniture extends Entities{
     private ImageIcon image = new ImageIcon("Assets/Images/blackcat.png");
     
-    static final int sizeX = 1024;
-    static final int sizeY = 1024;
+    static final int sizeX = 256; // the width of the image file
+    static final int sizeY = 256; // the height of the image file
     private double scale = Main.height/1080.0;
     private int drawsizeX = (int)(400*scale);
     private int drawsizeY = (int)(400*scale);
@@ -37,11 +37,16 @@ public class Furniture extends Entities{
     }
 
 
-    public void drawCat(Graphics g) {
+    public void draw(Graphics g) {
         g.drawImage(image.getImage(), super.getX()-drawsizeX/2, super.getY(), super.getX()+drawsizeX/2, super.getY()+drawsizeY, 0, 0, sizeX, sizeX, null);
     }
     
     public boolean getGrabbed() {
         return grabbed;
+    }
+
+    public boolean withinBounds(int x, int y) {
+        //Main.print("" + x + " : " + y);
+        return (x>(xPos-drawsizeX/2) && x<xPos+drawsizeX/2 && y>(yPos-drawsizeY/2) && y<yPos+drawsizeY/2);  // the +/- 200 represent the offset of the cat image so that the image appears centred
     }
 }
