@@ -34,7 +34,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     private ClipMenu currentMenu = null;
     private int menuIndex = -1;
     private FocusScreenSetup prefocusScreen;
-
+    private Entities currentEntity = null;
 
     // image icons for the sidebar buttons
     private ImageIcon pet = new ImageIcon("Assets/Icons/pet.png");
@@ -124,14 +124,15 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     // currently there is a bug because we do not check if we are already grabbing something, so it is possible to grab multiple items at once
     // Mouse Events
     public void mousePressed(MouseEvent e) {
-        if (cat.withinBounds(e.getX(), e.getY()) && !cat.getGrabbed()) {
+        if (cat.withinBounds(e.getX(), e.getY()) && !cat.getGrabbed() && currentEntity==null) {
             cat.grabbed();
             repaint();
+            currentEntity = cat;
         }
-
         for (int i=0; i<entities.size(); i++) {
-            if (entities.get(i).withinBounds(e.getX(), e.getY()) && !entities.get(i).getGrabbed()) {
+            if (entities.get(i).withinBounds(e.getX(), e.getY()) && !entities.get(i).getGrabbed() && currentEntity==null) {
                 entities.get(i).grabbed();
+                currentEntity = entities.get(i);
                 repaint();
             }
         }
@@ -147,15 +148,16 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
                 repaint();
             }
         }
+        currentEntity = null;
     }
     public void mouseDragged(MouseEvent e) {
-        if (cat.getGrabbed()) {
+        if (cat.getGrabbed() && currentEntity==cat) {
             cat.setPosition(e.getX()+100, e.getY()-100);
             repaint();
         }
 
         for (int i=0; i<entities.size(); i++) {
-            if (entities.get(i).getGrabbed()) {
+            if (entities.get(i).getGrabbed() && currentEntity==entities.get(i)) {
                 entities.get(i).setPosition(e.getX()+100, e.getY()-100);
                 repaint();
             }
