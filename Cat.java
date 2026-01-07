@@ -47,7 +47,7 @@ public class Cat extends Entities{
     }
 
 
-    public void drawCat(Graphics g) {
+    public void draw(Graphics g) {
         g.drawImage(catImage.getImage(), super.getX()-drawsizeX/2, super.getY(), super.getX()+drawsizeX/2, super.getY()+drawsizeY, 0, 0, sizeX, sizeX, null);
     }
     

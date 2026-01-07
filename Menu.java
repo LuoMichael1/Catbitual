@@ -103,6 +103,9 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         clipMenus[4].add(new JLabel("Water: " + cat.getWater()));
         clipMenus[4].add(new JLabel("Happiness: " + cat.getHappiness()));
 
+
+        entities.add(cat);
+
         revalidate();
         repaint();
     }
@@ -110,7 +113,6 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     public void paintComponent(Graphics g) {
         super.paintComponent(g);  
         room.drawRoom(g);
-        cat.drawCat(g);
 
         for (int i=0; i<entities.size(); i++) {
             entities.get(i).draw(g);
@@ -124,11 +126,6 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     // currently there is a bug because we do not check if we are already grabbing something, so it is possible to grab multiple items at once
     // Mouse Events
     public void mousePressed(MouseEvent e) {
-        if (cat.withinBounds(e.getX(), e.getY()) && !cat.getGrabbed() && currentEntity==null) {
-            cat.grabbed();
-            repaint();
-            currentEntity = cat;
-        }
         for (int i=0; i<entities.size(); i++) {
             if (entities.get(i).withinBounds(e.getX(), e.getY()) && !entities.get(i).getGrabbed() && currentEntity==null) {
                 entities.get(i).grabbed();
@@ -138,10 +135,6 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         }
     }
     public void mouseReleased(MouseEvent e) {
-        if (cat.getGrabbed()) {
-            cat.dropped();
-            repaint();
-        }
         for (int i=0; i<entities.size(); i++) {
             if (entities.get(i).getGrabbed()) {
                 entities.get(i).dropped();
@@ -151,17 +144,11 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         currentEntity = null;
     }
     public void mouseDragged(MouseEvent e) {
-        if (cat.getGrabbed() && currentEntity==cat) {
-            cat.setPosition(e.getX()+100, e.getY()-100);
-            repaint();
-        }
-
         for (int i=0; i<entities.size(); i++) {
             if (entities.get(i).getGrabbed() && currentEntity==entities.get(i)) {
                 entities.get(i).setPosition(e.getX()+100, e.getY()-100);
                 repaint();
             }
-
         }
     }
 

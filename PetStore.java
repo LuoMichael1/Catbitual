@@ -44,7 +44,7 @@ public class PetStore extends JScrollPane implements ActionListener{
         System.out.println("furn ?");
         for (int i=0; i<buttons.length; i++) {
             if (buttons[i] == e.getSource()) {
-                // create a entity in the room
+                // create an entity in the room
                 Furniture furn = new Furniture(images[i]);
                 Menu.addEntity(furn);
                 System.out.println("furn created");
