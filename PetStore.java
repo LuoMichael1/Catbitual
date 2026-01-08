@@ -13,15 +13,16 @@ public class PetStore extends JScrollPane implements ActionListener{
     
     private JButton[] buttons = new JButton[20];
     private ImageIcon[] images = new ImageIcon[20];
+    private Menu m;
 
-    public PetStore() {
+    public PetStore(Menu m) {
         
         this.setBorder(null);
         JPanel scrollPanel = new JPanel();
         scrollPanel.setLayout(new GridLayout(0,2, 10, 10));
         scrollPanel.setBackground(Color.WHITE);
         
-        
+        this.m = m;
 
 
         for (int i=0; i<19; i++) {
@@ -47,6 +48,7 @@ public class PetStore extends JScrollPane implements ActionListener{
                 // create an entity in the room
                 Furniture furn = new Furniture(images[i]);
                 Menu.addEntity(furn);
+                m.repaint();//(getGraphics());
                 System.out.println("furn created");
             }
         }

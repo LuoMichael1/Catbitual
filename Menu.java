@@ -94,7 +94,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
             center.add(clipMenus[i], Integer.valueOf(i));
         }
 
-        clipMenus[1].add(new PetStore());
+        clipMenus[1].add(new PetStore(this));
 
         
 
@@ -150,7 +150,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
             }
             // the first item in the list should be the highest up (greatest y value)
             // the last item should be on top
-            // do some insertion sort shanangins here
+            // do some bubble sort shanangins here
             // there is some sort of runtime error currently
             if (i>1) {
                 if (entities.get(i).getY() < entities.get(i-1).getY()) {
