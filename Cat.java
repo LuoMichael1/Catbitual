@@ -7,26 +7,25 @@ public class Cat extends Entities{
     static ImageIcon grabbedCatImage = new ImageIcon("Assets/Images/blackcat-grabbed2.png");
     private ImageIcon catImage = basicCatImage;
     
-    static final int sizeX = 1024;
-    static final int sizeY = 1024;
+    static final int imgSizeX = 512;
+    static final int imgSizeY = 512;
     private String breed;
     private double food;
     private double water;
     private double happiness;
-    private double scale = Main.height/1080.0;
-    private int drawsizeX = (int)(400*scale);
-    private int drawsizeY = (int)(400*scale);
+    private static int drawSizeX = (int)(200*Main.scaley);
+    private static int drawSizeY = (int)(200*Main.scaley);
     // states for the cat
     private boolean grabbed = false;
 
     public Cat (String name, int xPos, int yPos, String breed, double water, double happiness) {
-        super(name, xPos, yPos, sizeX, sizeY);
+        super(name, xPos, yPos, imgSizeX, imgSizeY, drawSizeX, drawSizeY);
         this.breed = breed;
         this.water = water;
         this.happiness = happiness;
     }
     public Cat (String name, int xPos, int yPos) {
-        super(name, xPos, yPos, sizeX, sizeY);
+        super(name, xPos, yPos, imgSizeX, imgSizeY, drawSizeX, drawSizeY);
         breed = "Black";
         water = 100;
         happiness = 100;
@@ -48,9 +47,13 @@ public class Cat extends Entities{
 
 
     public void draw(Graphics g) {
-        g.drawImage(catImage.getImage(), super.getX()-drawsizeX/2, super.getY(), super.getX()+drawsizeX/2, super.getY()+drawsizeY, 0, 0, sizeX, sizeX, null);
+        g.drawImage(catImage.getImage(), super.getX(), super.getY()-drawSizeY, super.getX()+drawSizeX, super.getY(), 0, 0, imgSizeX, imgSizeY, null);
     }
-    
+    /* 
+    public boolean withinBounds(int x, int y) {
+        return (x>(xPos) && x<xPos+drawSizeX && y>(yPos-drawSizeY) && y<yPos);
+    }
+    */
     public String getBreed() {
         return breed;
     }
@@ -77,5 +80,8 @@ public class Cat extends Entities{
     }
     public boolean getGrabbed() {
         return grabbed;
+    }
+    public int getDrawSize() {
+        return drawSizeX;
     }
 }

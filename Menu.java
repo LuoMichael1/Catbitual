@@ -123,7 +123,6 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
     }
 
-    // currently there is a bug because we do not check if we are already grabbing something, so it is possible to grab multiple items at once
     // Mouse Events
     public void mousePressed(MouseEvent e) {
         for (int i=0; i<entities.size(); i++) {
@@ -146,7 +145,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     public void mouseDragged(MouseEvent e) {
         for (int i=0; i<entities.size(); i++) {
             if (entities.get(i).getGrabbed() && currentEntity==entities.get(i)) {
-                entities.get(i).setPosition(e.getX()+100, e.getY()-100);
+                entities.get(i).setPosition(e.getX()-cat.getDrawSize()/2, e.getY()+cat.getDrawSize()/2);
                 repaint();
             }
         }

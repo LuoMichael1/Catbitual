@@ -5,22 +5,21 @@ import javax.swing.ImageIcon;
 public class Furniture extends Entities{
     private ImageIcon image = new ImageIcon("Assets/Images/blackcat.png");
     
-    static final int sizeX = 256; // the width of the image file
-    static final int sizeY = 256; // the height of the image file
-    private double scale = Main.height/1080.0;
-    private int drawsizeX = (int)(400*scale);
-    private int drawsizeY = (int)(400*scale);
+    static final int imgSizeX = 256; // the width of the image file
+    static final int imgSizeY = 256; // the height of the image file
+    private static int drawSizeX = (int)(400*Main.scaley);
+    private static int drawSizeY = (int)(400*Main.scaley);
     private boolean grabbed = false;
 
 
     public Furniture(String name, int x, int y, int xSize, int ySize) {
-        super(name, x, y, xSize, ySize);
+        super(name, x, y, xSize, ySize, drawSizeX, drawSizeX);
     }
     public Furniture() {
-        super("test", 100, 100, sizeX, sizeY);
+        super("test", 100, 100, imgSizeX, imgSizeY, drawSizeX, drawSizeX);
     }
     public Furniture(ImageIcon image) {
-        super("test", 100, 100, sizeX, sizeY, image);
+        super("test", 100, 100, imgSizeX, imgSizeY, drawSizeX, drawSizeY, image);
         this.image = image;
     }
     
@@ -38,15 +37,10 @@ public class Furniture extends Entities{
 
 
     public void draw(Graphics g) {
-        g.drawImage(image.getImage(), super.getX()-drawsizeX/2, super.getY(), super.getX()+drawsizeX/2, super.getY()+drawsizeY, 0, 0, sizeX, sizeX, null);
+        g.drawImage(image.getImage(), super.getX(), super.getY()-drawSizeY, super.getX()+drawSizeX, super.getY(), 0, 0, imgSizeX, imgSizeY, null);
     }
     
     public boolean getGrabbed() {
         return grabbed;
-    }
-
-    public boolean withinBounds(int x, int y) {
-        //Main.print("" + x + " : " + y);
-        return (x>(xPos-drawsizeX/2) && x<xPos+drawsizeX/2 && y>(yPos-drawsizeY/2) && y<yPos+drawsizeY/2);  // the +/- 200 represent the offset of the cat image so that the image appears centred
     }
 }

@@ -18,7 +18,7 @@ public class FocusScreenReward extends JPanel implements MouseListener{
         this.setFocusable(true);        
         this.addMouseListener(this);
 
-        JLabel text = new JLabel("Yippie, time for a break", SwingConstants.CENTER);
+        JLabel text = new JLabel("Yippiee, time for a break", SwingConstants.CENTER);
         text.setFont(FontMaker.h1);
         this.add(text, BorderLayout.CENTER);
     }
