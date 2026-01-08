@@ -148,6 +148,26 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
                 entities.get(i).setPosition(e.getX()-cat.getDrawSize()/2, e.getY()+cat.getDrawSize()/2);
                 repaint();
             }
+            // the first item in the list should be the highest up (greatest y value)
+            // the last item should be on top
+            // do some insertion sort shanangins here
+            // there is some sort of runtime error currently
+            if (i>1) {
+                if (entities.get(i).getY() < entities.get(i-1).getY()) {
+                    Entities temp = entities.get(i);
+
+                    entities.set(i, entities.get(i-1));
+                    entities.set(i-1, temp); 
+                }
+            }
+            else if (entities.size() > 1) {
+                if (entities.get(i).getY() > entities.get(i+1).getY()) {
+                    Entities temp = entities.get(i);
+
+                    entities.set(i, entities.get(i+1));
+                    entities.set(i+1, temp); 
+                }
+            }
         }
     }
 
