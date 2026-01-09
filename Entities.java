@@ -86,5 +86,8 @@ public abstract class Entities {
         g.drawImage(image.getImage(), xPos, yPos, null);
     }
 
+    public int getDrawSize() {
+        return drawSizeX;
+    }
 
 }

@@ -145,7 +145,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     public void mouseDragged(MouseEvent e) {
         for (int i=0; i<entities.size(); i++) {
             if (entities.get(i).getGrabbed() && currentEntity==entities.get(i)) {
-                entities.get(i).setPosition(e.getX()-cat.getDrawSize()/2, e.getY()+cat.getDrawSize()/2);
+                entities.get(i).setPosition(e.getX()-entities.get(i).getDrawSize()/2, e.getY()+entities.get(i).getDrawSize()/2);
                 repaint();
             }
             // the first item in the list should be the highest up (greatest y value)
