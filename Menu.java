@@ -125,11 +125,10 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
 
     // Mouse Events
     public void mousePressed(MouseEvent e) {
-        for (int i=0; i<entities.size(); i++) {
+        for (int i=entities.size()-1; i>=0; i--) {
             if (entities.get(i).withinBounds(e.getX(), e.getY()) && !entities.get(i).getGrabbed() && currentEntity==null) {
                 entities.get(i).grabbed();
                 currentEntity = entities.get(i);
-                repaint();
             }
         }
     }
@@ -142,6 +141,8 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         }
         currentEntity = null;
     }
+    private Entities temp;
+
     public void mouseDragged(MouseEvent e) {
         for (int i=0; i<entities.size(); i++) {
             if (entities.get(i).getGrabbed() && currentEntity==entities.get(i)) {
@@ -152,9 +153,9 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
             // the last item should be on top
             // do some bubble sort shanangins here
             // there is some sort of runtime error currently
-            if (i>1) {
+            if (i>=1) {
                 if (entities.get(i).getY() < entities.get(i-1).getY()) {
-                    Entities temp = entities.get(i);
+                    temp = entities.get(i);
 
                     entities.set(i, entities.get(i-1));
                     entities.set(i-1, temp); 
@@ -162,7 +163,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
             }
             else if (entities.size() > 1) {
                 if (entities.get(i).getY() > entities.get(i+1).getY()) {
-                    Entities temp = entities.get(i);
+                    temp = entities.get(i);
 
                     entities.set(i, entities.get(i+1));
                     entities.set(i+1, temp); 
