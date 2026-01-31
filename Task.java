@@ -126,13 +126,6 @@ public class Task extends RoundedPanel{
 
 
 
-
-
-
-
-
-
-
     public int getDeadLine() {
         return deadLine;
     }

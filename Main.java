@@ -1,11 +1,6 @@
 // A Habit and task tracker with cats!!
-
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-
 import com.formdev.flatlaf.FlatLightLaf;
 
 public class Main {
@@ -70,7 +65,6 @@ public class Main {
 
     static public void removeCard(JPanel jPanel) {
         p.remove(jPanel);}
-
 
 
     public static void initializeScreenSize() {

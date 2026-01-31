@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -28,7 +29,6 @@ public class FocusScreen extends JPanel implements MouseListener, ActionListener
         this.setLayout(new BorderLayout());
         this.setFocusable(true);        
         this.addMouseListener(this);
-
 
         int delay = 1000; // 1 second
         

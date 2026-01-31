@@ -2,15 +2,7 @@
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -18,11 +10,8 @@ import java.util.Scanner;
 
 public class Menu extends JPanel implements MouseListener, KeyListener, MouseMotionListener, ActionListener, ComponentListener{
     
-    //private JLabel message;
-    //private int messagePadding = 15;
     private Room room = new Room();
     private Cat cat = new Cat("Cat", Main.width/2, Main.height/2);
-    //private Timer timer;
     private static ArrayList<Entities> entities = new ArrayList<Entities>();
     //private Color bgColor = Color.WHITE;//new Color(254, 227, 232);
     //private Color color1 = new Color(15, 15, 15);
@@ -44,6 +33,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     private ImageIcon fish = new ImageIcon("Assets/Icons/fish.png");
     private ImageIcon settings = new ImageIcon("Assets/Icons/cog.png");
 
+    int buttonSize = 90;
     
     public Menu() {
         
@@ -63,12 +53,12 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         sideBar.setOpaque(false);
         this.add(sideBar, BorderLayout.WEST);
 
-        sideButtons[0] = new JButton(new ImageIcon(pet.getImage().getScaledInstance((int)(100*scale), (int)(100*scale), Image.SCALE_SMOOTH)));
-        sideButtons[1] = new JButton(new ImageIcon(furniture.getImage().getScaledInstance((int)(100*scale), (int)(100*scale), Image.SCALE_SMOOTH)));
-        sideButtons[2] = new JButton(new ImageIcon(book.getImage().getScaledInstance((int)(100*scale), (int)(100*scale), Image.SCALE_SMOOTH)));
-        sideButtons[3] = new JButton(new ImageIcon(clipboard.getImage().getScaledInstance((int)(100*scale), (int)(100*scale), Image.SCALE_SMOOTH)));
-        sideButtons[4] = new JButton(new ImageIcon(fish.getImage().getScaledInstance((int)(100*scale), (int)(100*scale), Image.SCALE_SMOOTH)));
-        sideButtons[5] = new JButton(new ImageIcon(settings.getImage().getScaledInstance((int)(100*scale), (int)(100*scale), Image.SCALE_SMOOTH)));
+        sideButtons[0] = new JButton(new ImageIcon(pet.getImage().getScaledInstance((int)(buttonSize*scale), (int)(buttonSize*scale), Image.SCALE_SMOOTH)));
+        sideButtons[1] = new JButton(new ImageIcon(furniture.getImage().getScaledInstance((int)(buttonSize*scale), (int)(buttonSize*scale), Image.SCALE_SMOOTH)));
+        sideButtons[2] = new JButton(new ImageIcon(book.getImage().getScaledInstance((int)(buttonSize*scale), (int)(buttonSize*scale), Image.SCALE_SMOOTH)));
+        sideButtons[3] = new JButton(new ImageIcon(clipboard.getImage().getScaledInstance((int)(buttonSize*scale), (int)(buttonSize*scale), Image.SCALE_SMOOTH)));
+        sideButtons[4] = new JButton(new ImageIcon(fish.getImage().getScaledInstance((int)(buttonSize*scale), (int)(buttonSize*scale), Image.SCALE_SMOOTH)));
+        sideButtons[5] = new JButton(new ImageIcon(settings.getImage().getScaledInstance((int)(buttonSize*scale), (int)(buttonSize*scale), Image.SCALE_SMOOTH)));
 
         for (int i=0; i<sideButtons.length; i++) {
             // remove the gradient and border effect
@@ -95,15 +85,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         }
 
         clipMenus[1].add(new PetStore(this));
-
-        
-
-        clipMenus[4].add(new JLabel("Name: " + cat.getName()));
-        clipMenus[4].add(new JLabel("Food: " + cat.getFood()));
-        clipMenus[4].add(new JLabel("Water: " + cat.getWater()));
-        clipMenus[4].add(new JLabel("Happiness: " + cat.getHappiness()));
-
-
+        clipMenus[4].add(new ScoreMenu(cat));
         entities.add(cat);
 
         revalidate();

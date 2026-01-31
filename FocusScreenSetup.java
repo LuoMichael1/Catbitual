@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -23,7 +24,7 @@ public class FocusScreenSetup extends JPanel implements MouseListener, ActionLis
         //this.setLayout(new BorderLayout());
         this.setFocusable(true);        
         this.addMouseListener(this);
-    
+
         JLabel text = new JLabel("How long are you focusing?");
         text.setFont(FontMaker.h1);
         this.add(text);
