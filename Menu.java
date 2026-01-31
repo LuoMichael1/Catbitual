@@ -13,9 +13,6 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     private Room room = new Room();
     private Cat cat = new Cat("Cat", Main.width/2, Main.height/2);
     private static ArrayList<Entities> entities = new ArrayList<Entities>();
-    //private Color bgColor = Color.WHITE;//new Color(254, 227, 232);
-    //private Color color1 = new Color(15, 15, 15);
-    //private Color color2 = new Color(243, 169, 169);
     public static double scale = Main.height/1080.0;
 
     private JButton[] sideButtons = new JButton[6];
@@ -169,6 +166,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     public void mouseMoved(MouseEvent e) {
         // idea, check if the mouse moves over the cat, which then can be used to trigger a petting animation?????????
     }
+
     public void actionPerformed(ActionEvent e) {
 
         // gets which button was pressed

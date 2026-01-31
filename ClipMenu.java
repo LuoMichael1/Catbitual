@@ -9,10 +9,10 @@ import javax.swing.JPanel;
 public class ClipMenu extends RoundedPanel{
     public static int menuWidth = 0;
     private int temp_sidebar_width = 100;
-    private int topOffSet = (int)(100*Main.scaley);
+    private int topOffSet = (int)(100*Main.scaleY);
 
     public ClipMenu(String title) {
-        System.out.println("Width, Height: " + Main.width + " " + Main.height);
+        //System.out.println("Width, Height: " + Main.width + " " + Main.height);
         this.setBackground(Color.WHITE);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         
