@@ -7,8 +7,8 @@ public class Furniture extends Entities{
     
     static final int imgSizeX = 256; // the width of the image file
     static final int imgSizeY = 256; // the height of the image file
-    private static int drawSizeX = (int)(400*Main.scaley);
-    private static int drawSizeY = (int)(400*Main.scaley);
+    private static int drawSizeX = (int)(400*Main.scaleY);
+    private static int drawSizeY = (int)(400*Main.scaleY);
     private boolean grabbed = false;
 
 

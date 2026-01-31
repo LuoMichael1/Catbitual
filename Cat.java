@@ -13,8 +13,8 @@ public class Cat extends Entities{
     private double food;
     private double water;
     private double happiness;
-    private static int drawSizeX = (int)(200*Main.scaley);
-    private static int drawSizeY = (int)(200*Main.scaley);
+    private static int drawSizeX = (int)(200*Main.scaleY);
+    private static int drawSizeY = (int)(200*Main.scaleY);
     // states for the cat
     private boolean grabbed = false;
 
