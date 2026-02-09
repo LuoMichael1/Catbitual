@@ -22,9 +22,9 @@ public class CatAI {
     public CatAI(Cat cat) {
         this.cat = cat;
 
-        // updates the state of the cat every 10 seconds
+        // updates the state of the cat every 30 times a seconds
         UpdateState task = new UpdateState(cat);
-        running.scheduleAtFixedRate(task, 0, 1, TimeUnit.SECONDS);      
+        running.scheduleAtFixedRate(task, 0, 1000/30, TimeUnit.MILLISECONDS);      
     }
 }
 
@@ -36,13 +36,18 @@ class UpdateState implements Runnable {
     public UpdateState(Cat cat) {
         this.cat = cat;
     }
+
+    
+    
     public void run() {
         int tempState = 0;
         
+
         //tempState = (int)(Math.floor(Math.random()*7));
 
         if (tempState == 0) {
             state = "Walk";
+            walk ();
         }
         else if (tempState == 1) {
             state = "Grabbed";
@@ -65,27 +70,36 @@ class UpdateState implements Runnable {
         System.out.println(state);
     }
 
-
+    private int count = 0;
+    int x = 0;
+    int y = 0;
     public void walk () {
         // pick a place on the screen to move towards
-        int x = 500;
-        int y = 500;
-
+        
+        if (count%400 == 0) {
+            x = (int)(Math.random()*Main.width);
+            y = (int)(Math.random()*(Main.height-Room.floorHeight))+Room.floorHeight;    
+        }
+        count++;
+        System.out.println(count);
 
         // move the cat towards the objective
         // we currently do not normalize the diagnonal movement :3
-        if (cat.getX()>500) {
+        if (cat.getX()>x) {
             cat.setX(cat.getX()-cat.getSpeed());
         }
-        else if (cat.getX()<500) {
+        else if (cat.getX()<x) {
             cat.setX(cat.getX()+cat.getSpeed());
         }
 
-        if (cat.getY()>500) {
+        if (cat.getY()>y) {
             cat.setY(cat.getY()-cat.getSpeed());
         }
-        else if (cat.getY()<500) {
+        else if (cat.getY()<y) {
             cat.setY(cat.getY()+cat.getSpeed());
         }
+
+        System.out.println("testing");
+        cat.repaint();
     }
 }

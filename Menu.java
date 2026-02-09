@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class Menu extends JPanel implements MouseListener, KeyListener, MouseMotionListener, ActionListener, ComponentListener{
     
     private Room room = new Room();
-    private Cat cat = new Cat("Cat", Main.width/2, Main.height/2);
+    private Cat cat = new Cat("Cat", Main.width/2, Main.height/2, this);
     private static ArrayList<Entities> entities = new ArrayList<Entities>();
     public static double scale = Main.height/1080.0;
 

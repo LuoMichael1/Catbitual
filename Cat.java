@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.Graphics;
 import javax.swing.ImageIcon;
 
 public class Cat extends Entities{
@@ -18,22 +19,23 @@ public class Cat extends Entities{
     // states for the cat
     private boolean grabbed = false;
 
-    private int speed = 10; //
+    private Menu m;
+    private int speed = 1; //
 
-    public Cat (String name, int xPos, int yPos, String breed, double water, double happiness) {
+    public Cat (String name, int xPos, int yPos, String breed, double water, double happiness, Menu m) {
         super(name, xPos, yPos, imgSizeX, imgSizeY, drawSizeX, drawSizeY);
         this.breed = breed;
         this.water = water;
         this.happiness = happiness;
-
+        this.m = m;
         CatAI brain = new CatAI(this);
     }
-    public Cat (String name, int xPos, int yPos) {
+    public Cat (String name, int xPos, int yPos, Menu m) {
         super(name, xPos, yPos, imgSizeX, imgSizeY, drawSizeX, drawSizeY);
         breed = "Black";
         water = 100;
         happiness = 100;
-
+        this.m = m;
         CatAI brain = new CatAI(this);
     }
     public void grabbed() {
@@ -94,4 +96,8 @@ public class Cat extends Entities{
         return speed;
     }
 
+
+    public void repaint() {
+        m.repaint();
+    }
 }
