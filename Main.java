@@ -15,7 +15,7 @@ public class Main {
 
     // used to scale assets based on screen size
     // updated by the initializeScreenSize function
-    // a value of one corresponds to 1920 x 1080p
+    // a value of one corresponds to 1920 x 1080
     public static double scaleX = 1;
     public static double scaleY = 1;
 

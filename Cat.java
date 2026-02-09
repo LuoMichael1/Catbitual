@@ -18,17 +18,23 @@ public class Cat extends Entities{
     // states for the cat
     private boolean grabbed = false;
 
+    private int speed = 10; //
+
     public Cat (String name, int xPos, int yPos, String breed, double water, double happiness) {
         super(name, xPos, yPos, imgSizeX, imgSizeY, drawSizeX, drawSizeY);
         this.breed = breed;
         this.water = water;
         this.happiness = happiness;
+
+        CatAI brain = new CatAI(this);
     }
     public Cat (String name, int xPos, int yPos) {
         super(name, xPos, yPos, imgSizeX, imgSizeY, drawSizeX, drawSizeY);
         breed = "Black";
         water = 100;
         happiness = 100;
+
+        CatAI brain = new CatAI(this);
     }
     public void grabbed() {
         //Main.print("Cat Grabbed ----");
@@ -84,4 +90,8 @@ public class Cat extends Entities{
     public int getDrawSize() {
         return drawSizeX;
     }
+    public int getSpeed() {
+        return speed;
+    }
+
 }
