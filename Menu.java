@@ -88,12 +88,18 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         repaint();
     }
     
+    int n = 0;
     public void paintComponent(Graphics g) {
         super.paintComponent(g);  
         room.drawRoom(g);
 
+        
         for (int i=0; i<entities.size(); i++) {
-            entities.get(i).draw(g);
+            entities.get(i).drawState(n, g);
+        }
+        n+=1;
+        if (n==6) {
+            n = 0;
         }
 
         // enables antialiasing on the text

@@ -39,7 +39,10 @@ public class Furniture extends Entities{
     public void draw(Graphics g) {
         g.drawImage(image.getImage(), super.getX(), super.getY()-drawSizeY, super.getX()+drawSizeX, super.getY(), 0, 0, imgSizeX, imgSizeY, null);
     }
-    
+    public void drawState(Graphics g) {
+        g.drawImage(image.getImage(), super.getX(), super.getY()-drawSizeY, super.getX()+drawSizeX, super.getY(), 0, 0, imgSizeX, imgSizeY, null);
+    }
+
     public boolean getGrabbed() {
         return grabbed;
     }

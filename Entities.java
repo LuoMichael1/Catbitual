@@ -83,6 +83,10 @@ public abstract class Entities {
     public void draw(Graphics g) {
         g.drawImage(image.getImage(), xPos, yPos, null);
     }
+    // this is just for animating the cat :3
+    public void drawState(int n, Graphics g) {
+        g.drawImage(image.getImage(), xPos, yPos, null);
+    }
 
     public int getDrawSize() {
         return drawSizeX;

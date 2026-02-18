@@ -4,23 +4,25 @@ import javax.swing.ImageIcon;
 
 public class Cat extends Entities{
     
-    static ImageIcon basicCatImage = new ImageIcon("Assets/Images/blackcat.png");
-    static ImageIcon grabbedCatImage = new ImageIcon("Assets/Images/blackcat-grabbed2.png");
+    static ImageIcon basicCatImage = new ImageIcon("Assets/Images/tempanimatedcat.png");
+    static ImageIcon grabbedCatImage = new ImageIcon("Assets/Images/tempanimatedcat.png");
     private ImageIcon catImage = basicCatImage;
     
-    static final int imgSizeX = 512;
-    static final int imgSizeY = 512;
+    static final int imgSizeX = 256;
+    static final int imgSizeY = 256;
     private String breed;
     private double food;
     private double water;
     private double happiness;
-    private static int drawSizeX = (int)(200*Main.scaleY);
-    private static int drawSizeY = (int)(200*Main.scaleY);
+    private static int drawSizeX = (int)(300*Main.scaleY);
+    private static int drawSizeY = (int)(300*Main.scaleY);
+
     // states for the cat
     private boolean grabbed = false;
+    private int state = 0;
 
     private Menu m;
-    private int speed = 1; //
+    private int speed = 3; //
 
     public Cat (String name, int xPos, int yPos, String breed, double water, double happiness, Menu m) {
         super(name, xPos, yPos, imgSizeX, imgSizeY, drawSizeX, drawSizeY);
@@ -56,6 +58,9 @@ public class Cat extends Entities{
 
     public void draw(Graphics g) {
         g.drawImage(catImage.getImage(), super.getX(), super.getY()-drawSizeY, super.getX()+drawSizeX, super.getY(), 0, 0, imgSizeX, imgSizeY, null);
+    }
+    public void drawState(int n, Graphics g) {
+        g.drawImage(catImage.getImage(), super.getX(), super.getY()-drawSizeY, super.getX()+drawSizeX, super.getY(), 0+(imgSizeX*n), 0, imgSizeX+(imgSizeX*n), imgSizeY, null);
     }
     /* 
     public boolean withinBounds(int x, int y) {
@@ -96,6 +101,13 @@ public class Cat extends Entities{
         return speed;
     }
 
+    // this is not a single source of truth i think, because the cat AI also has the state
+    public int getState() {
+        return state;
+    }
+    public void setState(int n) {
+        state = n;
+    }
 
     public void repaint() {
         m.repaint();
