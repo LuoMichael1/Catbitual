@@ -6,7 +6,6 @@ import com.formdev.flatlaf.FlatLightLaf;
 public class Main {
 
     // Constants
-    public static final int FPS = 24;  // frames per second
     public static CardLayout cardLayout = new CardLayout();
     public static JPanel p = new JPanel(cardLayout);
 

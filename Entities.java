@@ -1,7 +1,5 @@
 //Entities
-
 import java.awt.Graphics;
-
 import javax.swing.ImageIcon;
 
 public abstract class Entities {
@@ -10,10 +8,10 @@ public abstract class Entities {
     protected int xPos;
     protected int yPos;
     private int scale = 1;
-    private int imgSizeX;
-    private int imgSizeY;
-    private int drawSizeX; //= (int)(200*scale);
-    private int drawSizeY; //= (int)(200*scale);
+    private int imgSizeX;    //Width of the image file
+    private int imgSizeY;    //Height of the image file
+    private int drawSizeX;   //Width of displayed entity
+    private int drawSizeY;   //Height of displayed entity
     private String name;
     private ImageIcon image;
     private boolean grabbed = false;
@@ -27,6 +25,7 @@ public abstract class Entities {
         xPos = x;
         yPos = y;
     }
+
     public Entities(String name, int x, int y, int xSize, int ySize, int drawSizeX, int drawSizeY, ImageIcon img) {
         this.name = name;
         this.imgSizeX = xSize;
@@ -37,6 +36,7 @@ public abstract class Entities {
         xPos = x;
         yPos = y;
     }
+
     public void grabbed() {
         grabbed = true;
     }
@@ -46,8 +46,6 @@ public abstract class Entities {
     public boolean getGrabbed() {
         return grabbed;
     }
-
-
     public void setX(int xPos) {
         this.xPos = xPos;
     }

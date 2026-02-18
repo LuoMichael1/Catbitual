@@ -1,5 +1,4 @@
 // The main screen of the app
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
