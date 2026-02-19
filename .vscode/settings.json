@@ -2,5 +2,5 @@
     "java.project.referencedLibraries": [
         "lib/**/*.jar"
     ],
-    "nogic.telemetry.enabled": false
+    "nogic.telemetry.enabled": false,
 }

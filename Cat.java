@@ -28,6 +28,7 @@ public class Cat extends Entities{
     private Menu m;
     private int speed = 3; //
 
+
     public Cat (String name, int xPos, int yPos, String breed, double water, double happiness, Menu m) {
         super(name, xPos, yPos, imgSizeX, imgSizeY, drawSizeX, drawSizeY);
         this.breed = breed;
@@ -74,10 +75,7 @@ public class Cat extends Entities{
         }
         // draw the grab state
         else if (state == 1) {
-            step++;
-            if (step >= 13 || step < 9) {
-                step = 9;
-            }
+            
         }
         
         // if statement handles pointing left or right
@@ -89,6 +87,7 @@ public class Cat extends Entities{
             sx1 = imgSizeX*step;
             sx2 = imgSizeX+(imgSizeX*step);
         }
+
         g.drawImage(catImage.getImage(), super.getX(), super.getY()-drawSizeY, super.getX()+drawSizeX, super.getY(), sx1, 0, sx2, imgSizeY, null);        
     }
     /* 
@@ -139,6 +138,15 @@ public class Cat extends Entities{
     }
     public void setDirection(boolean d) {
         direction = d;
+    }
+    public boolean getDirection() {
+        return direction;
+    }
+    public void setStep(int step) {
+        this.step = step;
+    }
+    public int getStep() {
+        return step;
     }
     public void repaint() {
         m.repaint();

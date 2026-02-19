@@ -21,7 +21,6 @@ public class CatAI {
 
     private Cat cat;
     private ScheduledThreadPoolExecutor running = new ScheduledThreadPoolExecutor(2);
-    
 
     public CatAI(Cat cat) {
         this.cat = cat;
@@ -37,6 +36,8 @@ class UpdateState implements Runnable {
     
     private String state = "";
     private Cat cat;
+    private int lastPosX = 0;//cat.xPos; // this is only for the grabbing animations so we can tell if the mouse moved
+
 
     public UpdateState(Cat cat) {
         this.cat = cat;
@@ -61,6 +62,7 @@ class UpdateState implements Runnable {
         else if (tempState == 1) {
             state = "Grabbed";
             cat.setState(1);
+            animateGrab();
         }
         else if (tempState == 2) {
             state = "Idle";
@@ -137,5 +139,48 @@ class UpdateState implements Runnable {
 
         //System.out.println("testing");
         
+    }
+
+
+    public void animateGrab() {
+        cat.setStep(cat.getStep()+1);;
+
+        // if cat is being held in place
+        if (lastPosX == cat.xPos) {
+            if (cat.getStep() >= 13 || cat.getStep() < 9) {
+                cat.setStep(9);
+            }
+        } 
+
+        else if (!cat.getDirection()) {
+            // cat moved left
+            if (lastPosX > cat.xPos) {
+                if (cat.getStep() >= 28 || cat.getStep() < 25) {
+                    cat.setStep(26);
+                }   
+            }
+            //cat moved right
+            else {
+                if (cat.getStep() >= 34 || cat.getStep() < 30) {
+                    cat.setStep(30);
+                }
+            }
+        }
+        else {
+            //cat moved right
+            if (lastPosX > cat.xPos) {
+                if (cat.getStep() >= 34 || cat.getStep() < 30) {
+                    cat.setStep(30);
+                }
+            }
+            // cat moved left
+            else {
+                if (cat.getStep() >= 28 || cat.getStep() < 25) {
+                    cat.setStep(26);
+                }   
+            }
+            
+        }
+        lastPosX = cat.xPos;  
     }
 }
