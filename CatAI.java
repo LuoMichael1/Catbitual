@@ -91,6 +91,8 @@ class UpdateState implements Runnable {
         // move the cat towards the objective
         // we currently do not normalize the diagnonal movement :3
         if (cat.getX()>x) {
+            // move left
+            cat.setDirection(false);
             cat.setX(cat.getX()-cat.getSpeed());
 
             // prevents vibrating
@@ -99,6 +101,8 @@ class UpdateState implements Runnable {
             }
         }
         else if (cat.getX()<x) {
+            // move right
+            cat.setDirection(true);
             cat.setX(cat.getX()+cat.getSpeed());
 
             // prevents vibrating

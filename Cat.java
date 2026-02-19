@@ -20,6 +20,7 @@ public class Cat extends Entities{
     // states for the cat
     private boolean grabbed = false;
     private int state = 0;
+    private boolean direction = false;  // false --> left, true --> right  (probably a dumb way to do this :3)
 
     private Menu m;
     private int speed = 3; //
@@ -60,7 +61,14 @@ public class Cat extends Entities{
         g.drawImage(catImage.getImage(), super.getX(), super.getY()-drawSizeY, super.getX()+drawSizeX, super.getY(), 0, 0, imgSizeX, imgSizeY, null);
     }
     public void drawState(int n, Graphics g) {
-        g.drawImage(catImage.getImage(), super.getX(), super.getY()-drawSizeY, super.getX()+drawSizeX, super.getY(), 0+(imgSizeX*n), 0, imgSizeX+(imgSizeX*n), imgSizeY, null);
+        // if statement handles pointing left or right
+        if (direction){
+            g.drawImage(catImage.getImage(), super.getX(), super.getY()-drawSizeY, super.getX()+drawSizeX, super.getY(), imgSizeX+(imgSizeX*n), 0, 0+(imgSizeX*n), imgSizeY, null);
+        }
+        else {
+            g.drawImage(catImage.getImage(), super.getX(), super.getY()-drawSizeY, super.getX()+drawSizeX, super.getY(), 0+(imgSizeX*n), 0, imgSizeX+(imgSizeX*n), imgSizeY, null);
+        }
+        
     }
     /* 
     public boolean withinBounds(int x, int y) {
@@ -108,7 +116,9 @@ public class Cat extends Entities{
     public void setState(int n) {
         state = n;
     }
-
+    public void setDirection(boolean d) {
+        direction = d;
+    }
     public void repaint() {
         m.repaint();
     }
