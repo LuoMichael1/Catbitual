@@ -47,15 +47,20 @@ class UpdateState implements Runnable {
     public void run() {
         int tempState = 0;
         
+        if (cat.getGrabbed()) {
+            tempState = 1;
+        }
 
         //tempState = (int)(Math.floor(Math.random()*7));
 
         if (tempState == 0) {
             state = "Walk";
-            walk ();
+            cat.setState(0);
+            walk();
         }
         else if (tempState == 1) {
             state = "Grabbed";
+            cat.setState(1);
         }
         else if (tempState == 2) {
             state = "Idle";
@@ -72,21 +77,25 @@ class UpdateState implements Runnable {
         else {
             state = "Petted";
         }
-        System.out.println(state);
+        //System.out.println(state);
+        cat.repaint();
     }
 
     private int count = 0;
     int x = 0;
     int y = 0;
     public void walk () {
-        // pick a place on the screen to move towards
         
-        if (count%100 == 0) {
+        // pick a place on the screen to move towards
+        if (count == 0) {
             x = (int)(Math.random()*Main.width);
             y = (int)(Math.random()*(Main.height-Room.floorHeight))+Room.floorHeight;    
         }
         count++;
-        System.out.println(count);
+        if (count == 85) {
+            count =0;
+        }
+        //System.out.println(count);
 
         // move the cat towards the objective
         // we currently do not normalize the diagnonal movement :3
@@ -126,7 +135,7 @@ class UpdateState implements Runnable {
             }
         }
 
-        System.out.println("testing");
-        cat.repaint();
+        //System.out.println("testing");
+        
     }
 }

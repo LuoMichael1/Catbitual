@@ -10,6 +10,8 @@ public class Cat extends Entities{
     
     static final int imgSizeX = 256;
     static final int imgSizeY = 256;
+    private int sx1 = 0;  // used for drawing the cat in different directions
+    private int sx2 = 0;  // matches with the drawimage function
     private String breed;
     private double food;
     private double water;
@@ -18,8 +20,9 @@ public class Cat extends Entities{
     private static int drawSizeY = (int)(300*Main.scaleY);
 
     // states for the cat
-    private boolean grabbed = false;
     private int state = 0;
+    private int step = 0;  // iterator for animations
+    private boolean grabbed = false;
     private boolean direction = false;  // false --> left, true --> right  (probably a dumb way to do this :3)
 
     private Menu m;
@@ -60,15 +63,33 @@ public class Cat extends Entities{
     public void draw(Graphics g) {
         g.drawImage(catImage.getImage(), super.getX(), super.getY()-drawSizeY, super.getX()+drawSizeX, super.getY(), 0, 0, imgSizeX, imgSizeY, null);
     }
-    public void drawState(int n, Graphics g) {
-        // if statement handles pointing left or right
-        if (direction){
-            g.drawImage(catImage.getImage(), super.getX(), super.getY()-drawSizeY, super.getX()+drawSizeX, super.getY(), imgSizeX+(imgSizeX*n), 0, 0+(imgSizeX*n), imgSizeY, null);
+    public void drawState(Graphics g) {
+        // wandering state
+        if (state == 0) {
+            // updates the animation step (this should be in the catAI because any call to draw the cat will update this)
+            step++;
+            if (step >= 6) {
+                step = 0;
+            }
         }
-        else {
-            g.drawImage(catImage.getImage(), super.getX(), super.getY()-drawSizeY, super.getX()+drawSizeX, super.getY(), 0+(imgSizeX*n), 0, imgSizeX+(imgSizeX*n), imgSizeY, null);
+        // draw the grab state
+        else if (state == 1) {
+            step++;
+            if (step >= 13 || step < 9) {
+                step = 9;
+            }
         }
         
+        // if statement handles pointing left or right
+        if (direction){
+            sx1 = imgSizeX+(imgSizeX*step);
+            sx2 = imgSizeX*step;
+        }
+        else {
+            sx1 = imgSizeX*step;
+            sx2 = imgSizeX+(imgSizeX*step);
+        }
+        g.drawImage(catImage.getImage(), super.getX(), super.getY()-drawSizeY, super.getX()+drawSizeX, super.getY(), sx1, 0, sx2, imgSizeY, null);        
     }
     /* 
     public boolean withinBounds(int x, int y) {
