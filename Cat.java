@@ -26,7 +26,7 @@ public class Cat extends Entities{
     private boolean direction = false;  // false --> left, true --> right  (probably a dumb way to do this :3)
 
     private Menu m;
-    private int speed = 3; //
+    private int speed = 4; //
 
 
     public Cat (String name, int xPos, int yPos, String breed, double water, double happiness, Menu m) {

@@ -37,7 +37,7 @@ class UpdateState implements Runnable {
     private String state = "";
     private Cat cat;
     private int lastPosX = 0;//cat.xPos; // this is only for the grabbing animations so we can tell if the mouse moved
-
+    private int swayBuffer = 0; // if the cat was being dragged, gives a buffer of one tick to keep it dragged - prevents switching between still and moving while being dragged
 
     public UpdateState(Cat cat) {
         this.cat = cat;
@@ -144,9 +144,11 @@ class UpdateState implements Runnable {
 
     public void animateGrab() {
         cat.setStep(cat.getStep()+1);;
-
-        // if cat is being held in place
-        if (lastPosX == cat.xPos) {
+        if (swayBuffer > 0) {
+            swayBuffer--;
+        }
+        // if cat is being held in place, the +7 acts as a buffer so small movements still count
+        if (lastPosX >= cat.xPos-7 && lastPosX <= cat.xPos+7 && swayBuffer==0) {
             if (cat.getStep() >= 13 || cat.getStep() < 9) {
                 cat.setStep(9);
             }
@@ -162,15 +164,16 @@ class UpdateState implements Runnable {
             //cat moved right
             else {
                 if (cat.getStep() >= 34 || cat.getStep() < 30) {
-                    cat.setStep(30);
+                    cat.setStep(31);
                 }
             }
+            swayBuffer = 2;
         }
         else {
             //cat moved right
             if (lastPosX > cat.xPos) {
                 if (cat.getStep() >= 34 || cat.getStep() < 30) {
-                    cat.setStep(30);
+                    cat.setStep(31);
                 }
             }
             // cat moved left
@@ -179,7 +182,10 @@ class UpdateState implements Runnable {
                     cat.setStep(26);
                 }   
             }
-            
+            swayBuffer = 2;
+        }
+        if (lastPosX == cat.xPos && swayBuffer != 0) {
+            swayBuffer--;
         }
         lastPosX = cat.xPos;  
     }
