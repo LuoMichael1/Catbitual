@@ -3,12 +3,13 @@ import java.awt.Graphics;
 import javax.swing.ImageIcon;
 
 public class Furniture extends Entities{
-    private ImageIcon image = new ImageIcon("Assets/Images/blackcat.png");
+    private ImageIcon image;// = new ImageIcon("Assets/Images/blackcat.png");
     
     static final int imgSizeX = 256; // the width of the image file
     static final int imgSizeY = 256; // the height of the image file
-    private static int drawSizeX = (int)(400*Main.scaleY);
-    private static int drawSizeY = (int)(400*Main.scaleY);
+    private static int drawSizeX = (int)(600*Main.scaleY);
+    private static int drawSizeY = (int)(600*Main.scaleY);
+    private static double imageScaler = 1;
     private boolean grabbed = false;
 
 
@@ -19,7 +20,7 @@ public class Furniture extends Entities{
         super("test", 100, 100, imgSizeX, imgSizeY, drawSizeX, drawSizeX);
     }
     public Furniture(ImageIcon image) {
-        super("test", 100, 100, imgSizeX, imgSizeY, drawSizeX, drawSizeY, image);
+        super("test", 300, 500, image.getIconWidth(), image.getIconHeight(), (int)(image.getIconWidth()*imageScaler), (int)(image.getIconHeight()*imageScaler), image);
         this.image = image;
     }
     
@@ -37,10 +38,10 @@ public class Furniture extends Entities{
 
 
     public void draw(Graphics g) {
-        g.drawImage(image.getImage(), super.getX(), super.getY()-drawSizeY, super.getX()+drawSizeX, super.getY(), 0, 0, imgSizeX, imgSizeY, null);
+        g.drawImage(image.getImage(), super.getX(), super.getY()-(int)(image.getIconHeight()*imageScaler), super.getX()+(int)(image.getIconWidth()*imageScaler), super.getY(), 0, 0, image.getIconWidth(), image.getIconHeight(), null);
     }
     public void drawState(Graphics g) {
-        g.drawImage(image.getImage(), super.getX(), super.getY()-drawSizeY, super.getX()+drawSizeX, super.getY(), 0, 0, imgSizeX, imgSizeY, null);
+        g.drawImage(image.getImage(), super.getX(), super.getY()-(int)(image.getIconHeight()*imageScaler), super.getX()+(int)(image.getIconWidth()*imageScaler), super.getY(), 0, 0, image.getIconWidth(), image.getIconHeight(), null);
     }
 
     public boolean getGrabbed() {
