@@ -45,7 +45,7 @@ public class PetStore extends JScrollPane implements ActionListener{
             JPanel j = new JPanel();
             ImageIcon img = new ImageIcon("Assets/Images/Furniture/" + imageFile.get(i));
             images.add(img);
-            JButton b = new JButton(new ImageIcon(images.get(i).getImage().getScaledInstance((int)(Main.width/5.0*Main.scaleX), (int)(Main.width/5.0*Main.scaleX), Image.SCALE_SMOOTH)));
+            JButton b = new JButton(new ImageIcon(images.get(i).getImage().getScaledInstance(Main.width/5, Main.width/5, Image.SCALE_SMOOTH)));
             b.addActionListener(this);
             j.setBackground(new Color(240, 240, 240));
             j.add(b);
