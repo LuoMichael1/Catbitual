@@ -4,20 +4,20 @@ import javax.swing.ImageIcon;
 
 public class Cat extends Entities{
     
-    static ImageIcon basicCatImage = new ImageIcon("Assets/Images/tempanimatedcat.png");
-    static ImageIcon grabbedCatImage = new ImageIcon("Assets/Images/tempanimatedcat.png");
+    static ImageIcon basicCatImage = new ImageIcon("Assets/Images/animatedcattrimed.png");
+    static ImageIcon grabbedCatImage = new ImageIcon("Assets/Images/animatedcattrimed.png");
     private ImageIcon catImage = basicCatImage;
     
     static final int imgSizeX = 256;
-    static final int imgSizeY = 256;
+    static final int imgSizeY = 154;
     private int sx1 = 0;  // used for drawing the cat in different directions
     private int sx2 = 0;  // matches with the drawimage function
     private String breed;
     private double food;
     private double water;
     private double happiness;
-    private static int drawSizeX = (int)(330*Main.scaleY);
-    private static int drawSizeY = (int)(330*Main.scaleY);
+    private static int drawSizeX = (int)(256*Main.scaleY*1.1);
+    private static int drawSizeY = (int)(154*Main.scaleY*1.1);
 
     // states for the cat
     private int state = 0;
