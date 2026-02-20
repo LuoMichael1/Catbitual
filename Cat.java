@@ -16,8 +16,8 @@ public class Cat extends Entities{
     private double food;
     private double water;
     private double happiness;
-    private static int drawSizeX = (int)(300*Main.scaleY);
-    private static int drawSizeY = (int)(300*Main.scaleY);
+    private static int drawSizeX = (int)(330*Main.scaleY);
+    private static int drawSizeY = (int)(330*Main.scaleY);
 
     // states for the cat
     private int state = 0;
