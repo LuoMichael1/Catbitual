@@ -18,6 +18,9 @@ public class PetStore extends JScrollPane implements ActionListener{
     private ArrayList<ImageIcon> images = new ArrayList<ImageIcon>();
     private Menu m;
     private ArrayList<String> imageFile = new ArrayList<String>(); 
+    private double previewImageWidth = 0;
+    private double previewImageHeight = 0;
+    private double previewImageScale = 1;
 
     public PetStore(Menu m) {
         
@@ -44,8 +47,21 @@ public class PetStore extends JScrollPane implements ActionListener{
         for (int i=0; i<imageFile.size(); i++) {
             JPanel j = new JPanel();
             ImageIcon img = new ImageIcon("Assets/Images/Furniture/" + imageFile.get(i));
+            
             images.add(img);
-            JButton b = new JButton(new ImageIcon(images.get(i).getImage().getScaledInstance(Main.width/5, Main.width/5, Image.SCALE_SMOOTH)));
+
+
+            //resize image so that they are half the size of the menu, while not being stretched
+            if (images.get(i).getIconWidth() > images.get(i).getIconHeight()) {
+                previewImageScale = Main.width/5.0/images.get(i).getIconWidth();
+            }
+            else {
+                previewImageScale = Main.width/5.0/images.get(i).getIconHeight();
+            }
+            previewImageWidth = images.get(i).getIconWidth()*previewImageScale;
+            previewImageHeight = images.get(i).getIconHeight()*previewImageScale;
+
+            JButton b = new JButton(new ImageIcon(images.get(i).getImage().getScaledInstance((int)previewImageWidth, (int)previewImageHeight, Image.SCALE_SMOOTH)));
             b.addActionListener(this);
             j.setBackground(new Color(240, 240, 240));
             j.add(b);
