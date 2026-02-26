@@ -1,5 +1,32 @@
+import java.io.File;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Scanner;
+
 public class TaskList{
     TaskNode root;
+    Scanner filesc;
+    private int counter = 0;
+    
+    public TaskList() {
+        try {
+            filesc = new Scanner(new File("Userdata/tasklist.txt"));
+            
+            while (filesc.hasNextLine()) {
+                String name = filesc.nextLine();   // I put the name on a different line so accidental injection is a little easier to deal with
+                String data = filesc.nextLine();
+                
+                // parse the data line
+                String[] dataArray = data.split(",");
+                int priority = Integer.parseInt(dataArray[0]);
+                boolean isSubTask = dataArray[1].equals("t");
+                boolean complete = dataArray[2].equals("t");
+                enList(new TaskNode(counter++, name, priority, isSubTask, complete, LocalDateTime.parse(dataArray[3]), LocalDateTime.parse(dataArray[4])));
+            }
+        } catch (Exception e) {
+            System.out.println("Could not read task file " + e);
+        }
+    }
 
     public boolean isEmpty() {
         return (root==null);

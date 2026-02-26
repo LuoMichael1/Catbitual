@@ -13,11 +13,14 @@ public class TaskNode {
     public TaskNode next = null;
     public TaskNode previous = null;
 
-    public TaskNode(int id, String name, int priority, boolean isSubtask) {
+    public TaskNode(int id, String name, int priority, boolean isSubtask, boolean isComplete, LocalDateTime startDate, LocalDateTime dataArray) {
         this.id = id;
         this.name = name;
         this.priority = priority;
         this.isSubtask = isSubtask;
+        this.startDate = startDate;
+        this.dueDate = dataArray;
+        this.complete = isComplete;
     }
 
     public int getID() {

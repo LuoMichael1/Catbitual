@@ -55,7 +55,7 @@ public class TaskMenu extends ClipMenu{
 
         //scrollPane.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         try {
-            filesc = new Scanner(new File("Userdata/tasklist.txt"));
+            filesc = new Scanner(new File("Userdata/tasklist_Old.txt"));
             //int counter = 0;
             while (filesc.hasNextLine()) {
                 //counter++;
