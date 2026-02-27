@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileWriter;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -7,9 +8,10 @@ public class TaskList{
     TaskNode root;
     Scanner filesc;
     private static int counterID = 0;
+    private String saveFilePath = "Userdata/saved_tasklist.txt";
     
     public TaskList() {
-        initializeFromFile("Userdata/tasklist.txt");
+        initializeFromFile(saveFilePath);
     }
 
     public boolean isEmpty() {
@@ -111,8 +113,41 @@ public class TaskList{
         }
     }
 
-    private void savetoFile(String filepath) {
+    public void savetoFile(String filepath) {
         // go through linked list and write each task into the file
+        try {
+            FileWriter fw = new FileWriter(filepath);
+
+            if (isEmpty()) {
+                fw.write("Nothing Here :3");
+            }
+            else {
+                TaskNode currentNode = root;
+                while (currentNode != null) {
+                    fw.write("" + currentNode.getName().length + "\n");
+                    for (int i=0; i<currentNode.getName().length; i++) {
+                        fw.write("" + currentNode.getName()[i] + "\n");
+                    }
+
+                    char subtask = 'f';
+                    char complete = 'f';
+                    if (currentNode.getIsSubTask()) {
+                        subtask = 't';
+                    }
+                    if (currentNode.getIsComplete()) {
+                        complete = 't';
+                    }
+                    fw.write("" + currentNode.getPriority() + "," + subtask + "," + complete + "," + currentNode.getStarTime() + "," + currentNode.getEndTime() + "\n");
+                    currentNode = currentNode.next;
+                }
+            }
+            
+            fw.close();
+
+        } catch (Exception e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
 
     

@@ -107,7 +107,11 @@ public class TaskMenu extends ClipMenu implements ActionListener{
             scrollPanel.add(j,0);
             scrollPanel.revalidate();
             System.out.println("Added Task");
+
+            tk.savetoFile("Userdata/saved_tasklist.txt");
         }
     }
+
+
     
 }
