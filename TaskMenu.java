@@ -15,6 +15,8 @@ public class TaskMenu extends ClipMenu{
 
     public TaskMenu(String title) {
         super(title);
+
+        int SCROLLSPEED = (int)(8*Main.scaleY);
         
         //add all the tasks to the to-do list;
         TaskList tk = new TaskList();
@@ -58,11 +60,14 @@ public class TaskMenu extends ClipMenu{
             j.setLayout(new GridLayout(1,1));
             j.add(new Task(currentNode.getName(), currentNode.getEndTime(), currentNode.getPriority()));
             scrollPanel.add(j);
-            
+
             currentNode = currentNode.next;
         }
         JScrollPane scrollPane = new JScrollPane(scrollPaneloutside);
         scrollPane.setBorder(null);
+                
+        // Make scrolling faster
+        scrollPane.getVerticalScrollBar().setUnitIncrement(SCROLLSPEED); // default is around 1-10
 
         JPanel footerContainer = new JPanel();
         RoundedPanel footer = new RoundedPanel();
