@@ -6,34 +6,10 @@ import java.util.Scanner;
 public class TaskList{
     TaskNode root;
     Scanner filesc;
-    private int counter = 0;
+    private static int counterID = 0;
     
     public TaskList() {
-        try {
-            filesc = new Scanner(new File("Userdata/tasklist.txt"));
-            
-            while (filesc.hasNextInt()) {
-                int n = filesc.nextInt();          // get number of subtasks + task
-                filesc.nextLine();
-                String[] name = new String[n];
-                for (int i=0; i<n; i++) {
-                    name[i] = filesc.nextLine();   // place all of the text into a single array
-                }
-                String data = filesc.nextLine();
-                
-                System.out.println(Arrays.toString(name));
-                System.out.println(data);
-
-                // parse the data line
-                String[] dataArray = data.split(",");
-                int priority = Integer.parseInt(dataArray[0]);
-                boolean isSubTask = dataArray[1].equals("t");
-                boolean complete = dataArray[2].equals("t");
-                addEnd(new TaskNode(counter++, name, priority, isSubTask, complete, LocalDateTime.parse(dataArray[3]), LocalDateTime.parse(dataArray[4])));
-            }
-        } catch (Exception e) {
-            System.out.println("Could not read task file " + e);
-        }
+        initializeFromFile("Userdata/tasklist.txt");
     }
 
     public boolean isEmpty() {
@@ -105,5 +81,45 @@ public class TaskList{
    
     public void sort() {
         
+    }
+
+    private void initializeFromFile(String filepath) {
+        try {
+            filesc = new Scanner(new File(filepath));
+            
+            while (filesc.hasNextInt()) {
+                int n = filesc.nextInt();          // get number of subtasks + task
+                filesc.nextLine();
+                String[] name = new String[n];
+                for (int i=0; i<n; i++) {
+                    name[i] = filesc.nextLine();   // place all of the text into a single array
+                }
+                String data = filesc.nextLine();
+                
+                System.out.println(Arrays.toString(name));
+                System.out.println(data);
+
+                // parse the data line
+                String[] dataArray = data.split(",");
+                int priority = Integer.parseInt(dataArray[0]);
+                boolean isSubTask = dataArray[1].equals("t");
+                boolean complete = dataArray[2].equals("t");
+                addEnd(new TaskNode(counterID++, name, priority, isSubTask, complete, LocalDateTime.parse(dataArray[3]), LocalDateTime.parse(dataArray[4])));
+            }
+        } catch (Exception e) {
+            System.out.println("Could not read task file " + e);
+        }
+    }
+
+    private void savetoFile(String filepath) {
+        // go through linked list and write each task into the file
+    }
+
+    
+    public int getCounterID() {
+        return counterID;
+    }
+    public void incrementCounterID() {
+        counterID++;
     }
 }
