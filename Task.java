@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.time.LocalDateTime;
 
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -11,11 +12,11 @@ public class Task extends RoundedPanel{
 
     private String[] title;
     private String description; 
-    private int deadLine; 
+    private LocalDateTime deadLine; 
     private int priority;
     private double timeSpent; 
 
-    public Task(String[] title, String description, int deadLine, int priority) {
+    public Task(String[] title, String description, LocalDateTime deadLine, int priority) {
         super(40, false);
         this.title = title;
         this.description = description;
@@ -25,8 +26,17 @@ public class Task extends RoundedPanel{
         initializeTask();
         repaint();
     }
+    public Task(String[] title, LocalDateTime deadLine, int priority) {
+        super(40, false);
+        this.title = title;
+        this.deadLine = deadLine;
+        this.priority = priority;
 
-    public Task(String[] title, String description, int deadLine) {
+        initializeTask();
+        repaint();
+    }
+
+    public Task(String[] title, String description, LocalDateTime deadLine) {
         super(40, false);
         this.title = title;
         this.description = description;
@@ -125,7 +135,7 @@ public class Task extends RoundedPanel{
 
 
 
-    public int getDeadLine() {
+    public LocalDateTime getDeadLine() {
         return deadLine;
     }
     public String getDescription() {

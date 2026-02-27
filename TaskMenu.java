@@ -4,9 +4,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -18,10 +16,10 @@ public class TaskMenu extends ClipMenu{
     public TaskMenu(String title) {
         super(title);
         
-        //add all the tasks to the to-do list
-        Scanner filesc;
-        ArrayList<String[]> taskdata = new ArrayList<String[]>();
-        
+        //add all the tasks to the to-do list;
+        TaskList tk = new TaskList();
+        TaskNode currentNode = tk.getRoot();
+
         JPanel scrollPanel = new JPanel();
         JPanel scrollPaneloutside = new JPanel();
         scrollPaneloutside.setLayout(new GridBagLayout());
@@ -47,41 +45,21 @@ public class TaskMenu extends ClipMenu{
         spacer = new JPanel();
         spacer.setBackground(Color.WHITE);
         scrollPaneloutside.add(spacer, c);
-
         
         scrollPanel.setBackground(Color.WHITE);
         scrollPanel.setBorder(BorderFactory.createLineBorder(Color.white,7));
         scrollPanel.setLayout(new BoxLayout(scrollPanel, BoxLayout.Y_AXIS));
-
-        //scrollPane.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        try {
-            filesc = new Scanner(new File("Userdata/tasklist_Old.txt"));
-            //int counter = 0;
-            while (filesc.hasNextLine()) {
-                //counter++;
-                //System.out.println("Count: " + counter);
-                int temp = filesc.nextInt();
-                filesc.nextLine();
-                String[] tasks = new String[temp];
-
-                for (int i=0; i<temp; i++) {
-                    tasks[i] = (filesc.nextLine());
-                }
-                taskdata.add(tasks);
-            }
-        } catch (Exception e) {
-            System.out.println("Could not read task file " + e);
-        }
-        //System.out.print(taskdata.toString());
         
-        for (int i=0; i<taskdata.size(); i++) {
+        while(currentNode != null) {
             // create a jpanel to put the task in so that padding can be added
             JPanel j = new JPanel();
             j.setBorder(BorderFactory.createLineBorder(Color.white,2));
             j.setOpaque(false);
             j.setLayout(new GridLayout(1,1));
-            j.add(new Task(taskdata.get(i), "Testing", 10, i));
+            j.add(new Task(currentNode.getName(), currentNode.getEndTime(), currentNode.getPriority()));
             scrollPanel.add(j);
+            
+            currentNode = currentNode.next;
         }
         JScrollPane scrollPane = new JScrollPane(scrollPaneloutside);
         scrollPane.setBorder(null);
