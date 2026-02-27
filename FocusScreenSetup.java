@@ -45,7 +45,7 @@ public class FocusScreenSetup extends JPanel implements MouseListener, ActionLis
     }
 
     public void mouseClicked(MouseEvent e) {
-        Main.showCard("FocusScreen");
+        Main.showCard("Menu");
     }
     public void mousePressed(MouseEvent e) {
     }
