@@ -16,7 +16,7 @@ import com.formdev.flatlaf.FlatClientProperties;
     
 public class FocusScreenSetup extends JPanel implements MouseListener, ActionListener{
 
-    private FocusScreen fcs;
+    private FocusScreen fcs = new FocusScreen();
     private JButton b1;
     private JButton b2;
 
@@ -40,6 +40,8 @@ public class FocusScreenSetup extends JPanel implements MouseListener, ActionLis
         b2.addActionListener(this);
         this.add(b1);
         this.add(b2);
+
+        Main.addCard(fcs, "FocusScreen");
     }
 
     public void mouseClicked(MouseEvent e) {
@@ -67,14 +69,14 @@ public class FocusScreenSetup extends JPanel implements MouseListener, ActionLis
 
         // gets which button was pressed
         if (e.getSource() == b1) {
-            fcs = new FocusScreen(1);
-            Main.addCard(fcs, "FocusScreen");
+            fcs.option(1);
+            fcs.setTime(5);
             fcs.startTimer();
             Main.showCard("FocusScreen");
         }
         else if (e.getSource() == b2) {
-            fcs = new FocusScreen(2);
-            Main.addCard(fcs, "FocusScreen");
+            fcs.option(2);
+            fcs.setTime(0);
             fcs.startTimer();
             Main.showCard("FocusScreen");
         }

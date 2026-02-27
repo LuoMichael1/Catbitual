@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 public class TaskMenu extends ClipMenu implements ActionListener{
-    private JButton addButton = new JButton();
+    private JButton addButton = new JButton("+");
     private int SCROLLSPEED = (int)(8*Main.scaleY);
     private TaskList tk = new TaskList();
     private JPanel scrollPanel = new JPanel();
