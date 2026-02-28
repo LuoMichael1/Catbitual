@@ -93,11 +93,16 @@ class UpdateState implements Runnable {
             x = (int)(Math.random()*Main.width);
             y = (int)(Math.random()*(Main.height-Room.floorHeight))+Room.floorHeight;    
         }
+        // choses a new location to move towards after this amount of time
         count++;
         if (count == 85) {
             count =0;
         }
-        //System.out.println(count);
+        // updates the animation step
+        cat.setStep(cat.getStep()+1);
+        if (cat.getStep() >= 6) {
+            cat.setStep(0);
+        }
 
         // move the cat towards the objective
         // we currently do not normalize the diagnonal movement :3
@@ -143,7 +148,7 @@ class UpdateState implements Runnable {
 
 
     public void animateGrab() {
-        cat.setStep(cat.getStep()+1);;
+        cat.setStep(cat.getStep()+1);
         if (swayBuffer > 0) {
             swayBuffer--;
         }

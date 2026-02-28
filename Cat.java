@@ -64,19 +64,7 @@ public class Cat extends Entities{
         g.drawImage(catImage.getImage(), super.getX(), super.getY()-drawSizeY, super.getX()+drawSizeX, super.getY(), 0, 0, imgSizeX, imgSizeY, null);
     }
     public void drawState(Graphics g) {
-        // wandering state
-        if (state == 0) {
-            // updates the animation step (this should be in the catAI because any call to draw the cat will update this)
-            step++;
-            if (step >= 6) {
-                step = 0;
-            }
-        }
-        // draw the grab state
-        else if (state == 1) {
-            
-        }
-        
+    
         // if statement handles pointing left or right
         if (direction){
             sx1 = imgSizeX+(imgSizeX*step);
@@ -131,8 +119,8 @@ public class Cat extends Entities{
     public int getState() {
         return state;
     }
-    public void setState(int n) {
-        state = n;
+    public void setState(int state) {
+        this.state = state;
     }
     public void setDirection(boolean d) {
         direction = d;

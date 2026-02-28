@@ -119,7 +119,6 @@ public class PetStore extends JScrollPane implements ActionListener{
             g.weightx = 1; 
             g.weighty = 1;                         
             g.ipadx = 30;
-            g.ipady = 5;
             g.insets = new Insets(15, 15, 15, 15); // nudges the price to the bottom left corner
             p.add(p2, g);
             
