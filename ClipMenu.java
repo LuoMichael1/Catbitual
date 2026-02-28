@@ -2,11 +2,7 @@
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-
 import javax.swing.BorderFactory;
-
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 
 public class ClipMenu extends RoundedPanel{
