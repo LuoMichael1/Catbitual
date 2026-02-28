@@ -26,7 +26,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     private ImageIcon fish = new ImageIcon("Assets/Icons/fish.png");
     private ImageIcon settings = new ImageIcon("Assets/Icons/cog.png");
 
-    int buttonSize = 90;
+    private int buttonSize = 90;
     
     public Menu() {
         

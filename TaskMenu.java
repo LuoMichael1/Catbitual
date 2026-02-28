@@ -40,20 +40,9 @@ public class TaskMenu extends ClipMenu implements ActionListener{
         c.fill = GridBagConstraints.HORIZONTAL;
         scrollPaneloutside.add(scrollPanel,c);
         
-        c.weightx = 0;
-        c.gridx = 0;
-        c.fill = GridBagConstraints.VERTICAL;
-        JPanel spacer = new JPanel();
-        spacer.setBackground(Color.WHITE);
-        scrollPaneloutside.add(spacer, c);
-
-        c.gridx = 2;
-        spacer = new JPanel();
-        spacer.setBackground(Color.WHITE);
-        scrollPaneloutside.add(spacer, c);
-        
         scrollPanel.setBackground(Color.WHITE);
-        scrollPanel.setBorder(BorderFactory.createLineBorder(Color.white,7));
+        //scrollPanel.setBorder(BorderFactory.createLineBorder(Color.red,7));
+        scrollPanel.setBorder(BorderFactory.createMatteBorder(7,(int)(30*Main.scaleX),(int)(100*Main.scaleX),(int)(30*Main.scaleX),Color.white));
         scrollPanel.setLayout(new BoxLayout(scrollPanel, BoxLayout.Y_AXIS));
         
         // adds the individual tasks to the menu
@@ -61,7 +50,7 @@ public class TaskMenu extends ClipMenu implements ActionListener{
         while(currentNode != null) {
             // create a jpanel to put the task in so that padding can be added
             JPanel j = new JPanel();
-            j.setBorder(BorderFactory.createLineBorder(Color.white,2));
+            j.setBorder(BorderFactory.createMatteBorder(4,0,0,0,Color.white));
             j.setOpaque(false);
             j.setLayout(new GridLayout(1,1));
             j.add(new Task(currentNode.getName(), currentNode.getEndTime(), currentNode.getPriority()));
@@ -75,12 +64,6 @@ public class TaskMenu extends ClipMenu implements ActionListener{
                 
         // Make scrolling faster
         scrollPane.getVerticalScrollBar().setUnitIncrement(SCROLLSPEED); 
-
-        JPanel footerContainer = new JPanel();
-        footerContainer.setPreferredSize(new Dimension((int)(ClipMenu.menuWidth*0.9),100));
-        footerContainer.setOpaque(false);
-        footerContainer.setBorder(BorderFactory.createLineBorder(Color.white,10));  // used to create some margin around the footer
-        scrollPanel.add(footerContainer);
 
         this.add(scrollPane);
     }
