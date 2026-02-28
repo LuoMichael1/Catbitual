@@ -31,7 +31,7 @@ public class PetStore extends JScrollPane implements ActionListener{
     private double previewImageWidth = 0;
     private double previewImageHeight = 0;
     private double previewImageScale = 1;
-    private int SCROLLSPEED = (int)(8*Main.scaleY);
+    private int SCROLLSPEED = (int)(10*Main.scaleY);
     private Menu m;
     private JPanel scrollPanel = new JPanel();
 

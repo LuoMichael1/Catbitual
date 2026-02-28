@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class ClipMenu extends RoundedPanel{
     public static int menuWidth = 0;
@@ -12,7 +13,6 @@ public class ClipMenu extends RoundedPanel{
     private JLabel h1;
 
     public ClipMenu(String title) {
-
         initializeSize();
         this.setBackground(Color.WHITE);
         this.setLayout(new BorderLayout());
@@ -25,6 +25,10 @@ public class ClipMenu extends RoundedPanel{
         this.setEnabled(false);
         this.setVisible(false);
     }
+    public void replaceheader(JPanel p) {
+        this.add(p, BorderLayout.NORTH);
+    }
+
 
     public void toggleVisibility() {
         if (this.isVisible()) {
