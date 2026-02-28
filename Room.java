@@ -7,7 +7,7 @@ public class Room {
     static ImageIcon roomImage = new ImageIcon("Assets/Images/roombg.png");
     static final int roomSizeX = 640;
     static final int roomSizeY = 360;
-    static final int floorHeight = 310;   // the distance from the top of the screen to the start of the floor in pixels
+    static final int floorHeight = (int)(440*Main.scaleY);   // the distance from the top of the screen to the start of the floor in pixels
 
     // draws the room in the center of the screen
     public void drawRoom(Graphics g) {

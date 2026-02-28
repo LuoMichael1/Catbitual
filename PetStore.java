@@ -72,7 +72,7 @@ public class PetStore extends JScrollPane implements ActionListener{
             previewImageWidth = images.get(i).getIconWidth()*previewImageScale;
             previewImageHeight = images.get(i).getIconHeight()*previewImageScale;
 
-            // makes the display functional
+            // makes clicking on a display functional
             JButton b = new JButton(new ImageIcon(images.get(i).getImage().getScaledInstance((int)previewImageWidth, (int)previewImageHeight, Image.SCALE_SMOOTH)));
             b.setContentAreaFilled(false);
             b.setBorderPainted(false);

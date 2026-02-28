@@ -3,7 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class RoundedPanel extends JPanel {
-    private int cornerRadius = 40;
+    private int cornerRadius = (int)(40*Main.scaleX);
     private boolean drawOutline = false;
 
     public RoundedPanel() {
