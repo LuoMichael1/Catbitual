@@ -1,4 +1,4 @@
-
+// The gui part of the to-do list
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -7,7 +7,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
-
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -17,8 +16,9 @@ import javax.swing.JScrollPane;
 public class TaskMenu extends ClipMenu implements ActionListener{
     private JButton addButton = new JButton("+");
     private int SCROLLSPEED = (int)(8*Main.scaleY);
-    private TaskList tk = new TaskList();
+    private TaskList taskList = new TaskList();
     private JPanel scrollPanel = new JPanel();
+    private JPanel scrollPaneloutside = new JPanel();
 
     public TaskMenu(String title) {
         super(title);
@@ -28,10 +28,7 @@ public class TaskMenu extends ClipMenu implements ActionListener{
 
         //super.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         //add all the tasks to the to-do list;
-        TaskNode currentNode = tk.getRoot();
-
         
-        JPanel scrollPaneloutside = new JPanel();
         scrollPaneloutside.setLayout(new GridBagLayout());
 
         GridBagConstraints c = new GridBagConstraints();
@@ -41,7 +38,6 @@ public class TaskMenu extends ClipMenu implements ActionListener{
         c.gridx = 1;
         c.anchor = GridBagConstraints.PAGE_START;
         c.fill = GridBagConstraints.HORIZONTAL;
-        
         scrollPaneloutside.add(scrollPanel,c);
         
         c.weightx = 0;
@@ -60,6 +56,8 @@ public class TaskMenu extends ClipMenu implements ActionListener{
         scrollPanel.setBorder(BorderFactory.createLineBorder(Color.white,7));
         scrollPanel.setLayout(new BoxLayout(scrollPanel, BoxLayout.Y_AXIS));
         
+        // adds the individual tasks to the menu
+        TaskNode currentNode = taskList.getRoot();
         while(currentNode != null) {
             // create a jpanel to put the task in so that padding can be added
             JPanel j = new JPanel();
@@ -71,18 +69,17 @@ public class TaskMenu extends ClipMenu implements ActionListener{
 
             currentNode = currentNode.next;
         }
+
         JScrollPane scrollPane = new JScrollPane(scrollPaneloutside);
         scrollPane.setBorder(null);
                 
         // Make scrolling faster
-        scrollPane.getVerticalScrollBar().setUnitIncrement(SCROLLSPEED); // default is around 1-10
+        scrollPane.getVerticalScrollBar().setUnitIncrement(SCROLLSPEED); 
 
         JPanel footerContainer = new JPanel();
-        RoundedPanel footer = new RoundedPanel();
-        footer.setPreferredSize(new Dimension((int)(ClipMenu.menuWidth*0.8),200));
-        footerContainer.add(footer);
+        footerContainer.setPreferredSize(new Dimension((int)(ClipMenu.menuWidth*0.9),100));
         footerContainer.setOpaque(false);
-        footerContainer.setBorder(BorderFactory.createLineBorder(Color.white,10));
+        footerContainer.setBorder(BorderFactory.createLineBorder(Color.white,10));  // used to create some margin around the footer
         scrollPanel.add(footerContainer);
 
         this.add(scrollPane);
@@ -94,20 +91,20 @@ public class TaskMenu extends ClipMenu implements ActionListener{
         if (e.getSource() == addButton) {
             String[] test = new String[1];
             test[0] = "test1";
-            tk.add(new TaskNode(tk.getCounterID(),test,1,false,false,LocalDateTime.now(), LocalDateTime.now()));
-            tk.incrementCounterID();
+            taskList.add(new TaskNode(taskList.getCounterID(),test,1,false,false,LocalDateTime.now(), LocalDateTime.now()));
+            taskList.incrementCounterID();
 
 
             JPanel j = new JPanel();
             j.setBorder(BorderFactory.createLineBorder(Color.white,2));
             j.setOpaque(false);
             j.setLayout(new GridLayout(1,1));
-            j.add(new Task(tk.getRoot().getName(), tk.getRoot().getEndTime(), tk.getRoot().getPriority()));
+            j.add(new Task(taskList.getRoot().getName(), taskList.getRoot().getEndTime(), taskList.getRoot().getPriority()));
             scrollPanel.add(j,0);
             scrollPanel.revalidate();
             System.out.println("Added Task");
 
-            tk.savetoFile("Userdata/saved_tasklist.txt");
+            taskList.savetoFile("Userdata/saved_tasklist.txt");
         }
     }
 

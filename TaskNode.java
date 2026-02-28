@@ -6,7 +6,6 @@ public class TaskNode {
     private int priority = 0;
     private boolean isSubtask = false;
     private boolean complete = false;
-    
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 

@@ -5,26 +5,24 @@ import com.formdev.flatlaf.FlatLightLaf;
 
 public class Main {
 
-    // Constants
     public static CardLayout cardLayout = new CardLayout();
     public static JPanel p = new JPanel(cardLayout);
 
     public static int width = 1920;   // initial width of the display in pixels
     public static int height = 1080;   // initial height of the display in pixels
-
-    // used to scale assets based on screen size
     // updated by the initializeScreenSize function
-    // a value of one corresponds to 1920 x 1080
+    // Used to scale assets based on screen size; the reference size is 1920 x 1080
     public static double scaleX = 1;
     public static double scaleY = 1;
+
 
     public static void main(String[] args) {
         
         // set look and feel
         try {
             UIManager.setLookAndFeel( new FlatLightLaf() );
-        } catch( Exception ex ) {
-            System.err.println( "Failed to initialize LaF" );
+        } catch( Exception e ) {
+            System.err.println( "Failed to initialize LaF " + e);
         }
 
         initializeScreenSize();

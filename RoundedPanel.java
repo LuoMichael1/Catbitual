@@ -1,5 +1,4 @@
-// https://stackoverflow.com/questions/15025092/border-with-rounded-corners-transparency
-
+// Used this source to help achieve the rounded corners: https://stackoverflow.com/questions/15025092/border-with-rounded-corners-transparency
 import javax.swing.*;
 import java.awt.*;
 

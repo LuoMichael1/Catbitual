@@ -16,32 +16,11 @@ public class Task extends RoundedPanel{
     private int priority;
     private double timeSpent; 
 
-    public Task(String[] title, String description, LocalDateTime deadLine, int priority) {
-        super(40, false);
-        this.title = title;
-        this.description = description;
-        this.deadLine = deadLine;
-        this.priority = priority;
-
-        initializeTask();
-        repaint();
-    }
     public Task(String[] title, LocalDateTime deadLine, int priority) {
         super(40, false);
         this.title = title;
         this.deadLine = deadLine;
         this.priority = priority;
-
-        initializeTask();
-        repaint();
-    }
-
-    public Task(String[] title, String description, LocalDateTime deadLine) {
-        super(40, false);
-        this.title = title;
-        this.description = description;
-        this.deadLine = deadLine;
-        this.priority = 0;
 
         initializeTask();
         repaint();
@@ -159,7 +138,6 @@ public class Task extends RoundedPanel{
     public void increasePriority() {
         priority++;
     }
-
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);

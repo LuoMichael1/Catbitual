@@ -9,48 +9,48 @@ public class Cat extends Entities{
     
     static final int imgSizeX = 256;
     static final int imgSizeY = 154;
-    private int sx1 = 0;  // used for drawing the cat in different directions
+    private static int drawSizeX = (int)(256*Main.scaleY*1.1);
+    private static int drawSizeY = (int)(154*Main.scaleY*1.1);
+    private int sx1 = 0;  // updated to flip the cat so that it faces different directions
     private int sx2 = 0;  // matches with the drawimage function
     private String breed;
     private double food;
     private double water;
     private double happiness;
-    private static int drawSizeX = (int)(256*Main.scaleY*1.1);
-    private static int drawSizeY = (int)(154*Main.scaleY*1.1);
 
     // states for the cat
     private int state = 0;
     private int step = 0;  // iterator for animations
     private boolean grabbed = false;
     private boolean direction = false;  // false --> left, true --> right  (probably a dumb way to do this :3)
-
+    private CatAI brain;
     private Menu m;
     private int speed = 4; //
 
-
+    // currently unused
     public Cat (String name, int xPos, int yPos, String breed, double water, double happiness, Menu m) {
-        super(name, xPos, yPos, imgSizeX, imgSizeY, drawSizeX, drawSizeY);
+        super(name, xPos, yPos, drawSizeX, drawSizeY);
         this.breed = breed;
         this.water = water;
         this.happiness = happiness;
         this.m = m;
-        CatAI brain = new CatAI(this);
+        brain = new CatAI(this);
     }
+    // in use
     public Cat (String name, int xPos, int yPos, Menu m) {
-        super(name, xPos, yPos, imgSizeX, imgSizeY, drawSizeX, drawSizeY);
+        super(name, xPos, yPos, drawSizeX, drawSizeY);
         breed = "Black";
         water = 100;
         happiness = 100;
         this.m = m;
-        CatAI brain = new CatAI(this);
+        brain = new CatAI(this);
     }
+
     public void grabbed() {
-        //Main.print("Cat Grabbed ----");
         catImage = grabbedCatImage;
         grabbed = true;
     }
     public void dropped() {
-        //Main.print("Cat Dropped ----");
         catImage = basicCatImage;
         grabbed = false;
 
@@ -127,7 +127,6 @@ public class Cat extends Entities{
     public int getSpeed() {
         return speed;
     }
-
     // this is not a single source of truth i think, because the cat AI also has the state
     public int getState() {
         return state;
