@@ -32,9 +32,10 @@ public class PetStore extends JScrollPane implements ActionListener{
         this.m = m;
 
         // creates a small margin around the scrollable part of the menu
-        this.setBorder(BorderFactory.createMatteBorder(0,(int)(30*Main.scaleX),(int)(30*Main.scaleX),(int)(30*Main.scaleX),Color.white));
+        this.setBorder(BorderFactory.createMatteBorder(0,(int)(30*Main.scaleX),0,(int)(30*Main.scaleX),Color.white));
         
-        scrollPanel.setLayout(new GridLayout(0,2, (int)(10*Main.scaleX), (int)(10*Main.scaleX)));
+        // adds margin between each displayed item
+        scrollPanel.setLayout(new GridLayout(0,2, (int)(15*Main.scaleX), (int)(15*Main.scaleX)));
         scrollPanel.setBackground(Color.WHITE);
         
         // Make scrolling faster
@@ -52,7 +53,7 @@ public class PetStore extends JScrollPane implements ActionListener{
             System.out.println(e);
         }   
 
-        // display the items
+        // display items
         for (int i=0; i<imageFile.size(); i++) {
             JPanel j = new RoundedPanel();
             j.setLayout(new BorderLayout());
@@ -60,7 +61,8 @@ public class PetStore extends JScrollPane implements ActionListener{
             
             images.add(img);
 
-            // resize image so that they are half the size of the menu, while not being stretched
+            // resize image so that they fit in the menu, while not being stretched
+            // to achieve this, we scale based on the length of the longest side
             if (images.get(i).getIconWidth() > images.get(i).getIconHeight()) {
                 previewImageScale = Main.width/6.5/images.get(i).getIconWidth();
             }
@@ -70,6 +72,7 @@ public class PetStore extends JScrollPane implements ActionListener{
             previewImageWidth = images.get(i).getIconWidth()*previewImageScale;
             previewImageHeight = images.get(i).getIconHeight()*previewImageScale;
 
+            // makes the display functional
             JButton b = new JButton(new ImageIcon(images.get(i).getImage().getScaledInstance((int)previewImageWidth, (int)previewImageHeight, Image.SCALE_SMOOTH)));
             b.setContentAreaFilled(false);
             b.setBorderPainted(false);
