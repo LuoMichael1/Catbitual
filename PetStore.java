@@ -21,10 +21,11 @@ public class PetStore extends JScrollPane implements ActionListener{
     private double previewImageWidth = 0;
     private double previewImageHeight = 0;
     private double previewImageScale = 1;
+    private int SCROLLSPEED = (int)(8*Main.scaleY);
 
     public PetStore(Menu m) {
-        int SCROLLSPEED = (int)(8*Main.scaleY);
-        
+        this.m = m;
+
         this.setBorder(null);
         JPanel scrollPanel = new JPanel();
         scrollPanel.setLayout(new GridLayout(0,2, 10, 10));
@@ -33,7 +34,6 @@ public class PetStore extends JScrollPane implements ActionListener{
         // Make scrolling faster
         this.getVerticalScrollBar().setUnitIncrement(SCROLLSPEED); // default is around 1-10
 
-        this.m = m;
 
         try {
             Scanner filesc = new Scanner(new File("Assets/Images/Furniture/Catalog.txt"));

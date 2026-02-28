@@ -60,14 +60,14 @@ public class Task extends RoundedPanel{
         c.gridx = 3;
         JPanel j = new JPanel();
         j.setOpaque(false);
-        //j.setBackground(Color.red);
+        j.setBackground(Color.red);
         this.add(j, c);
 
         c.ipadx = 0;
         c.gridx = 0;
         c.gridy = 1;
         j = new JPanel();
-        //j.setBackground(Color.red);
+        j.setBackground(Color.red);
         j.setOpaque(false);
         this.add(j, c);
 

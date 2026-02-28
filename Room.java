@@ -15,7 +15,7 @@ public class Room {
         //super(name, xPos, yPos, roomSizeX, roomSizeY);
         //this.scale = Main.height/((double)roomSizeY);
         //System.out.println("scale: " + scale);
-        System.out.println("Room: " + roomImage.getImageLoadStatus());
+        //System.out.println("Room: " + roomImage.getImageLoadStatus());
     }
     
     public void addEntity(Entities entity) {

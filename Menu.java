@@ -2,10 +2,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Scanner;
-
 
 public class Menu extends JPanel implements MouseListener, KeyListener, MouseMotionListener, ActionListener, ComponentListener{
     
