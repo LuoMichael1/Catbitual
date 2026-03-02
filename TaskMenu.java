@@ -92,7 +92,7 @@ public class TaskMenu extends ClipMenu implements ActionListener{
             j.setBorder(BorderFactory.createMatteBorder(4,0,0,0,Color.white));
             j.setOpaque(false);
             j.setLayout(new GridLayout(1,1));
-            j.add(new Task(currentNode.getName(), currentNode.getEndTime(), currentNode.getPriority(), this, currentNode.getID(),j));
+            j.add(new Task(currentNode, this, j));
             scrollPanel.add(j);
 
             currentNode = currentNode.next;
@@ -120,7 +120,7 @@ public class TaskMenu extends ClipMenu implements ActionListener{
             j.setBorder(BorderFactory.createLineBorder(Color.white,2));
             j.setOpaque(false);
             j.setLayout(new GridLayout(1,1));
-            j.add(new Task(taskList.getRoot().getName(), taskList.getRoot().getEndTime(), taskList.getRoot().getPriority(), this, taskList.getRoot().getID(), j));
+            j.add(new Task(taskList.getRoot(), this, j));
             scrollPanel.add(j,0);
             scrollPanel.revalidate();
             System.out.println("Added Task");
@@ -131,6 +131,15 @@ public class TaskMenu extends ClipMenu implements ActionListener{
 
 
     public void remove(int id, JPanel j) {
+        taskList.remove(id);
+        scrollPanel.remove(j);
+        repaint();
+        revalidate();
+        taskList.savetoFile("Userdata/saved_tasklist.txt");
+    }
+
+    // needs to be fixed
+    public void update(int id, JPanel j) {
         taskList.remove(id);
         scrollPanel.remove(j);
         repaint();

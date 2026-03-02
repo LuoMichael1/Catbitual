@@ -2,17 +2,18 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.time.LocalDateTime;
-
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class Task extends RoundedPanel implements MouseListener, MouseMotionListener{
+public class Task extends RoundedPanel implements MouseListener, MouseMotionListener, ActionListener{
 
     private int id;
     private String[] title;
@@ -21,6 +22,7 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
     private int priority;
     private double timeSpent; 
     private TaskMenu taskmenu;
+    private TaskNode data;
     private JPanel j;
 
     private Color BACK_GROUND_COLOR = new Color(240, 240, 240);
@@ -29,15 +31,18 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
     private JTextField titleLabel;
     private int maxCharacterLength = 20;  // if this is too long it wont look good on thin screens
 
-    public Task(String[] title, String description, LocalDateTime deadLine, int priority) {
+    public Task(TaskNode data, TaskMenu taskmenu, JPanel j) {
         super(40, false);
-        this.title = title;
-        this.description = description;
-        this.deadLine = deadLine;
-        this.priority = priority;
-
+        this.title = data.getName();
+        this.deadLine = data.getEndTime();
+        this.priority = data.getPriority();
+        this.taskmenu = taskmenu; // dependency injection
+        this.id = data.getPriority();
+        this.j = j;
         initializeTask();
         repaint();
+
+        this.addMouseListener(this);
     }
     public Task(String[] title, LocalDateTime deadLine, int priority, TaskMenu taskmenu, int id, JPanel j) {
         super(40, false);
@@ -101,6 +106,7 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
         titleLabel.setFont(FontMaker.p);
         titleLabel.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         titleLabel.setBackground(BACK_GROUND_COLOR);
+        titleLabel.addActionListener(this);
         c.gridwidth = 2;
         c.gridx = 2;
         c.weightx = 0.5;
@@ -121,6 +127,7 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
         c.weightx = 0.0;
         this.add(priorityLabel, c);
 
+        // this handles having subtasks
         for (int i=1; i<title.length; i++) {
             c.gridx = 1;
             c.gridy = i+1;
@@ -222,6 +229,15 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
     public void mouseMoved(MouseEvent e) {
         // TODO Auto-generated method stub
         //throw new UnsupportedOperationException("Unimplemented method 'mouseMoved'");
+    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // TODO Auto-generated method stub
+        // save the new text to the save file
+        if (e.getSource() == titleLabel) {
+            titleLabel.getText();
+        }
+        //throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
     }
 
 }
