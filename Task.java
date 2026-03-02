@@ -2,19 +2,25 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.time.LocalDateTime;
 
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Task extends RoundedPanel{
+public class Task extends RoundedPanel implements MouseListener, MouseMotionListener{
 
+    private int id;
     private String[] title;
     private String description; 
     private LocalDateTime deadLine; 
     private int priority;
     private double timeSpent; 
+    private TaskMenu taskmenu;
+    private JPanel j;
 
     public Task(String[] title, String description, LocalDateTime deadLine, int priority) {
         super(40, false);
@@ -26,14 +32,18 @@ public class Task extends RoundedPanel{
         initializeTask();
         repaint();
     }
-    public Task(String[] title, LocalDateTime deadLine, int priority) {
+    public Task(String[] title, LocalDateTime deadLine, int priority, TaskMenu taskmenu, int id, JPanel j) {
         super(40, false);
         this.title = title;
         this.deadLine = deadLine;
         this.priority = priority;
-
+        this.taskmenu = taskmenu; // dependency injection
+        this.id = id;
+        this.j = j;
         initializeTask();
         repaint();
+
+        this.addMouseListener(this);
     }
 
     public Task(String[] title, String description, LocalDateTime deadLine) {
@@ -164,6 +174,43 @@ public class Task extends RoundedPanel{
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
+    }
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        //
+    }
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // TODO Auto-generated method stub
+        //throw new UnsupportedOperationException("Unimplemented method 'mouseEntered'");
+    }
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // TODO Auto-generated method stub
+        //throw new UnsupportedOperationException("Unimplemented method 'mouseExited'");
+    }
+    @Override
+    public void mousePressed(MouseEvent e) {
+        // TODO Auto-generated method stub
+        //throw new UnsupportedOperationException("Unimplemented method 'mousePressed'");
+        taskmenu.remove(id, j);
+        System.out.println("Hiiii");
+
+    }
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        // TODO Auto-generated method stub
+        //throw new UnsupportedOperationException("Unimplemented method 'mouseReleased'");
+    }
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        // TODO Auto-generated method stub
+        //throw new UnsupportedOperationException("Unimplemented method 'mouseDragged'");
+    }
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        // TODO Auto-generated method stub
+        //throw new UnsupportedOperationException("Unimplemented method 'mouseMoved'");
     }
 
 }

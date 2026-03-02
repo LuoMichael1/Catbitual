@@ -34,7 +34,7 @@ public class TaskMenu extends ClipMenu implements ActionListener{
         JPanel header = new JPanel(new GridBagLayout());
         JLabel h1 = new JLabel(title);
         h1.setBorder(BorderFactory.createEmptyBorder(0, 30, 0, 15));
-        header.setBackground(Color.WHITE);
+        header.setBackground(new Color(0,0,0,0));
         h1.setFont(FontMaker.h1);
         c.gridx = 0;
         c.gridy = 0;
@@ -47,6 +47,7 @@ public class TaskMenu extends ClipMenu implements ActionListener{
         addButton.addActionListener(this);
         addButton.setMargin(new Insets(5, 15, 5, 15)); // makes the button itself a little bigger
         addButton.putClientProperty(FlatClientProperties.BUTTON_TYPE, FlatClientProperties.BUTTON_TYPE_ROUND_RECT); // make corners round
+        addButton.setFont(FontMaker.p);
         c.gridx = 1;
         c.gridy = 0;
         c.weightx = 0;
@@ -91,7 +92,7 @@ public class TaskMenu extends ClipMenu implements ActionListener{
             j.setBorder(BorderFactory.createMatteBorder(4,0,0,0,Color.white));
             j.setOpaque(false);
             j.setLayout(new GridLayout(1,1));
-            j.add(new Task(currentNode.getName(), currentNode.getEndTime(), currentNode.getPriority()));
+            j.add(new Task(currentNode.getName(), currentNode.getEndTime(), currentNode.getPriority(), this, currentNode.getID(),j));
             scrollPanel.add(j);
 
             currentNode = currentNode.next;
@@ -115,12 +116,11 @@ public class TaskMenu extends ClipMenu implements ActionListener{
             taskList.add(new TaskNode(taskList.getCounterID(),test,1,false,false,LocalDateTime.now(), LocalDateTime.now()));
             taskList.incrementCounterID();
 
-
             JPanel j = new JPanel();
             j.setBorder(BorderFactory.createLineBorder(Color.white,2));
             j.setOpaque(false);
             j.setLayout(new GridLayout(1,1));
-            j.add(new Task(taskList.getRoot().getName(), taskList.getRoot().getEndTime(), taskList.getRoot().getPriority()));
+            j.add(new Task(taskList.getRoot().getName(), taskList.getRoot().getEndTime(), taskList.getRoot().getPriority(), this, taskList.getRoot().getID(), j));
             scrollPanel.add(j,0);
             scrollPanel.revalidate();
             System.out.println("Added Task");
@@ -129,6 +129,14 @@ public class TaskMenu extends ClipMenu implements ActionListener{
         }
     }
 
+
+    public void remove(int id, JPanel j) {
+        taskList.remove(id);
+        scrollPanel.remove(j);
+        repaint();
+        revalidate();
+        taskList.savetoFile("Userdata/saved_tasklist.txt");
+    }
 
     
 }

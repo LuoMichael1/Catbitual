@@ -5,8 +5,8 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class TaskList{
-    TaskNode root;
-    Scanner filesc;
+    private TaskNode root;
+    private Scanner filesc;
     private static int counterID = 0;
     private String saveFilePath = "Userdata/saved_tasklist.txt";
     
@@ -79,6 +79,7 @@ public class TaskList{
                 }
             }
         }
+        System.out.println("Task removed" + id);
     }
    
     public void sort() {
