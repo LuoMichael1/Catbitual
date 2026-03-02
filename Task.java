@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class Task extends RoundedPanel implements MouseListener, MouseMotionListener{
 
@@ -21,6 +22,12 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
     private double timeSpent; 
     private TaskMenu taskmenu;
     private JPanel j;
+
+    private Color BACK_GROUND_COLOR = new Color(240, 240, 240);
+
+    //private JLabel titleLabel;
+    private JTextField titleLabel;
+    private int maxCharacterLength = 20;  // if this is too long it wont look good on thin screens
 
     public Task(String[] title, String description, LocalDateTime deadLine, int priority) {
         super(40, false);
@@ -60,7 +67,7 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
     public void initializeTask() {
         this.setFocusable(true);
         this.setVisible(true);
-        this.setBackground(new Color(240, 240, 240));
+        this.setBackground(BACK_GROUND_COLOR);
         this.setLayout(new GridBagLayout());
 
         GridBagConstraints c = new GridBagConstraints();
@@ -90,8 +97,10 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
         c.ipadx = 0;
         c.ipady = 0;
 
-        JLabel titleLabel = new JLabel(title[0]);
+        titleLabel = new JTextField(title[0], maxCharacterLength);
         titleLabel.setFont(FontMaker.p);
+        titleLabel.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        titleLabel.setBackground(BACK_GROUND_COLOR);
         c.gridwidth = 2;
         c.gridx = 2;
         c.weightx = 0.5;
@@ -127,12 +136,14 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
             c.ipadx = 10;
             this.add(ckb, c);
 
-            JLabel t = new JLabel(title[i]);
-            t.setFont(FontMaker.p);
+            titleLabel = new JTextField(title[i], maxCharacterLength);
+            titleLabel.setFont(FontMaker.p);
+            titleLabel.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+            titleLabel.setBackground(BACK_GROUND_COLOR);
             c.gridx = 3;
             c.gridy = i+1;
             //c.weightx = 0.5;
-            this.add(t, c);
+            this.add(titleLabel, c);
 
             c.gridx = 4;
             c.gridy = 0;

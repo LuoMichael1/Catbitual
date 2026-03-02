@@ -112,7 +112,7 @@ public class TaskMenu extends ClipMenu implements ActionListener{
         System.out.println("button pressed" + e);
         if (e.getSource() == addButton) {
             String[] test = new String[1];
-            test[0] = "test1";
+            test[0] = "Untitled Task";
             taskList.add(new TaskNode(taskList.getCounterID(),test,1,false,false,LocalDateTime.now(), LocalDateTime.now()));
             taskList.incrementCounterID();
 
