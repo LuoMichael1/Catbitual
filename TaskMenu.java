@@ -86,6 +86,7 @@ public class TaskMenu extends ClipMenu implements ActionListener{
         
         // adds the individual tasks to the menu
         TaskNode currentNode = taskList.getRoot();
+        //System.out.print(currentNode.getName());
         while(currentNode != null) {
             // create a jpanel to put the task in so that padding can be added
             JPanel j = new JPanel();

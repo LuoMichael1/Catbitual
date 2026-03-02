@@ -102,7 +102,7 @@ public class TaskList{
                 System.out.println(Arrays.toString(name));
                 System.out.println(data);
 
-                // parse the data line
+                // parse the line of data
                 String[] dataArray = data.split(",");
                 int priority = Integer.parseInt(dataArray[0]);
                 boolean isSubTask = dataArray[1].equals("t");
