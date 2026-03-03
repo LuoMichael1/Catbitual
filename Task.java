@@ -44,6 +44,7 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
         initializeGraphics();
         repaint();
         this.addMouseListener(this);
+        this.addMouseMotionListener(this);
     }
 
     public void initializeGraphics() {
@@ -166,18 +167,40 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
         // TODO Auto-generated method stub
         //throw new UnsupportedOperationException("Unimplemented method 'mouseExited'");
     }
+
+
+
+    boolean dragged = false;
+    int x1;
+    int x2;
+    int y1;
+    int y2;
     @Override
     public void mousePressed(MouseEvent e) {
-        // TODO Auto-generated method stub
-        //throw new UnsupportedOperationException("Unimplemented method 'mousePressed'");
-        taskmenu.remove(data.getID(), j);
-        System.out.println("Hiiii");
+        //taskmenu.remove(data.getID(), j);
+        //System.out.println("Hiiii");
 
+        dragged = true;
+        int x1 = e.getXOnScreen();
+        int y1 = e.getYOnScreen();
     }
+    
     @Override
     public void mouseReleased(MouseEvent e) {
-        // TODO Auto-generated method stub
-        //throw new UnsupportedOperationException("Unimplemented method 'mouseReleased'");
+        if (dragged) {
+            dragged = false;
+
+            // first make sure they are indeed dragging to the side, not up or down
+            if (y1 > e.getYOnScreen()-40 && y1 < e.getYOnScreen()+40){
+                // now check if they dragged far enough left
+
+                if (x1+Math.abs(e.getXOnScreen()) > 100) {
+                    taskmenu.remove(data.getID(), j);
+                    System.out.println("Hiiii");
+                }
+
+            }
+        }
     }
     @Override
     public void mouseDragged(MouseEvent e) {
@@ -189,9 +212,8 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
         // TODO Auto-generated method stub
         //throw new UnsupportedOperationException("Unimplemented method 'mouseMoved'");
     }
-    @Override
+    // this only triggers when you press enter in a textfield, which means that a lot of work accidentally is not saved, therefore we need to used focuslistener instead
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
         // save the new text to the save file
         for (int i=0; i<titleLabel.size(); i++) {
             if (e.getSource() == titleLabel.get(i)) {
@@ -201,8 +223,6 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
                 taskmenu.saveList();
             }
         }
-        
-        //throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
     }
 
     @Override
@@ -211,7 +231,6 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
         throw new UnsupportedOperationException("Unimplemented method 'focusGained'");
     }
 
-    @Override
     public void focusLost(FocusEvent e) {
        // save the new text to the save file
         for (int i=0; i<titleLabel.size(); i++) {
