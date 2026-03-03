@@ -8,6 +8,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -22,8 +24,10 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
     private Color BACK_GROUND_COLOR = new Color(240, 240, 240);
 
     //private JLabel titleLabel;
-    private JTextField titleLabel;
-    private int maxCharacterLength = 20;  // if this is too long it wont look good on thin screens
+    //private JTextField titleLabel;
+    private ArrayList<JTextField> titleLabel = new ArrayList<JTextField>();
+
+    private int maxCharacterLength = 20;  // limits how short a task can appear, lower limits allow for tinner screens
 
     public Task(TaskNode data, TaskMenu taskmenu, JPanel j) {
         super(40, false);
@@ -65,15 +69,15 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
         c.ipadx = 0;
         c.ipady = 0;
 
-        titleLabel = new JTextField(data.getName()[0], maxCharacterLength);
-        titleLabel.setFont(FontMaker.p);
-        titleLabel.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-        titleLabel.setBackground(BACK_GROUND_COLOR);
-        titleLabel.addActionListener(this);
+        titleLabel.add(new JTextField(data.getName()[0], maxCharacterLength));
+        titleLabel.get(0).setFont(FontMaker.p);
+        titleLabel.get(0).setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        titleLabel.get(0).setBackground(BACK_GROUND_COLOR);
+        titleLabel.get(0).addActionListener(this);
         c.gridwidth = 2;
         c.gridx = 2;
         c.weightx = 0.5;
-        this.add(titleLabel, c);
+        this.add(titleLabel.get(0), c);
 
 
         c.gridwidth = 1;
@@ -105,14 +109,14 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
             c.ipadx = 10;
             this.add(ckb, c);
 
-            titleLabel = new JTextField(data.getName()[i], maxCharacterLength);
-            titleLabel.setFont(FontMaker.p);
-            titleLabel.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-            titleLabel.setBackground(BACK_GROUND_COLOR);
+            titleLabel.add(new JTextField(data.getName()[i], maxCharacterLength));
+            titleLabel.get(i).setFont(FontMaker.p);
+            titleLabel.get(i).setBorder(javax.swing.BorderFactory.createEmptyBorder());
+            titleLabel.get(i).setBackground(BACK_GROUND_COLOR);
             c.gridx = 3;
             c.gridy = i+1;
             //c.weightx = 0.5;
-            this.add(titleLabel, c);
+            this.add(titleLabel.get(i), c);
 
             c.gridx = 4;
             c.gridy = 0;
@@ -186,9 +190,15 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
         // save the new text to the save file
-        if (e.getSource() == titleLabel) {
-            titleLabel.getText();
+        for (int i=0; i<titleLabel.size(); i++) {
+            if (e.getSource() == titleLabel.get(i)) {
+                String[] temp = data.getName();
+                temp[i] = titleLabel.get(i).getText();
+                data.setName(temp);
+                taskmenu.saveList();
+            }
         }
+        
         //throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
     }
 

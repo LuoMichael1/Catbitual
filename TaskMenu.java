@@ -140,11 +140,7 @@ public class TaskMenu extends ClipMenu implements ActionListener{
     }
 
     // needs to be fixed
-    public void update(int id, JPanel j) {
-        taskList.remove(id);
-        scrollPanel.remove(j);
-        repaint();
-        revalidate();
+    public void saveList() {
         taskList.savetoFile("Userdata/saved_tasklist.txt");
     }
 
