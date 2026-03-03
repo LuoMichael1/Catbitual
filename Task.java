@@ -181,8 +181,8 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
         //System.out.println("Hiiii");
 
         dragged = true;
-        int x1 = e.getXOnScreen();
-        int y1 = e.getYOnScreen();
+        x1 = e.getXOnScreen();
+        y1 = e.getYOnScreen();
     }
     
     @Override
@@ -194,7 +194,7 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
             if (y1 > e.getYOnScreen()-40 && y1 < e.getYOnScreen()+40){
                 // now check if they dragged far enough left
 
-                if (x1+Math.abs(e.getXOnScreen()) > 100) {
+                if (x1-e.getXOnScreen() > 100) {
                     taskmenu.remove(data.getID(), j);
                     System.out.println("Hiiii");
                 }
