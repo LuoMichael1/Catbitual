@@ -4,10 +4,11 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import javax.swing.JCheckBox;
@@ -15,7 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class Task extends RoundedPanel implements MouseListener, MouseMotionListener, ActionListener{
+public class Task extends RoundedPanel implements MouseListener, MouseMotionListener, ActionListener, FocusListener{
 
     private TaskMenu taskmenu;
     private TaskNode data;
@@ -74,6 +75,7 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
         titleLabel.get(0).setBorder(javax.swing.BorderFactory.createEmptyBorder());
         titleLabel.get(0).setBackground(BACK_GROUND_COLOR);
         titleLabel.get(0).addActionListener(this);
+        titleLabel.get(0).addFocusListener(this);
         c.gridwidth = 2;
         c.gridx = 2;
         c.weightx = 0.5;
@@ -113,6 +115,7 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
             titleLabel.get(i).setFont(FontMaker.p);
             titleLabel.get(i).setBorder(javax.swing.BorderFactory.createEmptyBorder());
             titleLabel.get(i).setBackground(BACK_GROUND_COLOR);
+            titleLabel.get(0).addFocusListener(this);
             c.gridx = 3;
             c.gridy = i+1;
             //c.weightx = 0.5;
@@ -200,6 +203,25 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
         }
         
         //throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+    }
+
+    @Override
+    public void focusGained(FocusEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'focusGained'");
+    }
+
+    @Override
+    public void focusLost(FocusEvent e) {
+       // save the new text to the save file
+        for (int i=0; i<titleLabel.size(); i++) {
+            if (e.getSource() == titleLabel.get(i)) {
+                String[] temp = data.getName();
+                temp[i] = titleLabel.get(i).getText();
+                data.setName(temp);
+                taskmenu.saveList();
+            }
+        }
     }
 
 }
