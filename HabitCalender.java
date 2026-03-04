@@ -1,20 +1,40 @@
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.YearMonth;
 
+// DB helper
+import java.io.File;
+
 public class HabitCalender extends JPanel{
     private static final Color LIGHT_GRAY = new Color(240, 240, 240);
+    private JPanel mainPanel = new RoundedPanel();
+    private JScrollPane scrollPane = new JScrollPane(mainPanel);
+    private DBHelper db;
+
 
     public HabitCalender() {
         this.setLayout(new BorderLayout());
         //SwingUtilities.invokeLater(() -> { });   remember to use this in plaes
 
-        JPanel mainPanel = new RoundedPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         mainPanel.setBackground(Color.WHITE);
         mainPanel.setBorder(BorderFactory.createMatteBorder((int)(30*Main.scaleX), (int)(25*Main.scaleX), (int)(25*Main.scaleX), (int)(25*Main.scaleX), new Color(0,0,0,0)));
+
+        // ensure Userdata dir exists for DB
+        File userDataDir = new File("Userdata");
+        if (!userDataDir.exists()) userDataDir.mkdirs();
+
+        try {
+            db = new DBHelper();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            db = null;
+        }
 
         YearMonth current = YearMonth.now();
 
@@ -23,7 +43,6 @@ public class HabitCalender extends JPanel{
             mainPanel.add(Box.createVerticalStrut(20));
         }
 
-        JScrollPane scrollPane = new JScrollPane(mainPanel);
         scrollPane.setBorder(null);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         scrollPane.getViewport().setBackground(Color.WHITE);
@@ -34,13 +53,12 @@ public class HabitCalender extends JPanel{
         this.revalidate();
     }
 
-    private static JPanel createMonthPanel(YearMonth yearMonth) {
+    private JPanel createMonthPanel(YearMonth yearMonth) {
 
         JPanel monthPanel = new RoundedPanel();
         monthPanel.setLayout(new BorderLayout());
         monthPanel.setBackground(LIGHT_GRAY);
         monthPanel.setBorder(new EmptyBorder(15, 20, 20, 20));
-        //monthPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 320));
 
         // add the name of the month at the top of each month panel
         JLabel title = new JLabel(yearMonth.getMonth() + " " + yearMonth.getYear(), SwingConstants.CENTER);
@@ -48,17 +66,17 @@ public class HabitCalender extends JPanel{
         title.setBorder(new EmptyBorder(0, 0, 15, 0));
         JPanel titlePanel = new JPanel();  // jpanel is used to left align the title (otherwise it would be centered)
         titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.X_AXIS)); 
-        //titlePanel.setBorder(new EmptyBorder(0, 0, 15, 0));
         titlePanel.add(title);
         monthPanel.add(titlePanel, BorderLayout.NORTH);
 
         JPanel grid = new JPanel(new GridBagLayout());
 
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.insets = new Insets(5, 5, 5, 5);
-        gbc.weightx = 1.0;
-        gbc.weighty = 1.0;
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.BOTH;
+        int spacing = (int)(5*Main.scaleX);
+        c.insets = new Insets(spacing, spacing, spacing, spacing);
+        c.weightx = 1.0;
+        c.weighty = 1.0;
 
         // add the text showing which day of the week each columm represents
         String[] days = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
@@ -67,14 +85,14 @@ public class HabitCalender extends JPanel{
         int row = 0;
 
         for (String day : days) {
-            gbc.gridx = col++;
-            gbc.gridy = row;
+            c.gridx = col++;
+            c.gridy = row;
 
             JLabel label = new JLabel(day, SwingConstants.CENTER);
             label.setFont(FontMaker.p);
             label.setForeground(Color.GRAY);
 
-            grid.add(label, gbc);
+            grid.add(label, c);
         }
 
         // add blank squares before the first day of a month
@@ -85,10 +103,10 @@ public class HabitCalender extends JPanel{
         col = 0;
 
         for (int i = 1; i < firstDay; i++) {
-            gbc.gridx = col++;
-            gbc.gridy = row;
+            c.gridx = col++;
+            c.gridy = row;
 
-            grid.add(new JLabel(""), gbc);
+            grid.add(new JLabel(""), c);
         }
 
         // add the days of the month
@@ -101,18 +119,49 @@ public class HabitCalender extends JPanel{
                 row++;
             }
 
-            gbc.gridx = col++;
-            gbc.gridy = row;
+            c.gridx = col++;
+            c.gridy = row;
 
-            CalendarCell calendarCell = new CalendarCell(day);
+            LocalDate cellDate = yearMonth.atDay(day);
+            CalendarCell calendarCell = new CalendarCell(cellDate);
 
             if (isToday(yearMonth, day, today)) {
                 calendarCell.setToday(true);
             }
 
-            calendarCell.setImage(new ImageIcon("Assets/Images/animatedcattrimed.png"));
+            // set image only if checked in; otherwise blank
+            try {
+                if (db != null && db.isCheckedIn(cellDate)) {
+                    calendarCell.setImage(new ImageIcon("Assets/Images/animatedcattrimed.png"));
+                } else {
+                    calendarCell.setImage(null);
+                }
+            } catch (Exception e) {
+                System.out.print("Could not read check-ins: " + e);
+            }
 
-            grid.add(calendarCell, gbc);
+            // allow clicking a cell to mark check-in for that date
+            calendarCell.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    LocalDate todayDate = LocalDate.now();
+                    if (!cellDate.equals(todayDate)) {
+                        JOptionPane.showMessageDialog(HabitCalender.this, "You can only check in for today.");
+                        return;
+                    }
+
+                    try {
+                        if (db != null) {
+                            db.markCheckIn(cellDate);
+                            calendarCell.setImage(new ImageIcon("Assets/Images/animatedcattrimed.png"));
+                        }
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            });
+
+            grid.add(calendarCell, c);
         }
 
         monthPanel.add(grid, BorderLayout.CENTER);
