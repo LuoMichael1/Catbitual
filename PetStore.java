@@ -12,13 +12,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.OverlayLayout;
@@ -28,6 +26,7 @@ public class PetStore extends JScrollPane implements ActionListener{
     private ArrayList<JButton> buttons = new ArrayList<JButton>();
     private ArrayList<ImageIcon> images = new ArrayList<ImageIcon>();
     private ArrayList<String> imageFile = new ArrayList<String>(); 
+    private ArrayList<JLabel> priceLabels = new ArrayList<JLabel>();
     private double previewImageWidth = 0;
     private double previewImageHeight = 0;
     private double previewImageScale = 1;
@@ -50,30 +49,31 @@ public class PetStore extends JScrollPane implements ActionListener{
         // Make scrolling faster
         this.getVerticalScrollBar().setUnitIncrement(SCROLLSPEED);
 
-        // get image files
+        // ensure DB catalog and load items
+        FurnitureDB fdb = null;
+        java.util.List<FurnitureDB.FurnitureRecord> items = new java.util.ArrayList<>();
         try {
-            Scanner filesc = new Scanner(new File("Assets/Images/Furniture/Catalog.txt"));
-            while (filesc.hasNextLine()) {
-                imageFile.add(filesc.nextLine());
-            }
-            filesc.close();
+            fdb = new FurnitureDB();
+            fdb.ensureCatalogFromFile(new File("Assets/Images/Furniture/Catalog.txt"));
+            items = fdb.getAllItems();
+        } catch (Exception e) {
+            System.out.println("Furniture DB error: " + e);
+        } finally {
+            if (fdb != null) fdb.close();
         }
-        catch (Exception e) {
-            System.out.println(e);
-        }   
 
         // display items
-        for (int i=0; i<imageFile.size(); i++) {
+        for (int i=0; i<items.size(); i++) {
+            FurnitureDB.FurnitureRecord rec = items.get(i);
+
             JPanel j = new RoundedPanel();
             j.setLayout(new OverlayLayout(j));
             j.setBackground(new Color(240, 240, 240));
             
-            ImageIcon img = new ImageIcon("Assets/Images/Furniture/" + imageFile.get(i));
-            
+            ImageIcon img = new ImageIcon("Assets/Images/Furniture/" + rec.filepath);
             images.add(img);
 
             // resize image so that they fit in the menu, while not being stretched
-            // to achieve this, we scale based on the length of the longest side
             if (images.get(i).getIconWidth() > images.get(i).getIconHeight()) {
                 previewImageScale = Main.width/6.5/images.get(i).getIconWidth();
             }
@@ -97,18 +97,16 @@ public class PetStore extends JScrollPane implements ActionListener{
             p.setAlignmentX(1.0f);  // left
             p.setAlignmentY(0.0f);  // bottom
             p.setBackground(new Color(0,0,0,0));
-            //p.setBackground(Color.YELLOW);
             p.setLayout(new GridBagLayout());
 
             RoundedPanel p2 = new RoundedPanel();
             p2.setMaximumSize(new Dimension(200, 50));
-            //p2.setBorder(BorderFactory.createMatteBorder((int)(30*Main.scaleX),(int)(30*Main.scaleX),(int)(100*Main.scaleX),(int)(30*Main.scaleX), Color.blue));//new Color(0,0,0,0)));
             p2.setBackground(Color.WHITE);
-            //p.add(p2);
             
-            JLabel jl = new JLabel("100 clams");
+            JLabel jl = new JLabel(rec.owned ? "Owned" : (rec.price + " clams"));
             jl.setFont(FontMaker.p);
             p2.add(jl);
+            priceLabels.add(jl);
 
             // GridBagConstraints to anchor bottom-left
             GridBagConstraints g = new GridBagConstraints();
@@ -126,6 +124,7 @@ public class PetStore extends JScrollPane implements ActionListener{
             j.add(bp);  // add image SECOND
             
             buttons.add(b);
+            imageFile.add(rec.filepath);
             scrollPanel.add(j);
         }
         this.setViewportView(scrollPanel);
@@ -133,14 +132,34 @@ public class PetStore extends JScrollPane implements ActionListener{
     }
 
     public void actionPerformed(ActionEvent e) {
-        for (int i=0; i<buttons.size(); i++) {
-            if (buttons.get(i) == e.getSource()) {
-                // create an entity in the room
-                Furniture furn = new Furniture(images.get(i));
-                Menu.addEntity(furn);
-                m.repaint();
+        FurnitureDB fdb = null;
+        try {
+            fdb = new FurnitureDB();
+            java.util.List<FurnitureDB.FurnitureRecord> items = fdb.getAllItems();
+            for (int i=0; i<buttons.size(); i++) {
+                if (buttons.get(i) == e.getSource()) {
+                    FurnitureDB.FurnitureRecord rec = items.get(i);
+                    ImageIcon img = images.get(i);
+                    if (!rec.owned) {
+                        // mark owned and add to room
+                        fdb.markOwned(rec.id);
+                        Furniture furn = new Furniture(img, rec.filepath, rec.id);
+                        // default position
+                        furn.setPosition(Main.width/2, Room.floorHeight);
+                        Menu.addEntity(furn);
+                        // update label
+                        priceLabels.get(i).setText("Owned");
+                        m.repaint();
+                    } else {
+                        // already owned: don't do anything
+                        // actually change this so that it removes the entity from the room
+                    }
+                }
             }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (fdb != null) fdb.close();
         }
     }
 }
-

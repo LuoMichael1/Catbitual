@@ -9,6 +9,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     private Room room = new Room();
     private Cat cat = new Cat("Cat", Main.width/2, Main.height/2, this);
     private static ArrayList<Entities> entities = new ArrayList<Entities>();
+    private FurnitureDB furnitureDB = null;
     public static double scale = Main.height/1080.0;
 
     private JButton[] sideButtons = new JButton[6];
@@ -81,6 +82,27 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         clipMenus[4].add(new ScoreMenu(cat));
         entities.add(cat);
 
+        // load owned furniture from DB
+        try {
+            furnitureDB = new FurnitureDB();
+            java.util.List<FurnitureDB.FurnitureRecord> owned = furnitureDB.getOwnedItems();
+            for (FurnitureDB.FurnitureRecord rec : owned) {
+                try {
+                    ImageIcon img = new ImageIcon("Assets/Images/Furniture/" + rec.filepath);
+                    Furniture f = new Furniture(img, rec.filepath, rec.id);
+                    if (rec.x >= 0 && rec.y >= 0) 
+                        f.setPosition(rec.x, rec.y);
+                    else 
+                        f.setPosition(Main.width/2, Room.floorHeight);
+                    entities.add(f);
+                } catch (Exception ex) {
+                    System.out.println("Could not load furniture image: " + rec.filepath + " -> " + ex);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Furniture DB load error: " + e);
+        }
+
         revalidate();
         repaint();
     }
@@ -101,6 +123,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
 
     // Mouse Events
     public void mousePressed(MouseEvent e) {
+        // count backward so that entities are drawn layered correctly
         for (int i=entities.size()-1; i>=0; i--) {
             if (entities.get(i).withinBounds(e.getX(), e.getY()) && !entities.get(i).getGrabbed() && currentEntity==null) {
                 entities.get(i).grabbed();
@@ -113,6 +136,18 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
             if (entities.get(i).getGrabbed()) {
                 entities.get(i).dropped();
                 repaint();
+                // make location of furniture persist using database
+                if (entities.get(i) instanceof Furniture) {
+                    Furniture f = (Furniture) entities.get(i);
+                    int id = f.getDbId();
+                    if (id != -1 && furnitureDB != null) {
+                        try {
+                            furnitureDB.updateLocation(id, f.getX(), f.getY());
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                }
             }
         }
         currentEntity = null;
