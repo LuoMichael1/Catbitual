@@ -20,6 +20,8 @@ public class FontMaker {
     public static final Font h3 = loadFont("Assets/Fonts/PatrickHand-Regular.ttf", (float)(Main.height*0.033));
 
     public static final Font p = loadFont("Assets/Fonts/PatrickHand-Regular.ttf", (float)(Main.height*0.023));
+    public static final Font p2 = loadFont("Assets/Fonts/PatrickHand-Regular.ttf", (float)(Main.height*0.015));
+
 }
 
 
