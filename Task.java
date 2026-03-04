@@ -22,7 +22,7 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
     private TaskNode data;
     private JPanel j;
 
-    private Color BACK_GROUND_COLOR = new Color(240, 240, 240);
+    private final Color BACK_GROUND_COLOR = new Color(240, 240, 240);
 
     //private JLabel titleLabel;
     //private JTextField titleLabel;
@@ -89,12 +89,13 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
         j.setOpaque(false);
         this.add(j, c);
 
-
+        /*
         JLabel priorityLabel = new JLabel("" + data.getPriority());
         priorityLabel.setFont(FontMaker.p);
         c.gridx = 5;
         c.weightx = 0.0;
         this.add(priorityLabel, c);
+        */
 
         // this handles having subtasks
         for (int i=1; i<data.getName().length; i++) {
@@ -172,9 +173,8 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
 
     boolean dragged = false;
     int x1;
-    int x2;
     int y1;
-    int y2;
+    int taskX = getX();
     @Override
     public void mousePressed(MouseEvent e) {
         //taskmenu.remove(data.getID(), j);
@@ -187,25 +187,30 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
     
     @Override
     public void mouseReleased(MouseEvent e) {
+        // move the panel back if not dragged far enough
+        setLocation(taskX, getY());
+
         if (dragged) {
             dragged = false;
 
             // first make sure they are indeed dragging to the side, not up or down
             if (y1 > e.getYOnScreen()-40 && y1 < e.getYOnScreen()+40){
+                
                 // now check if they dragged far enough left
-
-                if (x1-e.getXOnScreen() > 100) {
+                if (x1-e.getXOnScreen() > 100*Main.scaleY) {
                     taskmenu.remove(data.getID(), j);
-                    System.out.println("Hiiii");
+                    System.out.println("removed by drag");
                 }
 
             }
         }
     }
-    @Override
     public void mouseDragged(MouseEvent e) {
-        // TODO Auto-generated method stub
-        //throw new UnsupportedOperationException("Unimplemented method 'mouseDragged'");
+        int deltaX = e.getXOnScreen() - x1;
+        if (deltaX < 0 && deltaX > -60)
+            setLocation(taskX + deltaX, getY());
+        else if (deltaX < 0)
+            setLocation(taskX + deltaX*2, getY());  // makes movement faster near the end
     }
     @Override
     public void mouseMoved(MouseEvent e) {
