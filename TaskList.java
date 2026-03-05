@@ -79,7 +79,7 @@ public class TaskList{
                 }
             }
         }
-        System.out.println("Task removed" + id);
+        //System.out.println("Task removed" + id);
     }
    
     public void sort() {
@@ -99,8 +99,8 @@ public class TaskList{
                 }
                 String data = filesc.nextLine();
                 
-                System.out.println(Arrays.toString(name));
-                System.out.println(data);
+                //System.out.println(Arrays.toString(name));
+                //System.out.println(data);
 
                 // parse the line of data
                 String[] dataArray = data.split(",");

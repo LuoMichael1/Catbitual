@@ -130,9 +130,10 @@ public class HabitCalender extends JPanel{
             }
 
             // set image only if checked in; otherwise blank
+            int width = (Main.width/2 - (int)(50*Main.scaleX) - 50 - (int)(60*Main.scaleX) - 7)/7;
             try {
                 if (db != null && db.isCheckedIn(cellDate)) {
-                    calendarCell.setImage(new ImageIcon("Assets/Images/animatedcattrimed.png"));
+                    calendarCell.setImage(new ImageIcon(new ImageIcon("Assets/Images/paw_stamp.png").getImage().getScaledInstance(width, width, Image.SCALE_SMOOTH)));
                 } else {
                     calendarCell.setImage(null);
                 }
@@ -153,7 +154,7 @@ public class HabitCalender extends JPanel{
                     try {
                         if (db != null) {
                             db.markCheckIn(cellDate);
-                            calendarCell.setImage(new ImageIcon("Assets/Images/animatedcattrimed.png"));
+                            calendarCell.setImage(new ImageIcon(new ImageIcon("Assets/Images/paw_stamp.png").getImage().getScaledInstance(width, width, Image.SCALE_SMOOTH)));
                         }
                     } catch (SQLException ex) {
                         ex.printStackTrace();
