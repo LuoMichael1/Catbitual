@@ -45,8 +45,16 @@ public class Furniture extends Entities{
         return grabbed;
     }
 
-    public int getDbId() { return dbId; }
-    public void setDbId(int id) { this.dbId = id; }
-    public String getFilepath() { return filepath; }
-    public void setFilepath(String path) { this.filepath = path; }
+    public int getDbId() { 
+        return dbId;
+    }
+    public void setDbId(int id) {
+        this.dbId = id;
+    }
+    public String getFilepath() {
+        return filepath;
+    }
+    public void setFilepath(String path) {
+        this.filepath = path;
+    }
 }
