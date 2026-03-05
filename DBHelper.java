@@ -8,10 +8,8 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Simple SQLite helper for storing daily check-ins.
- * DB file: Userdata/checkins.db
- */
+// Using SQLite for storing daily check-ins
+
 public class DBHelper {
     private static final String DB_PATH = "Userdata/checkins.db";
     private static final String URL = "jdbc:sqlite:" + DB_PATH;
