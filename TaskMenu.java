@@ -75,6 +75,7 @@ public class TaskMenu extends ClipMenu implements ActionListener{
         c.anchor = GridBagConstraints.PAGE_START;
         c.fill = GridBagConstraints.HORIZONTAL;
         scrollPaneloutside.add(scrollPanel,c);
+        scrollPaneloutside.setBackground(Color.WHITE);
         
         scrollPanel.setBackground(Color.WHITE);
         //scrollPanel.setBorder(BorderFactory.createLineBorder(Color.red,7));
@@ -87,7 +88,7 @@ public class TaskMenu extends ClipMenu implements ActionListener{
         while(currentNode != null) {
             // create a jpanel to put the task in so that padding can be added
             JPanel j = new JPanel();
-            j.setBorder(BorderFactory.createMatteBorder(4,0,0,0,Color.white));
+            j.setBorder(BorderFactory.createMatteBorder(2,0,2,0,Color.white));
             j.setOpaque(false);
             j.setLayout(new GridLayout(1,1));
             j.add(new Task(currentNode, this, j));
@@ -101,7 +102,7 @@ public class TaskMenu extends ClipMenu implements ActionListener{
                 
         // Make scrolling faster
         scrollPane.getVerticalScrollBar().setUnitIncrement(SCROLLSPEED); 
-
+        scrollPane.getViewport().setBackground(Color.WHITE);
         this.add(scrollPane);
     }
 
@@ -136,6 +137,60 @@ public class TaskMenu extends ClipMenu implements ActionListener{
         taskList.savetoFile("Userdata/saved_tasklist.txt");
     }
 
+
+    //Moves a task up in the list by one position and update the UI from the linked list
+    public void moveTaskUp(int id, JPanel j) {
+        // Move in the underlying task list which is the source of truth
+        taskList.moveUp(id);
+        
+        // Reorder the panel
+        int currentIndex = -1;
+        for (int i = 0; i < scrollPanel.getComponentCount(); i++) {
+            if (scrollPanel.getComponent(i) == j) {
+                currentIndex = i;
+                break;
+            }
+        }
+        
+        // Only move if not already at top
+        if (currentIndex > 0) {
+            scrollPanel.remove(j);
+            scrollPanel.add(j, currentIndex - 1);
+            scrollPanel.revalidate();
+            scrollPanel.repaint();
+        }
+        
+        // Save immediately after reordering
+        taskList.savetoFile("Userdata/saved_tasklist.txt");
+    }
+    
+
+    //Moves a task down in the list by one position and update the UI from the linked list
+    public void moveTaskDown(int id, JPanel j) {
+        // Move in the underlying task list which is the source of truth
+        taskList.moveDown(id);
+        
+        // Reorder the panel
+        int currentIndex = -1;
+        for (int i = 0; i < scrollPanel.getComponentCount(); i++) {
+            if (scrollPanel.getComponent(i) == j) {
+                currentIndex = i;
+                break;
+            }
+        }
+        
+        // Only move if not already at bottom
+        if (currentIndex >= 0 && currentIndex < scrollPanel.getComponentCount() - 1) {
+            scrollPanel.remove(j);
+            scrollPanel.add(j, currentIndex + 1);
+            scrollPanel.revalidate();
+            scrollPanel.repaint();
+        }
+        
+        // Save immediately after reordering
+        taskList.savetoFile("Userdata/saved_tasklist.txt");
+    }
+    
     // needs to be fixed
     public void saveList() {
         taskList.savetoFile("Userdata/saved_tasklist.txt");

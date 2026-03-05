@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class TaskList{
-    private TaskNode root;
+    private TaskNode root;  // represents the top most task
     private Scanner filesc;
     private static int counterID = 0;
     private String saveFilePath = "Userdata/saved_tasklist.txt";
@@ -81,7 +81,102 @@ public class TaskList{
         }
         //System.out.println("Task removed" + id);
     }
-   
+    
+    public void moveUp(int id) {
+        if (isEmpty()) {
+            System.out.println("Warning: There are no tasks, moveUp should not be called");
+            return;
+        }
+        
+        // If root is the task, it's already at the top
+        if (root.getID() == id) {
+            return;
+        }
+        
+        TaskNode currentNode = root;
+        TaskNode pastNode = null;
+        
+        // Find the node before the one we want to move
+        while (currentNode != null && currentNode.next != null) {
+            if (currentNode.next.getID() == id) {
+                // Found the node to move up
+                TaskNode nodeToMove = currentNode.next;
+                
+                if (pastNode == null) {
+                    // Moving to root position
+                    currentNode.next = nodeToMove.next;
+                    if (nodeToMove.next != null) {
+                        nodeToMove.next.previous = currentNode;
+                    }
+                    nodeToMove.next = root;
+                    nodeToMove.previous = null;
+                    root.previous = nodeToMove;
+                    root = nodeToMove;
+                } else {
+                    // Moving up in the middle of list
+                    currentNode.next = nodeToMove.next;
+                    if (nodeToMove.next != null) {
+                        nodeToMove.next.previous = currentNode;
+                    }
+                    nodeToMove.next = pastNode.next;
+                    nodeToMove.previous = pastNode;
+                    pastNode.next.previous = nodeToMove;
+                    pastNode.next = nodeToMove;
+                }
+                return;
+            }
+            pastNode = currentNode;
+            currentNode = currentNode.next;
+        }
+    }
+    public void moveDown(int id) {
+        if (isEmpty()) {
+            System.out.println("Warning: There are no tasks, moveDown should not be called");
+            return;
+        }
+        
+        TaskNode currentNode = root;
+        TaskNode pastNode = null;
+        
+        while (currentNode != null) {
+            if (currentNode.getID() == id) {
+                // Found the node to move down
+                if (currentNode.next == null) {
+                    //System.out.println("Warning: moveDown, but it is already the last task");
+                    return;
+                }
+                
+                TaskNode nodeToMove = currentNode;
+                TaskNode nextNode = currentNode.next;
+                
+                if (pastNode == null) {
+                    // Moving root down
+                    root = nextNode;
+                    nextNode.previous = null;
+                    nodeToMove.next = nextNode.next;
+                    nodeToMove.previous = nextNode;
+                    if (nextNode.next != null) {
+                        nextNode.next.previous = nodeToMove;
+                    }
+                    nextNode.next = nodeToMove;
+                } else {
+                    // Moving node in middle
+                    pastNode.next = nextNode;
+                    nextNode.previous = pastNode;
+                    nodeToMove.next = nextNode.next;
+                    nodeToMove.previous = nextNode;
+                    if (nextNode.next != null) {
+                        nextNode.next.previous = nodeToMove;
+                    }
+                    nextNode.next = nodeToMove;
+                }
+                return;
+            }
+            pastNode = currentNode;
+            currentNode = currentNode.next;
+        }
+    }
+
     public void sort() {
         
     }

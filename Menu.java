@@ -191,7 +191,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     }
     public void mouseClicked(MouseEvent e) {
         // if the mouse clicks outside of a menu while it is open, we should close the menu
-        System.out.println(e);
+        //System.out.println(e);
         if (currentMenu != null) {
             currentMenu.toggleVisibility();
             currentMenu = null;
@@ -211,7 +211,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         // gets which button was pressed
         for (int i=0; i<sideButtons.length; i++) {
             if (e.getSource() == sideButtons[i]) {
-                System.out.println(i);
+                //System.out.println(i);
                 menuIndex = i;
             }
         }

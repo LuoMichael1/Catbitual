@@ -28,7 +28,7 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
     //private JTextField titleLabel;
     private ArrayList<JTextField> titleLabel = new ArrayList<JTextField>();
 
-    private int maxCharacterLength = 20;  // limits how short a task can appear, lower limits allow for tinner screens
+    private int maxCharacterLength = 15;  // limits how short a task title can appear, lower limits allow for thinner screens
 
     public Task(TaskNode data, TaskMenu taskmenu, JPanel j) {
         super(40, false);
@@ -172,45 +172,86 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
 
 
     boolean dragged = false;
+    boolean isVerticalDrag = false;
     int x1;
     int y1;
     int taskX = getX();
-    @Override
+    int taskY = getY();
+    int verticalDragThreshold = this.getHeight()+5;  // minimum pixels to move before triggering reorder
+    int verticalAccumulator = 0;  // tracks accumulated vertical movement
+    
+
     public void mousePressed(MouseEvent e) {
         //taskmenu.remove(data.getID(), j);
         //System.out.println("Hiiii");
+        verticalDragThreshold = this.getHeight()+2;
 
         dragged = true;
+        isVerticalDrag = false;
         x1 = e.getXOnScreen();
         y1 = e.getYOnScreen();
+        taskX = getX();
+        taskY = getY();
+        verticalAccumulator = 0;
     }
     
-    @Override
     public void mouseReleased(MouseEvent e) {
-        // move the panel back if not dragged far enough
-        setLocation(taskX, getY());
-
         if (dragged) {
             dragged = false;
 
-            // first make sure they are indeed dragging to the side, not up or down
-            if (y1 > e.getYOnScreen()-40 && y1 < e.getYOnScreen()+40){
-                
-                // now check if they dragged far enough left
+            // Reset position for visual feedback
+            if (!isVerticalDrag) {
+                setLocation(taskX, getY());
+            }
+
+            // Handle horizontal delete drag only if not doing vertical drag
+            if (!isVerticalDrag && y1 > e.getYOnScreen()-40 && y1 < e.getYOnScreen()+40) {
+                // Check if they dragged far enough left
                 if (x1-e.getXOnScreen() > 100*Main.scaleY) {
                     taskmenu.remove(data.getID(), j);
                     System.out.println("removed by drag");
                 }
-
             }
+            
+            isVerticalDrag = false;
+            verticalAccumulator = 0;
         }
     }
     public void mouseDragged(MouseEvent e) {
         int deltaX = e.getXOnScreen() - x1;
-        if (deltaX < 0 && deltaX > -60)
-            setLocation(taskX + deltaX, getY());
-        else if (deltaX < 0)
-            setLocation(taskX + deltaX*2, getY());  // makes movement faster near the end
+        int deltaY = e.getYOnScreen() - y1;
+        
+        // Determine if this is a vertical or horizontal drag
+        if (Math.abs(deltaY) > Math.abs(deltaX)) {
+            // Vertical drag - reorder tasks
+            isVerticalDrag = true;
+            
+            // Accumulate vertical movement
+            verticalAccumulator += deltaY;
+            y1 = e.getYOnScreen();  // Update baseline for next calculation
+            
+            // Check how many thresholds have been crossed and move accordingly
+            if (verticalAccumulator < -verticalDragThreshold) {
+                // Moving up - keep moving while accumulated movement justifies it
+                if (verticalAccumulator < -verticalDragThreshold) {
+                    taskmenu.moveTaskUp(data.getID(), j);
+                    verticalAccumulator += verticalDragThreshold;
+                }
+            } else if (verticalAccumulator > verticalDragThreshold) {
+                // Moving down - keep moving while accumulated movement justifies it
+                if (verticalAccumulator > verticalDragThreshold) {
+                    taskmenu.moveTaskDown(data.getID(), j);
+                    verticalAccumulator -= verticalDragThreshold;
+                }
+            }
+        } else {
+            // Horizontal drag to delete task
+            isVerticalDrag = false;
+            if (deltaX < 0 && deltaX > -60)
+                setLocation(taskX + deltaX, getY());
+            else if (deltaX < 0)
+                setLocation(taskX + deltaX*2, getY());  // makes movement faster near the end
+        }
     }
     @Override
     public void mouseMoved(MouseEvent e) {
@@ -233,7 +274,7 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
     @Override
     public void focusGained(FocusEvent e) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'focusGained'");
+        //throw new UnsupportedOperationException("Unimplemented method 'focusGained'");
     }
 
     public void focusLost(FocusEvent e) {
