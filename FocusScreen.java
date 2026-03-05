@@ -24,6 +24,7 @@ public class FocusScreen extends JPanel implements MouseListener, ActionListener
     private JButton b1 = new JButton("End");
     private int option = 1;
     private JLabel time = new JLabel();
+    private int delay;
 
     public FocusScreen() {        
         
@@ -31,7 +32,7 @@ public class FocusScreen extends JPanel implements MouseListener, ActionListener
         this.setFocusable(true);        
         this.addMouseListener(this);
 
-        int delay = 1000; // 1 second
+        delay = 1000; // 1 second
         
         time.setFont(FontMaker.h1);
         time.setText(convertSeconds(timecount));

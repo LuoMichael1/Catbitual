@@ -2,10 +2,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Image;
 import java.time.LocalDate;
-
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -48,7 +45,9 @@ class CalendarCell extends RoundedPanel {
 
     public void setToday(boolean today) {
         this.isToday = today;
-        if (today) setBackground(new Color(255, 234, 218));
+        if (today) {
+            setBackground(new Color(255, 234, 218));
+        }
     }
 
     public void setImage(ImageIcon icon) {
@@ -67,7 +66,7 @@ class CalendarCell extends RoundedPanel {
         }
 
         imageLabel.setBounds(0, 0, w, h);
-        dayLabel.setBounds(5, 5, w - 10, 20);
+        dayLabel.setBounds((int)(9*Main.scaleX), (int)(9*Main.scaleX), w - 10, 20);
     }
     
 }

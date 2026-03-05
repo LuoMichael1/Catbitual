@@ -15,13 +15,10 @@ public class Sound {
         try {
             clip = AudioSystem.getClip();
             clip.open(AudioSystem.getAudioInputStream(new File(filePath)));
-
-            // theres probably a better way to do this with enums
             if (loop == -1)
                 clip.loop(Clip.LOOP_CONTINUOUSLY);
             else
                 clip.loop(loop);
-
             stop();
         } catch (Exception e) {
             System.out.println("Something went wrong with starting the sound" + e);
