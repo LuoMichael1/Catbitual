@@ -2,17 +2,6 @@
 // make more sense as a method with in the existing Cat class
 
 
-/*states
-1 Walk       Walks to location
-2 Wander     Walks to location stops, and then chooses another location
-3 Grabbed    Cat has been grabbed by the user
-4 falling    Cat has been released by the user
-5 Idle       Does not move
-6 Sleep      Cat is sleeping
-7 Sit        Cat sits in place
-8 Clean      Cat sits and licks itself
-9 Petted     Cat is being petted by the user
-*/
 
 
 import java.util.concurrent.*;
@@ -24,7 +13,6 @@ public class CatAI {
 
     public CatAI(Cat cat) {
         this.cat = cat;
-        cat.setState(0);
 
         // updates the the cat ~9 times per seconds (9 FPS)
         UpdateState task = new UpdateState(cat);
@@ -32,9 +20,33 @@ public class CatAI {
     }
 }
 
+
+
+/*states
+1 Wandering  Walks to location stops, and then chooses another location
+3 Grabbed    Cat has been grabbed by the user
+4 falling    Cat has been released by the user
+5 Idle       Does not move
+6 Sleeping   Cat is sleeping
+7 Sitting    Cat sits in place
+8 Cleaning   Cat sits and licks itself
+9 Petted     Cat is being petted by the user
+*/
+
+enum State {
+    WANDERING,
+    GRABBED,
+    FALLING,
+    IDLE,
+    SLEEPING,
+    SITTING,
+    CLEANING,
+    PETTED;
+}
+
+
 class UpdateState implements Runnable {
     
-    private String state = "";
     private Cat cat;
     private int lastPosX = 0;//cat.xPos; // this is only for the grabbing animations so we can tell if the mouse moved
     private int swayBuffer = 0; // if the cat was being dragged, gives a buffer of one tick to keep it dragged - prevents switching between still and moving while being dragged
@@ -46,47 +58,40 @@ class UpdateState implements Runnable {
     
     
     public void run() {
-        int tempState = 0;
+        State currentState = State.WANDERING;
         
         if (cat.getGrabbed()) {
-            tempState = 1;
+            currentState = State.GRABBED;
         }
 
         //tempState = (int)(Math.floor(Math.random()*7));
-
-        if (tempState == 0) {
-            state = "Walk";
-            cat.setState(0);
-            walk();
+        switch(currentState) {
+            case WANDERING:
+                wander();
+                break;
+            case GRABBED:
+                animateGrab();
+                break;
+            case FALLING:
+                break;
+            case IDLE:
+                break;
+            case SLEEPING:
+                break;
+            case SITTING:
+                break;
+            case CLEANING:
+                break;
+            case PETTED:
+                break;
         }
-        else if (tempState == 1) {
-            state = "Grabbed";
-            cat.setState(1);
-            animateGrab();
-        }
-        else if (tempState == 2) {
-            state = "Idle";
-        }
-        else if (tempState == 3) {
-            state = "Sleep";
-        }
-        else if (tempState == 4) {
-            state = "Sit";
-        }
-        else if (tempState == 5) {
-            state = "Clean";
-        }
-        else {
-            state = "Petted";
-        }
-        //System.out.println(state);
         cat.repaint();
     }
 
     private int count = 0;
     int x = 0;
     int y = 0;
-    public void walk () {
+    public void wander () {
         
         // pick a place on the screen to move towards
         if (count == 0) {

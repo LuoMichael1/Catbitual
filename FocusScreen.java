@@ -102,7 +102,7 @@ public class FocusScreen extends JPanel implements MouseListener, ActionListener
     public void paintComponent(Graphics g) {
         super.paintComponent(g);  
 
-        Cat.basicCatImage.paintIcon(null, g, 500, 100);
+        Cat.catImage.paintIcon(null, g, 500, 100);
 
         // enables antialiasing on the text
         Graphics2D g2d = (Graphics2D) g;

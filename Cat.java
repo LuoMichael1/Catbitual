@@ -3,9 +3,7 @@ import javax.swing.ImageIcon;
 
 public class Cat extends Entities{
     
-    static ImageIcon basicCatImage = new ImageIcon("Assets/Images/animatedcattrimed.png");
-    static ImageIcon grabbedCatImage = new ImageIcon("Assets/Images/animatedcattrimed.png");
-    private ImageIcon catImage = basicCatImage;
+    static ImageIcon catImage = new ImageIcon("Assets/Images/animatedcattrimed.png");
     
     static final int imgSizeX = 256;
     static final int imgSizeY = 154;
@@ -19,7 +17,6 @@ public class Cat extends Entities{
     private double happiness;
 
     // states for the cat
-    private int state = 0;
     private int step = 0;  // iterator for animations
     private boolean grabbed = false;
     private boolean direction = false;  // false --> left, true --> right  (probably a dumb way to do this :3)
@@ -47,11 +44,9 @@ public class Cat extends Entities{
     }
 
     public void grabbed() {
-        catImage = grabbedCatImage;
         grabbed = true;
     }
     public void dropped() {
-        catImage = basicCatImage;
         grabbed = false;
 
         // don't allow the cat to be dropped onto the wall, move the cat down to the floor
@@ -114,13 +109,6 @@ public class Cat extends Entities{
     }
     public int getSpeed() {
         return speed;
-    }
-    // this is not a single source of truth i think, because the cat AI also has the state
-    public int getState() {
-        return state;
-    }
-    public void setState(int state) {
-        this.state = state;
     }
     public void setDirection(boolean d) {
         direction = d;

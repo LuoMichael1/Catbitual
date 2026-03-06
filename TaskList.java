@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class TaskList{
