@@ -26,6 +26,8 @@ public class FocusScreen extends JPanel implements MouseListener, ActionListener
     private JLabel time = new JLabel();
     private int delay;
     private Sound bgmusic;
+    // total seconds the timer has run used to award fish coins
+    private int focusSecondsElapsed = 0;
 
     public FocusScreen() {        
         
@@ -42,7 +44,18 @@ public class FocusScreen extends JPanel implements MouseListener, ActionListener
 
         ActionListener count = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                timecount = timecount + increment;
+                // only advance the clock when the timer fires
+                if (e.getSource() == timer) {
+                    timecount = timecount + increment;
+                    focusSecondsElapsed++;
+
+                    // award one coin for every full minute of focus
+                    if (focusSecondsElapsed > 0 && focusSecondsElapsed % 60 == 0) {
+                        User.addCoins(1);
+                        Menu.refreshScore();
+                    }
+                }
+
                 time.setText(convertSeconds(timecount));
                 repaint();
 
@@ -70,6 +83,8 @@ public class FocusScreen extends JPanel implements MouseListener, ActionListener
     // option 1 is count down from a time
     // option 2 is count up from zero until stopped
     public void option(int option) {
+        this.option = option;
+        focusSecondsElapsed = 0;
         if (option == 1) {
             increment = -1;
             timecount = 5;

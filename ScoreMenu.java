@@ -32,6 +32,8 @@ public class ScoreMenu extends JPanel{
 
 
     public void update() {
+        // refresh coin display
+        fishLabel.setText("Fish: " + User.coins);
         repaint();
     }
 

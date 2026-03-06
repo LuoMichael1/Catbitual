@@ -1,1 +1,1 @@
-Coins: 100
+Coins: 21

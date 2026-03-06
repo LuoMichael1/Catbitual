@@ -15,6 +15,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.OverlayLayout;
@@ -146,16 +147,22 @@ public class PetStore extends JScrollPane implements ActionListener{
                     PetStoreDB.FurnitureRecord rec = items.get(i);
                     ImageIcon img = images.get(i);
                     if (!rec.owned) {
-                        // mark owned and add to room
-                        fdb.markOwned(rec.id);
-                        Furniture furn = new Furniture(img, rec.filepath, rec.id, rec.type);
-                        // default position
-                        furn.setPosition(Main.width/2, Room.floorHeight);
-                        Menu.addEntity(furn);
-                        // update label
-                        priceLabels.get(i).setText("Owned");
-                        priceLabels.get(i).setForeground(Style.success()); // change font color to green when owned
-                        m.repaint();
+                        // attempt purchase only if user has enough coins
+                        if (User.spendCoins(rec.price)) {
+                            fdb.markOwned(rec.id);
+                            Furniture furn = new Furniture(img, rec.filepath, rec.id, rec.type);
+                            // default position
+                            furn.setPosition(Main.width/2, Room.floorHeight);
+                            Menu.addEntity(furn);
+                            // update label
+                            priceLabels.get(i).setText("Owned");
+                            priceLabels.get(i).setForeground(Style.success()); // change font color to green when owned
+                            m.repaint();
+                            // refresh score display
+                            Menu.refreshScore();
+                        } else {
+                            JOptionPane.showMessageDialog(m, "Not enough fish.");
+                        }
                     } 
                     else {
                         // Toggle presence in the room: if present, remove it; otherwise re-add it

@@ -154,6 +154,9 @@ public class HabitCalender extends JPanel{
                         if (db != null) {
                             db.markCheckIn(cellDate);
                             calendarCell.setImage(new ImageIcon(new ImageIcon("Assets/Images/paw_stamp.png").getImage().getScaledInstance(width, width, Image.SCALE_SMOOTH)));
+                            // reward coins for checking in
+                            User.addCoins(10);
+                            Menu.refreshScore();
                         }
                     } catch (SQLException ex) {
                         ex.printStackTrace();

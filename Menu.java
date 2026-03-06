@@ -13,6 +13,9 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     private PetStoreDB petStoreDB = null;
     public static double scale = Main.height/1080.0;
 
+    // single shared ScoreMenu instance so other classes can request an update
+    private static ScoreMenu theScoreMenu;
+
     private JButton[] sideButtons = new JButton[6];
     private ClipMenu[] clipMenus = new ClipMenu[6];
     private ClipMenu currentMenu = null;
@@ -30,6 +33,14 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
 
     private int buttonSize = 90;
     
+    private ScoreMenu scoreMenu;
+
+    public static void refreshScore() {
+        if (theScoreMenu != null) {
+            theScoreMenu.update();
+        }
+    }
+
     public Menu() {
         
         this.setLayout(new BorderLayout());
@@ -68,7 +79,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         JLayeredPane center = new JLayeredPane();
         this.add(center, BorderLayout.CENTER);
 
-        User b = new User();
+        new User(); // load user data (coins)
 
         clipMenus[0] = new ClipMenu("Cat Info");
         clipMenus[1] = new ClipMenu("Pet Store");
@@ -82,7 +93,13 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         }
 
         clipMenus[1].add(new PetStore(this));
-        clipMenus[4].add(new ScoreMenu(cat));
+
+
+        scoreMenu = new ScoreMenu(cat);
+        theScoreMenu = scoreMenu;
+        clipMenus[4].add(scoreMenu);
+       
+       
         entities.add(cat);
 
         // load owned furniture from DB
