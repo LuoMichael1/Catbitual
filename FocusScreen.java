@@ -25,6 +25,7 @@ public class FocusScreen extends JPanel implements MouseListener, ActionListener
     private int option = 1;
     private JLabel time = new JLabel();
     private int delay;
+    private Sound bgmusic;
 
     public FocusScreen() {        
         
@@ -48,10 +49,12 @@ public class FocusScreen extends JPanel implements MouseListener, ActionListener
                 if (timecount < 0 && option == 1) {
                     timer.stop();
                     Main.showCard("rewardScreen");
+                    bgmusic.stop();
                 }
                 else if (e.getSource()==b1) {
                     timer.stop();
                     Main.showCard("rewardScreen");
+                    bgmusic.stop();
                 }
             }
         };
@@ -60,6 +63,8 @@ public class FocusScreen extends JPanel implements MouseListener, ActionListener
         this.add(b1, BorderLayout.SOUTH);
 
         timer = new Timer(delay, count);
+
+        
     }
 
     // option 1 is count down from a time
@@ -73,6 +78,8 @@ public class FocusScreen extends JPanel implements MouseListener, ActionListener
             increment = 1;
             timecount = 0;
         }
+        // starts a random song
+        bgmusic = new Sound("Assets/Music/music" + ((int)(Math.random()*4)+1) + ".wav", -1);
     }
     public void setTime(int seconds) {
         timecount = seconds;
