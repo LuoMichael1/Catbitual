@@ -79,5 +79,7 @@ public class FocusScreenSetup extends JPanel implements MouseListener, ActionLis
             Main.showCard("FocusScreen");
         }
         
+        // starts a random song
+        new Sound("Assets/Music/music" + ((int)(Math.random()*2)+3) + ".wav", -1);
     }    
 }

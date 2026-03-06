@@ -3,6 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Menu extends JPanel implements MouseListener, KeyListener, MouseMotionListener, ActionListener, ComponentListener{
     
@@ -202,15 +203,24 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     }
     public void mouseExited(MouseEvent e) {
     }
-    public void mouseMoved(MouseEvent e) {
-        // idea, check if the mouse moves over the cat, which then can be used to trigger a petting animation?????????
 
-        if (cat.withinBounds(e.getX(), e.getY()) && !cat.getGrabbed()) {
-            cat.setPetted(true);
-        }
-        else{
-            cat.setPetted(false);
-        }
+
+    
+
+    public static long lastMoveTime = System.currentTimeMillis();
+    public void mouseMoved(MouseEvent e) {
+        // check if the mouse moves over the cat, which then can be used to trigger a petting animation
+        // mouse hovering over the cat should not counting as petting, user must move mouse back and forth to pet it
+        // 100ms margin, also a check in the catAI because mouseMoved is only triggered with movement, so a stationary mouse wont otherwise update the animation
+        if (System.currentTimeMillis() - lastMoveTime < 100) { 
+            if (cat.withinBounds(e.getX(), e.getY()) && !cat.getGrabbed()) {
+                cat.setPetted(true);
+            }
+            else{
+                cat.setPetted(false);
+            }
+        }  
+        lastMoveTime = System.currentTimeMillis();
     }
 
     public void actionPerformed(ActionEvent e) {

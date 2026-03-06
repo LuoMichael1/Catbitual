@@ -19,7 +19,7 @@ public class Sound {
                 clip.loop(Clip.LOOP_CONTINUOUSLY);
             else
                 clip.loop(loop);
-            stop();
+            
         } catch (Exception e) {
             System.out.println("Something went wrong with starting the sound" + e);
         }

@@ -24,8 +24,7 @@ public class CatAI {
 5 Idle       Does not move
 6 Sleeping   Cat is sleeping
 7 Sitting    Cat sits in place
-8 Cleaning   Cat sits and licks itself
-9 Petted     Cat is being petted by the user
+8 Petted     Cat is being petted by the user
 */
 
 enum State {
@@ -35,7 +34,6 @@ enum State {
     IDLE,
     SLEEPING,
     SITTING,
-    CLEANING,
     PETTED;
 }
 
@@ -72,13 +70,11 @@ class UpdateState implements Runnable {
                 break;
             case FALLING: // unused, there is no good way to determine where the cat should land
                 break;
-            case IDLE: // this is essentially useless because of wandering, but could be used in the future
+            case IDLE:    // this is essentially useless because of wandering, but could be used in the future
                 break;
-            case SLEEPING:
+            case SLEEPING:// no cat beds currently, could be added in the future
                 break;
-            case SITTING: 
-                break;
-            case CLEANING:
+            case SITTING: sit();  // works but unused
                 break;
             case PETTED: pet();
                 break;
@@ -209,5 +205,20 @@ class UpdateState implements Runnable {
             cat.setStep(20);
         else
             cat.setStep(29);
+
+
+
+        if (System.currentTimeMillis() - Menu.lastMoveTime > 100) {
+            cat.setPetted(false);
+        }
+    }
+
+    public void sit() {
+        if (cat.getStep() != 15) {
+            cat.setStep(15);
+        }
+        else if (cat.getStep() != 16) {
+            cat.setStep(16);
+        }
     }
 }
