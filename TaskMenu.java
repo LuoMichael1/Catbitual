@@ -1,5 +1,4 @@
 // The gui part of the to-do list
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -31,7 +30,7 @@ public class TaskMenu extends ClipMenu implements ActionListener{
         JPanel header = new JPanel(new GridBagLayout());
         JLabel h1 = new JLabel(title);
         h1.setBorder(BorderFactory.createEmptyBorder(0, 30, 0, 15));
-        header.setBackground(new Color(0,0,0,0));
+        header.setBackground(Style.transparent());
         h1.setFont(FontMaker.h1);
         c.gridx = 0;
         c.gridy = 0;
@@ -53,7 +52,7 @@ public class TaskMenu extends ClipMenu implements ActionListener{
 
         // add spacer so their a gap between the button and the right end of the panel
         JPanel spacer = new JPanel();
-        spacer.setBackground(Color.WHITE);
+        spacer.setBackground(Style.bg1());
         c.gridx = 2;
         c.gridy = 0;
         c.anchor = GridBagConstraints.LINE_END;
@@ -75,11 +74,10 @@ public class TaskMenu extends ClipMenu implements ActionListener{
         c.anchor = GridBagConstraints.PAGE_START;
         c.fill = GridBagConstraints.HORIZONTAL;
         scrollPaneloutside.add(scrollPanel,c);
-        scrollPaneloutside.setBackground(Color.WHITE);
+        scrollPaneloutside.setBackground(Style.bg1());
         
-        scrollPanel.setBackground(Color.WHITE);
-        //scrollPanel.setBorder(BorderFactory.createLineBorder(Color.red,7));
-        scrollPanel.setBorder(BorderFactory.createMatteBorder(0,(int)(30*Main.scaleX),(int)(100*Main.scaleX),(int)(30*Main.scaleX),Color.white));
+        scrollPanel.setBackground(Style.bg1());
+        scrollPanel.setBorder(BorderFactory.createMatteBorder(0,(int)(30*Main.scaleX),(int)(100*Main.scaleX),(int)(30*Main.scaleX),Style.bg1()));
         scrollPanel.setLayout(new BoxLayout(scrollPanel, BoxLayout.Y_AXIS));
         
         // adds the individual tasks to the menu
@@ -88,7 +86,7 @@ public class TaskMenu extends ClipMenu implements ActionListener{
         while(currentNode != null) {
             // create a jpanel to put the task in so that padding can be added
             JPanel j = new JPanel();
-            j.setBorder(BorderFactory.createMatteBorder(2,0,2,0,Color.white));
+            j.setBorder(BorderFactory.createMatteBorder(2,0,2,0,Style.bg1()));
             j.setOpaque(false);
             j.setLayout(new GridLayout(1,1));
             j.add(new Task(currentNode, this, j));
@@ -102,7 +100,7 @@ public class TaskMenu extends ClipMenu implements ActionListener{
                 
         // Make scrolling faster
         scrollPane.getVerticalScrollBar().setUnitIncrement(SCROLLSPEED); 
-        scrollPane.getViewport().setBackground(Color.WHITE);
+        scrollPane.getViewport().setBackground(Style.bg1());
         this.add(scrollPane);
     }
 
@@ -116,7 +114,7 @@ public class TaskMenu extends ClipMenu implements ActionListener{
             taskList.incrementCounterID();
 
             JPanel j = new JPanel();
-            j.setBorder(BorderFactory.createLineBorder(Color.white,2));
+            j.setBorder(BorderFactory.createLineBorder(Style.bg1(),2));
             j.setOpaque(false);
             j.setLayout(new GridLayout(1,1));
             j.add(new Task(taskList.getRoot(), this, j));

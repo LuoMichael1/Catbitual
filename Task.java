@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -20,8 +19,6 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
     private TaskNode data;
     private JPanel j;
 
-    private final Color BACK_GROUND_COLOR = new Color(240, 240, 240);
-
     //private JLabel titleLabel;
     //private JTextField titleLabel;
     private ArrayList<JTextField> titleLabel = new ArrayList<JTextField>();
@@ -36,7 +33,7 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
         
         this.setFocusable(true);
         this.setVisible(true);
-        this.setBackground(BACK_GROUND_COLOR);
+        this.setBackground(Style.bg2());
         this.setLayout(new GridBagLayout());
 
         initializeGraphics();
@@ -72,7 +69,7 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
         titleLabel.add(new JTextField(data.getName()[0], maxCharacterLength));
         titleLabel.get(0).setFont(FontMaker.p);
         titleLabel.get(0).setBorder(javax.swing.BorderFactory.createEmptyBorder());
-        titleLabel.get(0).setBackground(BACK_GROUND_COLOR);
+        titleLabel.get(0).setBackground(Style.bg2());
         titleLabel.get(0).addActionListener(this);
         titleLabel.get(0).addFocusListener(this);
         c.gridwidth = 2;
@@ -114,7 +111,7 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
             titleLabel.add(new JTextField(data.getName()[i], maxCharacterLength));
             titleLabel.get(i).setFont(FontMaker.p);
             titleLabel.get(i).setBorder(javax.swing.BorderFactory.createEmptyBorder());
-            titleLabel.get(i).setBackground(BACK_GROUND_COLOR);
+            titleLabel.get(i).setBackground(Style.bg2());
             titleLabel.get(0).addFocusListener(this);
             c.gridx = 3;
             c.gridy = i+1;

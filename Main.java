@@ -15,7 +15,6 @@ public class Main {
     public static double scaleX = 1;
     public static double scaleY = 1;
 
-
     public static void main(String[] args) {
         
         // set look and feel

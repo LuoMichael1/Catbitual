@@ -1,7 +1,6 @@
 // menu which allows user to purchase food and furniture for their cat!
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -41,10 +40,10 @@ public class PetStore extends JScrollPane implements ActionListener{
         
         // adds margin between each displayed item
         scrollPanel.setLayout(new GridLayout(0,2, (int)(15*Main.scaleX), (int)(15*Main.scaleX)));
-        scrollPanel.setBackground(Color.WHITE);
+        scrollPanel.setBackground(Style.bg1());
         
         // creates a small margin around the scrollable part of the menu
-        scrollPanel.setBorder(BorderFactory.createMatteBorder(0,(int)(30*Main.scaleX),30,(int)(30*Main.scaleX),Color.white));
+        scrollPanel.setBorder(BorderFactory.createMatteBorder(0,(int)(30*Main.scaleX),30,(int)(30*Main.scaleX),Style.bg1()));
 
         // Make scrolling faster
         this.getVerticalScrollBar().setUnitIncrement(SCROLLSPEED);
@@ -68,7 +67,7 @@ public class PetStore extends JScrollPane implements ActionListener{
 
             JPanel j = new RoundedPanel();
             j.setLayout(new OverlayLayout(j));
-            j.setBackground(new Color(240, 240, 240));
+            j.setBackground(Style.bg2());
             
             ImageIcon img = new ImageIcon("Assets/Images/Furniture/" + rec.filepath);
             images.add(img);
@@ -96,14 +95,21 @@ public class PetStore extends JScrollPane implements ActionListener{
             RoundedPanel p = new RoundedPanel();
             p.setAlignmentX(1.0f);  // left
             p.setAlignmentY(0.0f);  // bottom
-            p.setBackground(new Color(0,0,0,0));
+            p.setBackground(Style.transparent());
             p.setLayout(new GridBagLayout());
 
             RoundedPanel p2 = new RoundedPanel();
             p2.setMaximumSize(new Dimension(200, 50));
-            p2.setBackground(Color.WHITE);
+            p2.setBackground(Style.bg1());
             
-            JLabel jl = new JLabel(rec.owned ? "Owned" : (rec.price + " clams"));
+            JLabel jl;
+            if (rec.owned) {
+                jl = new JLabel("Owned");
+                jl.setForeground(Style.success()); // change font color to green when owned
+            }
+            else {
+                jl = new JLabel(rec.price + " clams");
+            }
             jl.setFont(FontMaker.p);
             p2.add(jl);
             priceLabels.add(jl);

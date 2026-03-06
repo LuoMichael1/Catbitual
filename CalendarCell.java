@@ -1,5 +1,4 @@
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.time.LocalDate;
@@ -18,7 +17,7 @@ class CalendarCell extends RoundedPanel {
     public CalendarCell(LocalDate date) {
         this.date = date;
         setLayout(new BorderLayout());
-        setBackground(Color.WHITE);
+        setBackground(Style.bg1());
         int width = (Main.width/2 - (int)(50*Main.scaleX) - 50 - (int)(60*Main.scaleX) - 7)/7;
         setPreferredSize(new Dimension(width, width)); // make each cell a square
         // Layered pane for stacking
@@ -33,7 +32,7 @@ class CalendarCell extends RoundedPanel {
         // Day number label (top-left)
         dayLabel = new JLabel(String.valueOf(date.getDayOfMonth()));
         dayLabel.setFont(FontMaker.p2);
-        dayLabel.setForeground(Color.GRAY);
+        dayLabel.setForeground(Style.text2());
 
         layeredPane.add(imageLabel, Integer.valueOf(0));
         layeredPane.add(dayLabel, Integer.valueOf(1));
@@ -46,7 +45,7 @@ class CalendarCell extends RoundedPanel {
     public void setToday(boolean today) {
         this.isToday = today;
         if (today) {
-            setBackground(new Color(255, 234, 218));
+            setBackground(Style.highlight());
         }
     }
 

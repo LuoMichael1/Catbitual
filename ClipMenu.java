@@ -1,7 +1,6 @@
 // clipboard styled menus
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -14,12 +13,12 @@ public class ClipMenu extends RoundedPanel{
 
     public ClipMenu(String title) {
         initializeSize();
-        this.setBackground(Color.WHITE);
+        this.setBackground(Style.bg1());
         this.setLayout(new BorderLayout());
         
         h1 = new JLabel(title);
         h1.setFont(FontMaker.h1);
-        h1.setBorder(BorderFactory.createMatteBorder(0,(int)(30*Main.scaleX),0,0, new Color(0,0,0,0)));
+        h1.setBorder(BorderFactory.createEmptyBorder(0,(int)(30*Main.scaleX),0,0));
         this.add(h1, BorderLayout.NORTH);
         
         this.setEnabled(false);

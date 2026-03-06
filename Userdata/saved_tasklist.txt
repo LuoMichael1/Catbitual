@@ -35,9 +35,6 @@ settings - enable darkmode
 settings - mute / change volume of audio
 1,f,f,2026-03-05T12:50:13.902830200,2026-03-05T12:50:13.902830200
 1
-fix color to use centralized variables 
-1,f,f,2026-03-05T12:49:42.726484500,2026-03-05T12:49:42.726484500
-1
 add cat hunger and leaving mechanics
 1,f,f,2026-03-05T12:49:07.015651900,2026-03-05T12:49:07.015651900
 1

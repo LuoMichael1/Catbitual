@@ -11,7 +11,6 @@ import java.time.YearMonth;
 import java.io.File;
 
 public class HabitCalender extends JPanel{
-    private static final Color LIGHT_GRAY = new Color(240, 240, 240);
     private JPanel mainPanel = new RoundedPanel();
     private JScrollPane scrollPane = new JScrollPane(mainPanel);
     private CalendarDB db;
@@ -22,8 +21,8 @@ public class HabitCalender extends JPanel{
         //SwingUtilities.invokeLater(() -> { });   remember to use this in plaes
 
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-        mainPanel.setBackground(Color.WHITE);
-        mainPanel.setBorder(BorderFactory.createMatteBorder((int)(30*Main.scaleX), (int)(25*Main.scaleX), (int)(25*Main.scaleX), (int)(25*Main.scaleX), new Color(0,0,0,0)));
+        mainPanel.setBackground(Style.bg1());
+        mainPanel.setBorder(BorderFactory.createEmptyBorder((int)(30*Main.scaleX), (int)(25*Main.scaleX), (int)(25*Main.scaleX), (int)(25*Main.scaleX)));
 
         // ensure Userdata dir exists for DB
         File userDataDir = new File("Userdata");
@@ -45,7 +44,7 @@ public class HabitCalender extends JPanel{
 
         scrollPane.setBorder(null);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
-        scrollPane.getViewport().setBackground(Color.WHITE);
+        scrollPane.getViewport().setBackground(Style.bg1());
 
 
         this.add(scrollPane, BorderLayout.CENTER);
@@ -57,7 +56,7 @@ public class HabitCalender extends JPanel{
 
         JPanel monthPanel = new RoundedPanel();
         monthPanel.setLayout(new BorderLayout());
-        monthPanel.setBackground(LIGHT_GRAY);
+        monthPanel.setBackground(Style.bg2());
         monthPanel.setBorder(new EmptyBorder(15, 20, 20, 20));
 
         // add the name of the month at the top of each month panel
@@ -90,7 +89,7 @@ public class HabitCalender extends JPanel{
 
             JLabel label = new JLabel(day, SwingConstants.CENTER);
             label.setFont(FontMaker.p);
-            label.setForeground(Color.GRAY);
+            label.setForeground(Style.text2());
 
             grid.add(label, c);
         }
