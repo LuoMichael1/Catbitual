@@ -154,6 +154,7 @@ public class PetStore extends JScrollPane implements ActionListener{
                         Menu.addEntity(furn);
                         // update label
                         priceLabels.get(i).setText("Owned");
+                        priceLabels.get(i).setForeground(Style.success()); // change font color to green when owned
                         m.repaint();
                     } else {
                         // already owned: don't do anything
