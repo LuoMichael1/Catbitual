@@ -1,9 +1,66 @@
 1
-Untitled Task
-1,f,f,2026-03-04T21:14:59.650561,2026-03-04T21:14:59.650561
+add cat stamping animation when checking in
+1,f,f,2026-03-05T14:35:38.286008700,2026-03-05T14:35:38.286008700
 1
-Untitled Task
+add cross out animation
+1,f,f,2026-03-05T14:35:32.321369300,2026-03-05T14:35:32.321369300
+1
+add brown boarders to clip menus (like the furniture)
+1,f,f,2026-03-05T14:35:14.841574300,2026-03-05T14:35:14.842578500
+1
+change icon design and favicon
+1,f,f,2026-03-05T12:52:51.233704400,2026-03-05T12:52:51.233704400
+1
+add keyboard shortcuts
+1,f,f,2026-03-05T12:52:42.101725500,2026-03-05T12:52:42.101725500
+1
+add task undo
+1,f,f,2026-03-05T12:52:31.781618800,2026-03-05T12:52:31.781618800
+1
+improve code comments and overall readability
+1,f,f,2026-03-05T12:52:18.795226,2026-03-05T12:52:18.795226
+1
+make cat more lively and make room more dynamic
+1,f,f,2026-03-05T12:51:23.778701400,2026-03-05T12:51:23.778701400
+1
+award currency based on task completion and focus duration
+1,f,f,2026-03-05T12:51:02.298228,2026-03-05T12:51:02.299230600
+1
+add currency
+1,f,f,2026-03-05T12:50:38.132429900,2026-03-05T12:50:38.132429900
+1
+settings - enable darkmode
+1,f,f,2026-03-05T12:50:25.175950200,2026-03-05T12:50:25.175950200
+1
+settings - mute / change volume of audio
+1,f,f,2026-03-05T12:50:13.902830200,2026-03-05T12:50:13.902830200
+1
+fix color to use centralized variables 
+1,f,f,2026-03-05T12:49:42.726484500,2026-03-05T12:49:42.726484500
+1
+add cat hunger and leaving mechanics
+1,f,f,2026-03-05T12:49:07.015651900,2026-03-05T12:49:07.015651900
+1
+fix location of furniture and draw order
+1,f,f,2026-03-05T12:48:55.468423800,2026-03-05T12:48:55.468423800
+1
+add feeding cat
+1,f,f,2026-03-05T12:48:49.484781300,2026-03-05T12:48:49.484781300
+1
+add food to petstore
+1,f,f,2026-03-05T12:48:40.470813700,2026-03-05T12:48:40.470813700
+1
+allow user to set a timer and specify the duration
+1,f,f,2026-03-05T12:48:22.539891200,2026-03-05T12:48:22.540894300
+1
+improve appearance of focus screen
+1,f,f,2026-03-05T12:48:04.821762400,2026-03-05T12:48:04.821762400
+1
+allow user to set priority, date, and color of tasks
+1,f,f,2026-03-04T21:14:58.359422600,2026-03-04T21:14:58.359422600
+1
+sort task list by alpha, date, and priority - mergesort
 1,f,f,2026-03-04T21:14:57.929995100,2026-03-04T21:14:57.929995100
 1
-Untitled Task
-1,f,f,2026-03-04T21:14:58.359422600,2026-03-04T21:14:58.359422600
+audio and music
+1,f,f,2026-03-04T21:14:59.650561,2026-03-04T21:14:59.650561

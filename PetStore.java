@@ -50,10 +50,10 @@ public class PetStore extends JScrollPane implements ActionListener{
         this.getVerticalScrollBar().setUnitIncrement(SCROLLSPEED);
 
         // ensure DB catalog and load items
-        FurnitureDB fdb = null;
-        java.util.List<FurnitureDB.FurnitureRecord> items = new java.util.ArrayList<>();
+        PetStoreDB fdb = null;
+        ArrayList<PetStoreDB.FurnitureRecord> items = new ArrayList<>();
         try {
-            fdb = new FurnitureDB();
+            fdb = new PetStoreDB();
             fdb.ensureCatalogFromFile(new File("Assets/Images/Furniture/Catalog.txt"));
             items = fdb.getAllItems();
         } catch (Exception e) {
@@ -64,7 +64,7 @@ public class PetStore extends JScrollPane implements ActionListener{
 
         // display items
         for (int i=0; i<items.size(); i++) {
-            FurnitureDB.FurnitureRecord rec = items.get(i);
+            PetStoreDB.FurnitureRecord rec = items.get(i);
 
             JPanel j = new RoundedPanel();
             j.setLayout(new OverlayLayout(j));
@@ -132,13 +132,13 @@ public class PetStore extends JScrollPane implements ActionListener{
     }
 
     public void actionPerformed(ActionEvent e) {
-        FurnitureDB fdb = null;
+        PetStoreDB fdb = null;
         try {
-            fdb = new FurnitureDB();
-            java.util.List<FurnitureDB.FurnitureRecord> items = fdb.getAllItems();
+            fdb = new PetStoreDB();
+            java.util.List<PetStoreDB.FurnitureRecord> items = fdb.getAllItems();
             for (int i=0; i<buttons.size(); i++) {
                 if (buttons.get(i) == e.getSource()) {
-                    FurnitureDB.FurnitureRecord rec = items.get(i);
+                    PetStoreDB.FurnitureRecord rec = items.get(i);
                     ImageIcon img = images.get(i);
                     if (!rec.owned) {
                         // mark owned and add to room

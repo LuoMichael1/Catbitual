@@ -10,12 +10,12 @@ import java.util.Set;
 
 // Using SQLite for storing daily check-ins
 
-public class DBHelper {
-    private static final String DB_PATH = "Userdata/checkins.db";
+public class CalendarDB {
+    private static final String DB_PATH = "Userdata/catbitual.db";
     private static final String URL = "jdbc:sqlite:" + DB_PATH;
     private Connection conn;
 
-    public DBHelper() throws SQLException {
+    public CalendarDB() throws SQLException {
         connect();
         ensureTable();
     }

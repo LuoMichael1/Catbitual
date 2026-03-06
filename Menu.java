@@ -9,7 +9,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     private Room room = new Room();
     private Cat cat = new Cat("Cat", Main.width/2, Main.height/2, this);
     private static ArrayList<Entities> entities = new ArrayList<Entities>();
-    private FurnitureDB furnitureDB = null;
+    private PetStoreDB petStoreDB = null;
     public static double scale = Main.height/1080.0;
 
     private JButton[] sideButtons = new JButton[6];
@@ -84,9 +84,9 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
 
         // load owned furniture from DB
         try {
-            furnitureDB = new FurnitureDB();
-            java.util.List<FurnitureDB.FurnitureRecord> owned = furnitureDB.getOwnedItems();
-            for (FurnitureDB.FurnitureRecord rec : owned) {
+            petStoreDB = new PetStoreDB();
+            ArrayList<PetStoreDB.FurnitureRecord> owned = petStoreDB.getOwnedItems();
+            for (PetStoreDB.FurnitureRecord rec : owned) {
                 try {
                     ImageIcon img = new ImageIcon("Assets/Images/Furniture/" + rec.filepath);
                     Furniture f = new Furniture(img, rec.filepath, rec.id);
@@ -140,9 +140,9 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
                 if (entities.get(i) instanceof Furniture) {
                     Furniture f = (Furniture) entities.get(i);
                     int id = f.getDbId();
-                    if (id != -1 && furnitureDB != null) {
+                    if (id != -1 && petStoreDB != null) {
                         try {
-                            furnitureDB.updateLocation(id, f.getX(), f.getY());
+                            petStoreDB.updateLocation(id, f.getX(), f.getY());
                         } catch (Exception ex) {
                             ex.printStackTrace();
                         }

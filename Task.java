@@ -10,9 +10,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
-
 import javax.swing.JCheckBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -152,22 +150,14 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+    }
 
-    }
     @Override
-    public void mouseClicked(MouseEvent e) {
-        //
-    }
+    public void mouseClicked(MouseEvent e) {}
     @Override
-    public void mouseEntered(MouseEvent e) {
-        // TODO Auto-generated method stub
-        //throw new UnsupportedOperationException("Unimplemented method 'mouseEntered'");
-    }
+    public void mouseEntered(MouseEvent e) {}
     @Override
-    public void mouseExited(MouseEvent e) {
-        // TODO Auto-generated method stub
-        //throw new UnsupportedOperationException("Unimplemented method 'mouseExited'");
-    }
+    public void mouseExited(MouseEvent e) {}
 
 
 
@@ -254,10 +244,9 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
         }
     }
     @Override
-    public void mouseMoved(MouseEvent e) {
-        // TODO Auto-generated method stub
-        //throw new UnsupportedOperationException("Unimplemented method 'mouseMoved'");
-    }
+    public void mouseMoved(MouseEvent e) {}
+
+
     // this only triggers when you press enter in a textfield, which means that a lot of work accidentally is not saved, therefore we need to used focuslistener instead
     public void actionPerformed(ActionEvent e) {
         // save the new text to the save file
@@ -272,10 +261,7 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
     }
 
     @Override
-    public void focusGained(FocusEvent e) {
-        // TODO Auto-generated method stub
-        //throw new UnsupportedOperationException("Unimplemented method 'focusGained'");
-    }
+    public void focusGained(FocusEvent e) {}
 
     public void focusLost(FocusEvent e) {
        // save the new text to the save file

@@ -14,7 +14,7 @@ public class HabitCalender extends JPanel{
     private static final Color LIGHT_GRAY = new Color(240, 240, 240);
     private JPanel mainPanel = new RoundedPanel();
     private JScrollPane scrollPane = new JScrollPane(mainPanel);
-    private DBHelper db;
+    private CalendarDB db;
 
 
     public HabitCalender() {
@@ -30,7 +30,7 @@ public class HabitCalender extends JPanel{
         if (!userDataDir.exists()) userDataDir.mkdirs();
 
         try {
-            db = new DBHelper();
+            db = new CalendarDB();
         } catch (SQLException e) {
             e.printStackTrace();
             db = null;
