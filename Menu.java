@@ -204,6 +204,13 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     }
     public void mouseMoved(MouseEvent e) {
         // idea, check if the mouse moves over the cat, which then can be used to trigger a petting animation?????????
+
+        if (cat.withinBounds(e.getX(), e.getY()) && !cat.getGrabbed()) {
+            cat.setPetted(true);
+        }
+        else{
+            cat.setPetted(false);
+        }
     }
 
     public void actionPerformed(ActionEvent e) {

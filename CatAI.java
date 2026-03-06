@@ -1,20 +1,15 @@
-// im going to tentively make this a seperate class but it might
-// make more sense as a method with in the existing Cat class
-
-
-
+// controls the movement and animations of the cat, runs on a separate thread to not interfere with the UI
 
 import java.util.concurrent.*;
 
 public class CatAI {
-
     private Cat cat;
     private ScheduledThreadPoolExecutor running = new ScheduledThreadPoolExecutor(2);
 
     public CatAI(Cat cat) {
         this.cat = cat;
 
-        // updates the the cat ~9 times per seconds (9 FPS)
+        // updates the the cat ~9 times per seconds 
         UpdateState task = new UpdateState(cat);
         running.scheduleAtFixedRate(task, 0, 1000/9, TimeUnit.MILLISECONDS);      
     }
@@ -56,41 +51,47 @@ class UpdateState implements Runnable {
     }
 
     
-    
     public void run() {
         State currentState = State.WANDERING;
         
         if (cat.getGrabbed()) {
             currentState = State.GRABBED;
         }
+        else if (cat.getPetted()) {
+            currentState = State.PETTED;
+        }
+        else if (!cat.getPetted()) {
+            petAnimationSteps = 0; // reset value
+        }
 
         //tempState = (int)(Math.floor(Math.random()*7));
         switch(currentState) {
-            case WANDERING:
-                wander();
+            case WANDERING: wander();
                 break;
-            case GRABBED:
-                animateGrab();
+            case GRABBED: animateGrab();
                 break;
-            case FALLING:
+            case FALLING: // unused, there is no good way to determine where the cat should land
                 break;
-            case IDLE:
+            case IDLE: // this is essentially useless because of wandering, but could be used in the future
                 break;
             case SLEEPING:
                 break;
-            case SITTING:
+            case SITTING: 
                 break;
             case CLEANING:
                 break;
-            case PETTED:
+            case PETTED: pet();
+                break;
+            default: System.out.println("Warning: Cat state was not found");
                 break;
         }
         cat.repaint();
     }
 
+
     private int count = 0;
-    int x = 0;
-    int y = 0;
+    private int x = 0;
+    private int y = 0;
     public void wander () {
         
         // pick a place on the screen to move towards
@@ -146,8 +147,6 @@ class UpdateState implements Runnable {
                 cat.setY(y);
             }
         }
-
-        //System.out.println("testing");
         
     }
 
@@ -198,5 +197,17 @@ class UpdateState implements Runnable {
             swayBuffer--;
         }
         lastPosX = cat.xPos;  
+    }
+
+    private int petAnimationSteps = 0;  // special counter for petting animation since single frames need to last longer 
+
+    public void pet() {
+        petAnimationSteps++;
+        if (petAnimationSteps < 6)
+            cat.setStep(23);
+        else if(petAnimationSteps < 50)
+            cat.setStep(20);
+        else
+            cat.setStep(29);
     }
 }
