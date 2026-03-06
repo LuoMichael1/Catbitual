@@ -1,7 +1,1 @@
-User
-Name: Human
-Coins: 0
-Furniture
-
-Cat
-Breed: Black
+Coins: 100

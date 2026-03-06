@@ -107,7 +107,7 @@ public class PetStore extends JScrollPane implements ActionListener{
                 jl.setForeground(Style.success()); // change font color to green when owned
             }
             else {
-                jl = new JLabel(rec.price + " clams");
+                jl = new JLabel(rec.price + " fish");
             }
             jl.setFont(FontMaker.p);
             p2.add(jl);

@@ -68,6 +68,8 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         JLayeredPane center = new JLayeredPane();
         this.add(center, BorderLayout.CENTER);
 
+        User hi = new User();
+
         clipMenus[0] = new ClipMenu("Cat Info");
         clipMenus[1] = new ClipMenu("Pet Store");
         clipMenus[2] = new HabitMenu("Habits");
