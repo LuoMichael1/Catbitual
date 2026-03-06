@@ -26,9 +26,6 @@ make room more dynamic and cat throwable
 award currency based on task completion and focus duration
 1,f,f,2026-03-05T12:51:02.298228,2026-03-05T12:51:02.299230600
 1
-add currency
-1,f,f,2026-03-05T12:50:38.132429900,2026-03-05T12:50:38.132429900
-1
 settings - enable darkmode
 1,f,f,2026-03-05T12:50:25.175950200,2026-03-05T12:50:25.175950200
 1
@@ -37,9 +34,6 @@ settings - mute / change volume of audio
 1
 add cat hunger and leaving mechanics
 1,f,f,2026-03-05T12:49:07.015651900,2026-03-05T12:49:07.015651900
-1
-fix location of furniture and draw order
-1,f,f,2026-03-05T12:48:55.468423800,2026-03-05T12:48:55.468423800
 1
 add feeding cat
 1,f,f,2026-03-05T12:48:49.484781300,2026-03-05T12:48:49.484781300

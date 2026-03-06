@@ -148,7 +148,7 @@ public class PetStore extends JScrollPane implements ActionListener{
                     if (!rec.owned) {
                         // mark owned and add to room
                         fdb.markOwned(rec.id);
-                        Furniture furn = new Furniture(img, rec.filepath, rec.id);
+                        Furniture furn = new Furniture(img, rec.filepath, rec.id, rec.type);
                         // default position
                         furn.setPosition(Main.width/2, Room.floorHeight);
                         Menu.addEntity(furn);
@@ -156,9 +156,18 @@ public class PetStore extends JScrollPane implements ActionListener{
                         priceLabels.get(i).setText("Owned");
                         priceLabels.get(i).setForeground(Style.success()); // change font color to green when owned
                         m.repaint();
-                    } else {
-                        // already owned: don't do anything
-                        // actually change this so that it removes the entity from the room
+                    } 
+                    else {
+                        // Toggle presence in the room: if present, remove it; otherwise re-add it
+                        Entities existing = Menu.findEntity(rec.id);
+                        if (existing != null) {
+                            Menu.removeEntity(existing);
+                        } else {
+                            Furniture furn = new Furniture(img, rec.filepath, rec.id, rec.type);
+                            furn.setPosition(Main.width/2, Room.floorHeight);
+                            Menu.addEntity(furn);
+                        }
+                        m.repaint();
                     }
                 }
             }

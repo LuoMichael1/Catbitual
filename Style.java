@@ -12,7 +12,8 @@ public enum Style {
     // extra
     SUCCESSCOLOR(new Color(3, 182, 0)),
     HIGHLIGHTCOLOR(new Color(255, 234, 218)),
-    TRANSPARENT(new Color(0,0,0,0));
+    TRANSPARENT(new Color(0,0,0,0)),
+    TRANSLUCENT(new Color(250,250,250,230));
 
 
 
@@ -38,4 +39,6 @@ public enum Style {
     public static Color success() { return SUCCESSCOLOR.color; }
     public static Color highlight() { return HIGHLIGHTCOLOR.color; }
     public static Color transparent() { return TRANSPARENT.color; }
+    public static Color translucent() { return TRANSLUCENT.color; }
+
 }

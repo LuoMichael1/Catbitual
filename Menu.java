@@ -68,7 +68,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         JLayeredPane center = new JLayeredPane();
         this.add(center, BorderLayout.CENTER);
 
-        User hi = new User();
+        User b = new User();
 
         clipMenus[0] = new ClipMenu("Cat Info");
         clipMenus[1] = new ClipMenu("Pet Store");
@@ -92,7 +92,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
             for (PetStoreDB.FurnitureRecord rec : owned) {
                 try {
                     ImageIcon img = new ImageIcon("Assets/Images/Furniture/" + rec.filepath);
-                    Furniture f = new Furniture(img, rec.filepath, rec.id);
+                    Furniture f = new Furniture(img, rec.filepath, rec.id, rec.type);
                     if (rec.x >= 0 && rec.y >= 0) 
                         f.setPosition(rec.x, rec.y);
                     else 
@@ -114,9 +114,27 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         super.paintComponent(g);  
         room.drawRoom(g);
 
-        
+        // Draw carpets and wall decorations first so they appear below other objects
         for (int i=0; i<entities.size(); i++) {
-            entities.get(i).drawState(g);
+            Entities ent = entities.get(i);
+            if (ent instanceof Furniture) {
+                Furniture f = (Furniture) ent;
+                String t = f.getType();
+                if ("carpet".equals(t) || "walldeco".equals(t)) {
+                    ent.drawState(g);
+                }
+            }
+        }
+
+        // Draw all other entities (including cat and regular furniture)
+        for (int i=0; i<entities.size(); i++) {
+            Entities ent = entities.get(i);
+            if (ent instanceof Furniture) {
+                Furniture f = (Furniture) ent;
+                String t = f.getType();
+                if ("carpet".equals(t) || "walldeco".equals(t)) continue;
+            }
+            ent.drawState(g);
         }
 
         // enables antialiasing on the text
@@ -284,5 +302,22 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
 
     public static void addEntity(Entities e) {
         entities.add(e);
+    }
+
+    // uses the id from the database
+    public static Entities findEntity(int dbId) {
+        for (Entities e : entities) {
+            if (e instanceof Furniture) {  // because the entity array could have other types such as cat  - used https://www.baeldung.com/java-instanceof
+                Furniture f = (Furniture) e;
+                if (f.getDbId() == dbId) {
+                    return f;
+                }
+            }
+        }
+        return null;
+    }
+
+    public static void removeEntity(Entities e) {
+        entities.remove(e);
     }
 }

@@ -10,6 +10,7 @@ public class Furniture extends Entities{
     private boolean grabbed = false;
     private int dbId = -1;
     private String filepath = null;
+    private String type = ""; // furniture type from DB like carpet or walldeco
 
     public Furniture(ImageIcon sprite) {
         super("furniture", 300, 500, (int)(sprite.getIconWidth()*imageScaler), (int)(sprite.getIconHeight()*imageScaler), sprite);
@@ -23,15 +24,26 @@ public class Furniture extends Entities{
         this.dbId = dbId;
     }
 
+    public Furniture(ImageIcon sprite, String filepath, int dbId, String type) {
+        super("furniture", 300, 500, (int)(sprite.getIconWidth()*imageScaler), (int)(sprite.getIconHeight()*imageScaler), sprite);
+        this.sprite = sprite;
+        this.filepath = filepath;
+        this.dbId = dbId;
+        this.type = (type == null) ? "" : type.toLowerCase();
+    }
+
     public void grabbed() {
         grabbed = true;
     }
     public void dropped() {
         grabbed = false;
 
-        // don't allow the furniture to be dropped onto the wall, move it down to the floor
-        if (super.yPos < Room.floorHeight) 
-            super.yPos = Room.floorHeight;
+        // don't allow the furniture to be dropped onto the wall for most furniture —
+        // but allow wall decorations to be placed on the wall
+        if (!type.equals("walldeco")) {
+            if (super.yPos < Room.floorHeight)
+                super.yPos = Room.floorHeight;
+        }
     }
 
     public void draw(Graphics g) {
@@ -56,5 +68,11 @@ public class Furniture extends Entities{
     }
     public void setFilepath(String path) {
         this.filepath = path;
+    }
+    public String getType() {
+        return type;
+    }
+    public void setType(String t) {
+        this.type = t.toLowerCase();
     }
 }
