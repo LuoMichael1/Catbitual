@@ -1,7 +1,7 @@
 // Use to play music and sound effects
 // used this website for help with the music
 // https://www.geeksforgeeks.org/play-audio-file-using-java/
-// issue is that it is limited to wav files for the most part - these are much larger than the mp3s I had
+// unfortunatly it is limited to wav files for the most part
 
 import java.io.File;
 import javax.sound.sampled.*;

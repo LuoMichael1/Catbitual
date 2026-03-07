@@ -88,7 +88,7 @@ class UpdateState implements Runnable {
     private int count = 0;
     private int x = 0;
     private int y = 0;
-    public void wander () {
+    public void wander() {
         
         // pick a place on the screen to move towards
         if (count == 0) {
