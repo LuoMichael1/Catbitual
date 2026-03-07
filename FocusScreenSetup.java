@@ -59,10 +59,15 @@ public class FocusScreenSetup extends JPanel implements MouseListener, ActionLis
         minsField.setFont(FontMaker.big);
         secsField.setFont(FontMaker.big);
 
-        hoursField.setBorder(null);
-        minsField.setBorder(null);
-        secsField.setBorder(null);
+        hoursField.setBorder(new EmptyBorder((int)(15*Main.scaleX), (int)(5*Main.scaleX), (int)(15*Main.scaleX), (int)(5*Main.scaleX)));
+        minsField.setBorder(new EmptyBorder((int)(15*Main.scaleX), (int)(5*Main.scaleX), (int)(15*Main.scaleX), (int)(5*Main.scaleX)));
+        secsField.setBorder(new EmptyBorder((int)(15*Main.scaleX), (int)(5*Main.scaleX), (int)(15*Main.scaleX), (int)(5*Main.scaleX)));
 
+        // remove background or else you can see the corners
+        hoursField.setBackground(Style.transparent());
+        minsField.setBackground(Style.transparent());
+        secsField.setBackground(Style.transparent());
+        
         RoundedPanel hoursFieldPanel = new RoundedPanel();
         RoundedPanel minsFieldPanel = new RoundedPanel();
         RoundedPanel secsFieldPanel = new RoundedPanel();
@@ -78,7 +83,8 @@ public class FocusScreenSetup extends JPanel implements MouseListener, ActionLis
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(0, 5, 0, 5); // spacing between components
 
-        gbc.gridx = 0; gbc.gridy = 0;
+        gbc.gridx = 0; 
+        gbc.gridy = 0;
         timePanel.add(hoursFieldPanel, gbc);
 
         gbc.gridx = 1;
