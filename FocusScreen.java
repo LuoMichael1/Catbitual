@@ -81,14 +81,19 @@ public class FocusScreen extends JPanel implements MouseListener, ActionListener
                     Main.showCard("rewardScreen");
                     bgmusic.stop();
 
-                    Sound meowFinish = new Sound("Assets/Sounds/meow" + ((int)(Math.random()*2)+1) + ".wav", 0);
+                    if (User.sfxEnabled) {
+                        new Sound("Assets/Sounds/meow" + ((int)(Math.random()*2)+1) + ".wav", 0);
+                    }
+                    
                 }
                 else if (e.getSource() == b1) {
                     timer.stop();
                     Main.showCard("rewardScreen");
                     bgmusic.stop();
-
-                    Sound meowFinish = new Sound("Assets/Sounds/meow" + ((int)(Math.random()*2)+1) + ".wav", 0);
+                    
+                    if (User.sfxEnabled) {
+                        new Sound("Assets/Sounds/meow" + ((int)(Math.random()*2)+1) + ".wav", 0);
+                    }
                 }
             }
         };
@@ -121,8 +126,13 @@ public class FocusScreen extends JPanel implements MouseListener, ActionListener
             increment = 1;
             timecount = 0;
         }
+
+
         // starts a random song from the 4 available
         bgmusic = new Sound("Assets/Music/music" + ((int)(Math.random()*4)+1) + ".wav", -1);
+        if (!User.musicEnabled) {
+            bgmusic.stop();
+        }
     }
     public void setTime(int seconds) {
         timecount = seconds;

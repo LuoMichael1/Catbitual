@@ -1,1 +1,3 @@
 Coins: 1556
+MusicEnabled: true
+SfxEnabled: true

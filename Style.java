@@ -15,10 +15,7 @@ public enum Style {
     TRANSPARENT(new Color(0,0,0,0)),
     TRANSLUCENT(new Color(250,250,250,230));
 
-
-
-
-    
+    //------------------------------
     private final Color color;
     
     public Color getColor() {

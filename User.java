@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileWriter;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
@@ -6,6 +7,10 @@ public class User {
     public static int coins = 0;
     private Scanner filesc;
     private static final String filepath = "Userdata/userdata.txt";
+
+    public static boolean musicEnabled = true;
+    public static boolean sfxEnabled = true;
+
 
     public User() {
         // make sure folder exists before trying to read
@@ -17,15 +22,25 @@ public class User {
         try {
             filesc = new Scanner(new File(filepath));
             
-            while (filesc.hasNext()) {
+            // only read the first line which contains the coin
+            if (filesc.hasNextLine()) {
                 String line = filesc.nextLine();
                 String[] data = new String[2];
-                data = line.split(": ");
-
-                coins = Integer.parseInt(data[1]);
-
-                System.out.println("Fish: " + coins);
+                coins = Integer.parseInt(line.split(": ")[1]);
             }
+            
+            // now read the rest of the file which contains the user settings      
+            if (filesc.hasNextLine()) {      
+                String line = filesc.nextLine();
+                musicEnabled = Boolean.parseBoolean(line.split(": ")[1]);
+            }
+            if (filesc.hasNextLine()) {      
+                String line = filesc.nextLine();
+                sfxEnabled = Boolean.parseBoolean(line.split(": ")[1]);
+            }
+            
+        
+
         } catch (Exception e) {
             System.out.println("Could not read user file " + e);
         }
@@ -63,11 +78,24 @@ public class User {
         try {
             File userDir = new File("Userdata");
             if (!userDir.exists()) userDir.mkdirs();
-            java.io.FileWriter fw = new java.io.FileWriter(filepath);
+            FileWriter fw = new FileWriter(filepath);
             fw.write("Coins: " + coins);
             fw.close();
         } catch (Exception e) {
             System.out.println("Could not save user file " + e);
         }
     }
+
+    // save settings to disk
+    public static void saveSettings() {
+        try {
+            FileWriter fw = new FileWriter(filepath);
+            fw.write("Coins: " + coins);
+            fw.close();
+        } catch (Exception e) {
+            System.out.println("Could not save user file " + e);
+        }
+    }
+
+
 }

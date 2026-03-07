@@ -92,7 +92,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         scoreMenu = new ScoreMenu(cat);
         theScoreMenu = scoreMenu;
         clipMenus[4].add(scoreMenu);
-       
+        clipMenus[5].add(new SettingsMenu());
        
         entities.add(cat);
 
