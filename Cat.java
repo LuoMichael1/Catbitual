@@ -14,8 +14,8 @@ public class Cat extends Entities {
     private int sx1 = 0;  // updated to flip the cat so that it faces different directions
     private int sx2 = 0;  // matches with the drawimage function
     private String breed;
-    private double food;
-    private double water;
+    private double food = 100;
+    private double water = 100;
     private double happiness;
 
     // states for the cat
@@ -63,7 +63,11 @@ public class Cat extends Entities {
             sx2 = imgSizeX+(imgSizeX*step);
         }
 
-        g.drawImage(catImage.getImage(), super.getX(), super.getY()-drawSizeY, super.getX()+drawSizeX, super.getY(), sx1, 0, sx2, imgSizeY, null);        
+        // don't draw the cat if it ran out of water or food 
+        if (water >0 && food > 0) {
+            g.drawImage(catImage.getImage(), super.getX(), super.getY()-drawSizeY, super.getX()+drawSizeX, super.getY(), sx1, 0, sx2, imgSizeY, null);        
+        }
+        
     }
     /* 
     public boolean withinBounds(int x, int y) {
@@ -97,6 +101,12 @@ public class Cat extends Entities {
     }
     public void setFood(double food) {
         this.food = food;
+
+        // cap food at 100;
+        if (this.food > 100) {
+            this.food = 100;
+        }
+
     }
     public double getWater() {
         return water;
