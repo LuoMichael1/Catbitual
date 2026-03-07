@@ -1,15 +1,15 @@
-import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -40,39 +40,64 @@ public class FocusScreenSetup extends JPanel implements MouseListener, ActionLis
         JLabel text = new JLabel("How long are you focusing?");
         text.setFont(FontMaker.h1);
         text.setAlignmentX(Component.CENTER_ALIGNMENT);
-        text.setBorder(new EmptyBorder(0,0,50,0));   // adds padding between title and component below
+        text.setBorder(new EmptyBorder(0,0,(int)(10*Main.scaleX),0));   // adds padding between title and component below
         this.add(text);
         
 
         // Time setter
         JPanel timePanel = new JPanel();
-        timePanel.setLayout(new BoxLayout(timePanel, BoxLayout.X_AXIS));
+        timePanel.setLayout(new GridBagLayout());
         timePanel.setBackground(Style.transparent());
         timePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
         timePanel.setBorder(new EmptyBorder(0,0,50,0));   // adds padding between time inputs and buttons
 
-        hoursField = new JTextField("0", 3);
-        minsField = new JTextField("20", 3);
-        secsField = new JTextField("0", 3);
+        hoursField = new JTextField("0", 2);
+        minsField = new JTextField("20", 2);
+        secsField = new JTextField("0", 2);
 
         hoursField.setFont(FontMaker.big);
         minsField.setFont(FontMaker.big);
         secsField.setFont(FontMaker.big);
 
-        timePanel.add(hoursField);
-        timePanel.add(Box.createRigidArea(new Dimension(20,1)));
-        timePanel.add(new JLabel(":"));
-        timePanel.add(Box.createRigidArea(new Dimension(5,1)));
-        timePanel.add(minsField);
-        timePanel.add(Box.createRigidArea(new Dimension(20,1)));
-        timePanel.add(new JLabel(":"));
-        timePanel.add(Box.createRigidArea(new Dimension(5,1)));
-        timePanel.add(secsField);
+        hoursField.setBorder(null);
+        minsField.setBorder(null);
+        secsField.setBorder(null);
+
+        RoundedPanel hoursFieldPanel = new RoundedPanel();
+        RoundedPanel minsFieldPanel = new RoundedPanel();
+        RoundedPanel secsFieldPanel = new RoundedPanel();
+
+        hoursFieldPanel.setBackground(Style.bg1());
+        minsFieldPanel.setBackground(Style.bg1());
+        secsFieldPanel.setBackground(Style.bg1());
+
+        hoursFieldPanel.add(hoursField);
+        minsFieldPanel.add(minsField);
+        secsFieldPanel.add(secsField);
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(0, 5, 0, 5); // spacing between components
+
+        gbc.gridx = 0; gbc.gridy = 0;
+        timePanel.add(hoursFieldPanel, gbc);
+
+        gbc.gridx = 1;
+        JLabel colon1 = new JLabel(":");
+        colon1.setFont(FontMaker.big);
+        timePanel.add(colon1, gbc);
+
+        gbc.gridx = 2;
+        timePanel.add(minsFieldPanel, gbc);
+
+        gbc.gridx = 3;
+        JLabel colon2 = new JLabel(":");
+        colon2.setFont(FontMaker.big);
+        timePanel.add(colon2, gbc);
+
+        gbc.gridx = 4;
+        timePanel.add(secsFieldPanel, gbc);
 
         this.add(timePanel);
-
-
-
 
 
         // start focus buttons
