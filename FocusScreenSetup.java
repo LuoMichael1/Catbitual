@@ -53,7 +53,7 @@ public class FocusScreenSetup extends JPanel implements MouseListener, ActionLis
 
         hoursField = new JTextField("0", 2);
         minsField = new JTextField("20", 2);
-        secsField = new JTextField("0", 2);
+        secsField = new JTextField("00", 2);
 
         hoursField.setFont(FontMaker.big);
         minsField.setFont(FontMaker.big);
@@ -67,7 +67,7 @@ public class FocusScreenSetup extends JPanel implements MouseListener, ActionLis
         hoursField.setBackground(Style.transparent());
         minsField.setBackground(Style.transparent());
         secsField.setBackground(Style.transparent());
-        
+
         RoundedPanel hoursFieldPanel = new RoundedPanel();
         RoundedPanel minsFieldPanel = new RoundedPanel();
         RoundedPanel secsFieldPanel = new RoundedPanel();
