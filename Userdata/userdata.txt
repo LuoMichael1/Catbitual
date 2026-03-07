@@ -1,1 +1,1 @@
-Coins: 21
+Coins: 36

@@ -159,7 +159,7 @@ public class PetStore extends JScrollPane implements ActionListener{
                             priceLabels.get(i).setForeground(Style.success()); // change font color to green when owned
                             m.repaint();
                             // refresh score display
-                            Menu.refreshScore();
+                            Menu.refreshCoins();
                         } else {
                             JOptionPane.showMessageDialog(m, "Not enough fish.");
                         }

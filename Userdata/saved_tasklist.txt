@@ -23,9 +23,6 @@ improve code comments and overall readability
 make room more dynamic and cat throwable
 1,f,f,2026-03-05T12:51:23.778701400,2026-03-05T12:51:23.778701400
 1
-award currency based on task completion and focus duration
-1,f,f,2026-03-05T12:51:02.298228,2026-03-05T12:51:02.299230600
-1
 settings - enable darkmode
 1,f,f,2026-03-05T12:50:25.175950200,2026-03-05T12:50:25.175950200
 1

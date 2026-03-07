@@ -197,6 +197,10 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
                 if (x1-e.getXOnScreen() > 100*Main.scaleY) {
                     taskmenu.remove(data.getID(), j);
                     System.out.println("removed by drag");
+
+                    // award coins
+                    User.addCoins(5);
+                    Menu.refreshCoins();
                 }
             }
             

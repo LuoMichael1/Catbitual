@@ -52,7 +52,7 @@ public class FocusScreen extends JPanel implements MouseListener, ActionListener
                     // award one coin for every full minute of focus
                     if (focusSecondsElapsed > 0 && focusSecondsElapsed % 60 == 0) {
                         User.addCoins(1);
-                        Menu.refreshScore();
+                        Menu.refreshCoins();
                     }
                 }
 

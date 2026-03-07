@@ -32,14 +32,8 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     private ImageIcon settings = new ImageIcon("Assets/Icons/cog.png");
 
     private int buttonSize = 90;
-    
     private ScoreMenu scoreMenu;
 
-    public static void refreshScore() {
-        if (theScoreMenu != null) {
-            theScoreMenu.update();
-        }
-    }
 
     public Menu() {
         
@@ -79,7 +73,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         JLayeredPane center = new JLayeredPane();
         this.add(center, BorderLayout.CENTER);
 
-        new User(); // load user data (coins)
+        new User(); // load user data
 
         clipMenus[0] = new ClipMenu("Cat Info");
         clipMenus[1] = new ClipMenu("Pet Store");
@@ -337,4 +331,12 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     public static void removeEntity(Entities e) {
         entities.remove(e);
     }
+
+    public static void refreshCoins() {
+        if (theScoreMenu != null) {
+            theScoreMenu.update();
+        }
+    }
+
 }
+

@@ -39,7 +39,7 @@ public class User {
         }
         saveCoins();
         // update any visible score menu
-        Menu.refreshScore();
+        Menu.refreshCoins();
     }
 
     // Attempt to spend coins and returns true if successful
@@ -47,7 +47,7 @@ public class User {
         if (amount <= coins) {
             coins -= amount;
             saveCoins();
-            Menu.refreshScore();
+            Menu.refreshCoins();
             return true;
         }
         return false;
