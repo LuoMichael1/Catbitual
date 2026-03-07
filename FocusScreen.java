@@ -76,6 +76,7 @@ public class FocusScreen extends JPanel implements MouseListener, ActionListener
                 time.setText(convertSeconds(timecount));
                 repaint();
 
+                
                 if (timecount < 0 && option == 1) {
                     timer.stop();
                     Main.showCard("rewardScreen");
@@ -86,6 +87,7 @@ public class FocusScreen extends JPanel implements MouseListener, ActionListener
                     }
                     
                 }
+                // the count actionlistener is primarly for the timer, but it also handles events from the exit button
                 else if (e.getSource() == b1) {
                     timer.stop();
                     Main.showCard("rewardScreen");

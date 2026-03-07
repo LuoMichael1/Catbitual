@@ -75,11 +75,11 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
 
         new User(); // load user data
 
-        clipMenus[0] = new ClipMenu("Cat Info");
+        clipMenus[0] = new ClipMenu("focus");
         clipMenus[1] = new ClipMenu("Pet Store");
         clipMenus[2] = new HabitMenu("Habits");
         clipMenus[3] = new TaskMenu("To-Do List");
-        clipMenus[4] = new ClipMenu("Score");
+        clipMenus[4] = new ClipMenu("Catformation");
         clipMenus[5] = new ClipMenu("Settings");
 
         for (int i=0; i<clipMenus.length; i++) {
