@@ -1,7 +1,7 @@
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
-
 import javax.swing.ImageIcon;
+
 
 public class Cat extends Entities {
     
@@ -14,7 +14,7 @@ public class Cat extends Entities {
     private int sx1 = 0;  // updated to flip the cat so that it faces different directions
     private int sx2 = 0;  // matches with the drawimage function
     private String breed;
-    private double food = 100;
+    private double food = 10;
     private double water = 100;
     private double happiness;
 
@@ -102,17 +102,26 @@ public class Cat extends Entities {
     public void setFood(double food) {
         this.food = food;
 
-        // cap food at 100;
+        // cap food between 0 and 100
         if (this.food > 100) {
             this.food = 100;
         }
+        if (this.food < 0) {
+            this.food = 0;
+        }
 
+        // persist change
+        User.setCatFood(this.food);
     }
     public double getWater() {
         return water;
     }
     public void setWater(double water) {
         this.water = water;
+        if (this.water < 0) this.water = 0;
+        if (this.water > 100) this.water = 100;
+
+        User.setCatWater(this.water);
     }
     public double getHappiness() {
         return happiness;

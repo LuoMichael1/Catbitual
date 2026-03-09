@@ -22,6 +22,8 @@ public class ScoreMenu extends JPanel implements ActionListener{
     private JButton waterButton = new JButton("refill water (5 fish)");
 
     private Cat cat;
+    private HungerBar hb;
+    private WaterBar wb;
 
     public ScoreMenu(Cat cat) {
         this.cat = cat;
@@ -42,8 +44,14 @@ public class ScoreMenu extends JPanel implements ActionListener{
         
         this.add(fishLabel);
         this.add(foodLabel);
+        hb = new HungerBar();
+        hb.setHunger((int)cat.getFood());
+        this.add(hb);
+
         this.add(waterLabel);
-        
+        wb = new WaterBar();
+        wb.setWater((int)cat.getWater());
+        this.add(wb);
 
         this.setBorder(BorderFactory.createMatteBorder(7,(int)(30*Main.scaleX),(int)(100*Main.scaleX),(int)(30*Main.scaleX),Style.bg1()));
         repaint();
@@ -66,6 +74,9 @@ public class ScoreMenu extends JPanel implements ActionListener{
         this.add(dryFoodButton);
         this.add(wetFoodButton);
         this.add(waterButton);
+
+
+        
     }
 
 
@@ -75,6 +86,8 @@ public class ScoreMenu extends JPanel implements ActionListener{
         foodLabel.setText("Food: " + cat.getFood());
         waterLabel.setText("Water: " + cat.getWater());
         
+        hb.setHunger((int)cat.getFood());
+        wb.setWater((int)cat.getWater());
         repaint();
     }
 

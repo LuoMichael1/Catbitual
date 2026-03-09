@@ -1,6 +1,6 @@
 // controls the movement and animations of the cat, runs on a separate thread to not interfere with the UI
-
 import java.util.concurrent.*;
+
 
 public class CatAI {
     private Cat cat;
@@ -41,15 +41,27 @@ enum State {
 class UpdateState implements Runnable {
     
     private Cat cat;
-    private int lastPosX = 0;//cat.xPos; // this is only for the grabbing animations so we can tell if the mouse moved
+    private int lastPosX = 0;   //cat.xPos; // this is only for the grabbing animations so we can tell if the mouse moved
     private int swayBuffer = 0; // if the cat was being dragged, gives a buffer of one tick to keep it dragged - prevents switching between still and moving while being dragged
+    private long lastDecayTick; // track time between ticks to decrease hunger/water over time
 
     public UpdateState(Cat cat) {
         this.cat = cat;
+        this.lastDecayTick = System.currentTimeMillis();
     }
 
-    
     public void run() {
+        // ** decay logic **
+        long now = System.currentTimeMillis();
+        if (now - lastDecayTick >= User.FOOD_WATER_DECAY_MS) {
+            int steps = (int)((now - lastDecayTick) / User.FOOD_WATER_DECAY_MS);
+            lastDecayTick += (long)steps * User.FOOD_WATER_DECAY_MS;
+            // subtract steps units from both
+            cat.setFood(cat.getFood() - steps);
+            cat.setWater(cat.getWater() - steps);
+            Menu.refreshCoins(); // update score menu display
+        }
+
         State currentState = State.WANDERING;
         
         if (cat.getGrabbed()) {
