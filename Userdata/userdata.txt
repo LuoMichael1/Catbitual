@@ -1,1 +1,6 @@
-Coins: 916
+Coins: 440
+Music: true
+SFX: true
+Food: 100.0
+Water: 95.0
+LastDecay: 1773075426841

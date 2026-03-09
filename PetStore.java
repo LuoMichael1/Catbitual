@@ -154,6 +154,7 @@ public class PetStore extends JScrollPane implements ActionListener{
                             // default position
                             furn.setPosition(Main.width/2, Room.floorHeight);
                             Menu.addEntity(furn);
+                            fdb.updateLocation(rec.id, Main.width/2, Room.floorHeight);
                             // update label
                             priceLabels.get(i).setText("Owned");
                             priceLabels.get(i).setForeground(Style.success()); // change font color to green when owned
@@ -169,10 +170,12 @@ public class PetStore extends JScrollPane implements ActionListener{
                         Entities existing = Menu.findEntity(rec.id);
                         if (existing != null) {
                             Menu.removeEntity(existing);
+                            fdb.updateLocation(rec.id, -1, -1);
                         } else {
                             Furniture furn = new Furniture(img, rec.filepath, rec.id, rec.type);
                             furn.setPosition(Main.width/2, Room.floorHeight);
                             Menu.addEntity(furn);
+                            fdb.updateLocation(rec.id, Main.width/2, Room.floorHeight);
                         }
                         m.repaint();
                     }

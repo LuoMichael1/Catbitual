@@ -3,7 +3,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Menu extends JPanel implements MouseListener, KeyListener, MouseMotionListener, ActionListener, ComponentListener{
     
@@ -16,8 +15,8 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     // single shared ScoreMenu instance so other classes can request an update
     private static ScoreMenu theScoreMenu;
 
-    private JButton[] sideButtons = new JButton[6];
-    private ClipMenu[] clipMenus = new ClipMenu[6];
+    private JButton[] sideButtons = new JButton[5];
+    private ClipMenu[] clipMenus = new ClipMenu[5];
     private ClipMenu currentMenu = null;
     private int menuIndex = -1;
     private FocusScreenSetup prefocusScreen;
@@ -58,7 +57,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         sideButtons[2] = new JButton(new ImageIcon(book.getImage().getScaledInstance((int)(buttonSize*scale), (int)(buttonSize*scale), Image.SCALE_SMOOTH)));
         sideButtons[3] = new JButton(new ImageIcon(clipboard.getImage().getScaledInstance((int)(buttonSize*scale), (int)(buttonSize*scale), Image.SCALE_SMOOTH)));
         sideButtons[4] = new JButton(new ImageIcon(fish.getImage().getScaledInstance((int)(buttonSize*scale), (int)(buttonSize*scale), Image.SCALE_SMOOTH)));
-        sideButtons[5] = new JButton(new ImageIcon(settings.getImage().getScaledInstance((int)(buttonSize*scale), (int)(buttonSize*scale), Image.SCALE_SMOOTH)));
+        //sideButtons[5] = new JButton(new ImageIcon(settings.getImage().getScaledInstance((int)(buttonSize*scale), (int)(buttonSize*scale), Image.SCALE_SMOOTH)));
 
         for (int i=0; i<sideButtons.length; i++) {
             // remove the gradient and border effect
@@ -73,14 +72,17 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         JLayeredPane center = new JLayeredPane();
         this.add(center, BorderLayout.CENTER);
 
-        new User(); // load user data
+        new User(); // load user data (this also computes decay and persists new values)
+        // transfer persisted cat values into the cat instance
+        cat.setFood(User.catFood);
+        cat.setWater(User.catWater);
 
         clipMenus[0] = new ClipMenu("focus");
         clipMenus[1] = new ClipMenu("Pet Store");
         clipMenus[2] = new HabitMenu("Habits");
         clipMenus[3] = new TaskMenu("To-Do List");
         clipMenus[4] = new ClipMenu("Catformation");
-        clipMenus[5] = new ClipMenu("Settings");
+        //clipMenus[5] = new ClipMenu("Settings");
 
         for (int i=0; i<clipMenus.length; i++) {
             center.add(clipMenus[i], Integer.valueOf(i));
@@ -92,7 +94,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         scoreMenu = new ScoreMenu(cat);
         theScoreMenu = scoreMenu;
         clipMenus[4].add(scoreMenu);
-        clipMenus[5].add(new SettingsMenu());
+        //clipMenus[5].add(new SettingsMenu());
        
         entities.add(cat);
 
@@ -104,11 +106,10 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
                 try {
                     ImageIcon img = new ImageIcon("Assets/Images/Furniture/" + rec.filepath);
                     Furniture f = new Furniture(img, rec.filepath, rec.id, rec.type);
-                    if (rec.x >= 0 && rec.y >= 0) 
+                    if (rec.x >= 0 && rec.y >= 0) {
                         f.setPosition(rec.x, rec.y);
-                    else 
-                        f.setPosition(Main.width/2, Room.floorHeight);
-                    entities.add(f);
+                        entities.add(f);
+                    }
                 } catch (Exception ex) {
                     System.out.println("Could not load furniture image: " + rec.filepath + " -> " + ex);
                 }
