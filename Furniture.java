@@ -26,7 +26,7 @@ public class Furniture extends Entities{
 
         // don't allow the furniture to be dropped onto the wall for most furniture —
         // but allow wall decorations to be placed on the wall
-        if (!type.equals("walldeco")) {
+        if (!(type.equals("walldeco") || type.equals("window"))) {
             if (super.yPos < Room.floorHeight)
                 super.yPos = Room.floorHeight;
         }
