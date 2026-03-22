@@ -17,7 +17,7 @@ public class HungerBar extends RoundedPanel {
 
     public void setHunger(int value) {
         hunger = Math.max(0, Math.min(MAXHUNGER, value));
-        repaint(); // redraw panel
+        repaint(); 
     }
 
     @Override
