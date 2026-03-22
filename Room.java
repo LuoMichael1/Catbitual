@@ -7,10 +7,10 @@ import java.awt.event.*;
 // this is no longer the plan, but this structure could still allow for more rooms in the future
 public class Room {
     
-    static ImageIcon roomImage = new ImageIcon("Assets/Images/roombg.png");
-    static final int SPRITE_WIDTH = 640;
-    static final int SPRITE_HEIGHT = 360;
-    static final int floorHeight = (int)(440*Main.scaleY);   // the distance from the top of the screen to the start of the floor in pixels
+    private static ImageIcon roomImage = new ImageIcon("Assets/Images/roombg.png");
+    private static final int SPRITE_WIDTH = 640;
+    private static final int SPRITE_HEIGHT = 360;
+    public static final int floorHeight = (int)(440*Main.scaleY);   // the distance from the top of the screen to the start of the floor in pixels
 
     private Entities currentEntity = null;
     private Entities temp; // used during mouse dragging to sort entities based on y-height
