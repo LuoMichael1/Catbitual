@@ -3,7 +3,8 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import java.awt.event.*;
 
-// originally the room was supposed to be isometric and I anticipated the need to be able to move and scale it and the items inside it; thus necessitating the creation of this now mostly useless class
+// originally the room was supposed to be isometric and I anticipated the need to be able to move and scale it and the items inside it
+// this is no longer the plan, but this structure could still allow for more rooms in the future
 public class Room {
     
     static ImageIcon roomImage = new ImageIcon("Assets/Images/roombg.png");
@@ -131,7 +132,6 @@ public class Room {
             // the first item in the list should be the highest up (greatest y value)
             // the last item should be on top
             // do some bubble sort shanangins here
-            // there is some sort of runtime error currently
             if (i>=1) {
                 if (entities.get(i).getY() < entities.get(i-1).getY()) {
                     temp = entities.get(i);
