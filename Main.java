@@ -26,9 +26,6 @@ public class Main {
 
         initializeScreenSize();
 
-        // load user data FIRST before creating GUI components
-        new User();
-
         // create the JFrame
         JFrame f = new JFrame("Catbitual");
         f.setUndecorated(false);

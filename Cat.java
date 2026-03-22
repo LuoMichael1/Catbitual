@@ -105,9 +105,6 @@ public class Cat extends Entities {
     public boolean getPetted() {
         return petted;
     }
-    public int getDrawSize() {
-        return drawSizeX;
-    }
     public int getSpeed() {
         return speed;
     }
@@ -126,9 +123,6 @@ public class Cat extends Entities {
     public void repaint() {
         m.repaint();
     }
-
-
-   
     public void mouseEntered(MouseEvent e) {
         petted = true;
     }
