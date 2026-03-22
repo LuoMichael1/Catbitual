@@ -90,8 +90,12 @@ public class Cat extends Entities {
     }
     public void setWater(double water) {
         this.water = water;
-        if (this.water < 0) this.water = 0;
-        if (this.water > 100) this.water = 100;
+        if (this.water < 0) {
+            this.water = 0;
+        }
+        if (this.water > 100) { 
+            this.water = 100;
+        }
 
         User.setCatWater(this.water);
     }

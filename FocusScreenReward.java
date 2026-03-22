@@ -35,9 +35,5 @@ public class FocusScreenReward extends JPanel implements MouseListener{
     
     public void paintComponent(Graphics g) {
         super.paintComponent(g);  
-
-        // enables antialiasing on the text
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
     }
 }

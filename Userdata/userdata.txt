@@ -1,6 +1,6 @@
 Coins: 355
 Music: true
 SFX: true
-Food: 98.0
-Water: 98.0
-LastDecay: 1774148985998
+Food: 97.0
+Water: 97.0
+LastDecay: 1774150578679

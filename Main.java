@@ -49,6 +49,9 @@ public class Main {
         cardLayout = (CardLayout) p.getLayout();
         showCard("Menu");
 
+        // load user data
+        new User(); 
+
         f.setVisible(true);   // menu will not show otherwise
     }
 

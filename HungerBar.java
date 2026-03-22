@@ -24,10 +24,6 @@ public class HungerBar extends RoundedPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        // enables antialiasing on the rectangles
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
         width = getWidth();
 
         // background (empty bar)
