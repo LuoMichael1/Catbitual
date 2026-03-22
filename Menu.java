@@ -64,6 +64,9 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         JLayeredPane center = new JLayeredPane();
         this.add(center, BorderLayout.CENTER);
 
+        // load user data
+        new User(); 
+
         // transfer persisted cat values into the cat instance
         cat.setFood(User.catFood);
         cat.setWater(User.catWater);

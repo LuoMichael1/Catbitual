@@ -1,6 +1,6 @@
-Coins: 0
+Coins: 4900
 Music: true
 SFX: true
 Food: 100.0
 Water: 100.0
-LastDecay: 1774191200484
+LastDecay: 1774200072041

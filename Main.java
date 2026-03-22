@@ -26,6 +26,9 @@ public class Main {
 
         initializeScreenSize();
 
+        // load user data FIRST before creating GUI components
+        new User();
+
         // create the JFrame
         JFrame f = new JFrame("Catbitual");
         f.setUndecorated(false);
@@ -48,9 +51,6 @@ public class Main {
 
         cardLayout = (CardLayout) p.getLayout();
         showCard("Menu");
-
-        // load user data
-        new User(); 
 
         f.setVisible(true);   // menu will not show otherwise
     }
