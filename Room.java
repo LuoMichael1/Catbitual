@@ -74,7 +74,9 @@ public class Room {
     public int getEntityCount() {
         return entities.size();
     }
-
+    public void removeEntity(Entities e) {
+        entities.remove(e);
+    }
     // uses the id from the database
     public Entities findEntity(int dbId) {
         for (Entities e : entities) {
@@ -88,12 +90,11 @@ public class Room {
         return null;
     }
 
-    public void removeEntity(Entities e) {
-        entities.remove(e);
-    }
+    
 
 
-    // handles events from the menu
+    // handles mouse events from the menu -------------------------------------------
+
     public void mousePressed(MouseEvent e) {
         // count backward so that entities are drawn layered correctly
         for (int i=entities.size()-1; i>=0; i--) {
@@ -123,7 +124,6 @@ public class Room {
         }
         currentEntity = null;
     }
-
     public void mouseDragged(MouseEvent e) {
         for (int i=0; i<entities.size(); i++) {
             if (entities.get(i).getGrabbed() && currentEntity==entities.get(i)) {
