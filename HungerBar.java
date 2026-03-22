@@ -17,16 +17,12 @@ public class HungerBar extends RoundedPanel {
 
     public void setHunger(int value) {
         hunger = Math.max(0, Math.min(MAXHUNGER, value));
-        repaint(); // redraw panel
+        repaint(); 
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
-        // enables antialiasing on the rectangles
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         width = getWidth();
 

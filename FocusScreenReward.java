@@ -1,10 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -35,9 +32,5 @@ public class FocusScreenReward extends JPanel implements MouseListener{
     
     public void paintComponent(Graphics g) {
         super.paintComponent(g);  
-
-        // enables antialiasing on the text
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
     }
 }

@@ -2,26 +2,22 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 
 public class Menu extends JPanel implements MouseListener, KeyListener, MouseMotionListener, ActionListener, ComponentListener{
     
     public static double scale = Main.height/1080.0;
     public static long lastMoveTime = System.currentTimeMillis();
     private static ScoreMenu scoreMenu;
-    private static ArrayList<Entities> entities = new ArrayList<Entities>();
     private Room room = new Room();
     private Cat cat = new Cat("Cat", Main.width/2, Main.height/2, this);
-    private PetStoreDB petStoreDB = null;
+
 
     private JButton[] sideButtons = new JButton[5];
     private ClipMenu[] clipMenus = new ClipMenu[5];
     private ClipMenu currentMenu = null;
     private int menuIndex = -1;
     private FocusScreenSetup prefocusScreen;
-    private Entities currentEntity = null;
-    private Entities temp; // used during mouse dragging to sort entities based on y-height
-
+    
 
     // image icons for the sidebar buttons
     private ImageIcon pet = new ImageIcon("Assets/Icons/pet.png");
@@ -30,11 +26,10 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     private ImageIcon clipboard = new ImageIcon("Assets/Icons/clipboard.png");
     private ImageIcon fish = new ImageIcon("Assets/Icons/fish.png");
     private ImageIcon buttonIcons[] = {pet,furniture,book,clipboard,fish};
-
+    
     private final int BUTTON_SIZE = 90;
+
  
-
-
     public Menu() {
         
         this.setLayout(new BorderLayout());
@@ -69,7 +64,6 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         JLayeredPane center = new JLayeredPane();
         this.add(center, BorderLayout.CENTER);
 
-        new User(); // load user data (this also computes decay and persists new values)
         // transfer persisted cat values into the cat instance
         cat.setFood(User.catFood);
         cat.setWater(User.catWater);
@@ -84,137 +78,37 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
             center.add(clipMenus[i], Integer.valueOf(i));
         }
 
-        clipMenus[1].add(new PetStore(this));
-
-
+        clipMenus[1].add(new PetStore(this, room));
         scoreMenu = new ScoreMenu(cat);
         clipMenus[4].add(scoreMenu);
        
-        entities.add(cat);
-
-        // load owned furniture from DB
-        try {
-            petStoreDB = new PetStoreDB();
-            ArrayList<PetStoreDB.FurnitureRecord> owned = petStoreDB.getOwnedItems();
-            for (PetStoreDB.FurnitureRecord rec : owned) {
-                try {
-                    ImageIcon img = new ImageIcon("Assets/Images/Furniture/" + rec.filepath);
-                    Furniture f = new Furniture(img, rec.filepath, rec.id, rec.type);
-                    if (rec.x >= 0 && rec.y >= 0) {
-                        f.setPosition(rec.x, rec.y);
-                        entities.add(f);
-                    }
-                } catch (Exception ex) {
-                    System.out.println("Could not load furniture image: " + rec.filepath + " -> " + ex);
-                }
-            }
-        } catch (Exception e) {
-            System.out.println("Furniture DB load error: " + e);
-        }
+        room.addEntity(cat);
 
         revalidate();
         repaint();
     }
-    
+
+
+
     public void paintComponent(Graphics g) {
         super.paintComponent(g);  
         room.drawRoom(g);
-
-        // Draw carpets and wall decorations first so they appear below other objects
-        for (int i=0; i<entities.size(); i++) {
-            Entities ent = entities.get(i);
-            if (ent instanceof Furniture) {
-                Furniture f = (Furniture) ent;
-                String t = f.getType();
-                if ("carpet".equals(t) || "walldeco".equals(t)) {
-                    ent.drawState(g);
-                }
-            }
-        }
-
-        // Draw all other entities (including cat and regular furniture)
-        for (int i=0; i<entities.size(); i++) {
-            Entities ent = entities.get(i);
-            if (ent instanceof Furniture) {
-                Furniture f = (Furniture) ent;
-                String t = f.getType();
-                if ("carpet".equals(t) || "walldeco".equals(t)) continue;
-            }
-            ent.drawState(g);
-        }
-
-        // enables antialiasing on the text
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
     }
 
-    // Mouse Events
+
+    // Mouse Events ------------------------------
+    
     public void mousePressed(MouseEvent e) {
-        // count backward so that entities are drawn layered correctly
-        for (int i=entities.size()-1; i>=0; i--) {
-            if (entities.get(i).withinBounds(e.getX(), e.getY()) && !entities.get(i).getGrabbed() && currentEntity==null) {
-                entities.get(i).grabbed();
-                currentEntity = entities.get(i);
-            }
-        }
+        room.mousePressed(e);
+        repaint();
     }
     public void mouseReleased(MouseEvent e) {
-        for (int i=0; i<entities.size(); i++) {
-            if (entities.get(i).getGrabbed()) {
-                entities.get(i).dropped();
-                repaint();
-                // make location of furniture persist using database
-                if (entities.get(i) instanceof Furniture) {
-                    Furniture f = (Furniture) entities.get(i);
-                    int id = f.getDbId();
-                    if (id != -1 && petStoreDB != null) {
-                        try {
-                            petStoreDB.updateLocation(id, f.getX(), f.getY());
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-                        }
-                    }
-                }
-            }
-        }
-        currentEntity = null;
+        room.mouseReleased(e);
+        repaint();
     }
-    
-
     public void mouseDragged(MouseEvent e) {
-        for (int i=0; i<entities.size(); i++) {
-            if (entities.get(i).getGrabbed() && currentEntity==entities.get(i)) {
-                entities.get(i).setPosition(e.getX()-entities.get(i).getDrawSize()/2, e.getY()+entities.get(i).getDrawSize()/2);
-                repaint();
-            }
-            // the first item in the list should be the highest up (greatest y value)
-            // the last item should be on top
-            // do some bubble sort shanangins here
-            // there is some sort of runtime error currently
-            if (i>=1) {
-                if (entities.get(i).getY() < entities.get(i-1).getY()) {
-                    temp = entities.get(i);
-
-                    entities.set(i, entities.get(i-1));
-                    entities.set(i-1, temp); 
-                }
-            }
-            else if (entities.size() > 1) {
-                if (entities.get(i).getY() > entities.get(i+1).getY()) {
-                    temp = entities.get(i);
-
-                    entities.set(i, entities.get(i+1));
-                    entities.set(i+1, temp); 
-                }
-            }
-        }
-    }
-
-    public void keyTyped(KeyEvent e) {
-    }
-    public void keyPressed(KeyEvent e) {
-    }
-    public void keyReleased(KeyEvent e) {
+        room.mouseDragged(e);
+        repaint();
     }
     public void mouseClicked(MouseEvent e) {
         // if the mouse clicks outside of a menu while it is open, we should close the menu
@@ -225,15 +119,6 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
             repaint();
         }
     }
-    public void mouseEntered(MouseEvent e) {
-    }
-    public void mouseExited(MouseEvent e) {
-    }
-
-
-    
-
-    
     public void mouseMoved(MouseEvent e) {
         // check if the mouse moves over the cat, which then can be used to trigger a petting animation
         // mouse hovering over the cat should not counting as petting, user must move mouse back and forth to pet it
@@ -248,13 +133,18 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         }  
         lastMoveTime = System.currentTimeMillis();
     }
+    public void mouseEntered(MouseEvent e) {
+    }
+    public void mouseExited(MouseEvent e) {
+    }
+
+
 
     public void actionPerformed(ActionEvent e) {
 
         // gets which button was pressed
         for (int i=0; i<sideButtons.length; i++) {
             if (e.getSource() == sideButtons[i]) {
-                //System.out.println(i);
                 menuIndex = i;
             }
         }
@@ -295,37 +185,10 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         for (int i=0; i<clipMenus.length; i++) {
             clipMenus[i].initializeSize();
         }
-
         repaint();
     }
 
-    public void componentMoved(ComponentEvent e) {
-    }
-    public void componentShown(ComponentEvent e) {
-    }
-    public void componentHidden(ComponentEvent e) {
-    }    
 
-    public static void addEntity(Entities e) {
-        entities.add(e);
-    }
-
-    // uses the id from the database
-    public static Entities findEntity(int dbId) {
-        for (Entities e : entities) {
-            if (e instanceof Furniture) {  // because the entity array could have other types such as cat  - used https://www.baeldung.com/java-instanceof
-                Furniture f = (Furniture) e;
-                if (f.getDbId() == dbId) {
-                    return f;
-                }
-            }
-        }
-        return null;
-    }
-
-    public static void removeEntity(Entities e) {
-        entities.remove(e);
-    }
 
     public static void refreshCoins() {
         if (scoreMenu != null) {
@@ -333,5 +196,17 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         }
     }
 
+    public void componentMoved(ComponentEvent e) {
+    }
+    public void componentShown(ComponentEvent e) {
+    }
+    public void componentHidden(ComponentEvent e) {
+    }   
+    public void keyTyped(KeyEvent e) {
+    }
+    public void keyPressed(KeyEvent e) {
+    }
+    public void keyReleased(KeyEvent e) {
+    }
 }
 

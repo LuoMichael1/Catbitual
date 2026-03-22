@@ -31,10 +31,12 @@ public class PetStore extends JScrollPane implements ActionListener{
     private double previewImageScale = 1;
     private int SCROLLSPEED = (int)(10*Main.scaleY);
     private Menu m;
+    private Room room;
     private JPanel scrollPanel = new JPanel();
 
-    public PetStore(Menu m) {
+    public PetStore(Menu m, Room room) {
         this.m = m;
+        this.room = room;
         this.setBorder(null);
        
         
@@ -153,7 +155,7 @@ public class PetStore extends JScrollPane implements ActionListener{
                             Furniture furn = new Furniture(img, rec.filepath, rec.id, rec.type);
                             // default position
                             furn.setPosition(Main.width/2, Room.floorHeight);
-                            Menu.addEntity(furn);
+                            room.addEntity(furn);
                             fdb.updateLocation(rec.id, Main.width/2, Room.floorHeight);
                             // update label
                             priceLabels.get(i).setText("Owned");
@@ -167,14 +169,14 @@ public class PetStore extends JScrollPane implements ActionListener{
                     } 
                     else {
                         // Toggle presence in the room: if present, remove it; otherwise re-add it
-                        Entities existing = Menu.findEntity(rec.id);
+                        Entities existing = room.findEntity(rec.id);
                         if (existing != null) {
-                            Menu.removeEntity(existing);
+                            room.removeEntity(existing);
                             fdb.updateLocation(rec.id, -1, -1);
                         } else {
                             Furniture furn = new Furniture(img, rec.filepath, rec.id, rec.type);
                             furn.setPosition(Main.width/2, Room.floorHeight);
-                            Menu.addEntity(furn);
+                            room.addEntity(furn);
                             fdb.updateLocation(rec.id, Main.width/2, Room.floorHeight);
                         }
                         m.repaint();

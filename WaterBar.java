@@ -1,9 +1,8 @@
-import javax.swing.*;
 import java.awt.*;
 
 public class WaterBar extends RoundedPanel {
 
-    private double water = 100;   // current hunger
+    private double water = 100;   // current water
     private final int MAXWATER = 100;
     private final int RADIUS = 30;
     private final int HORIZONTAL_PADDING = 15;

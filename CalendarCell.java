@@ -9,7 +9,6 @@ import javax.swing.SwingConstants;
 
 class CalendarCell extends RoundedPanel {
 
-    private boolean isToday = false;
     private final JLabel dayLabel;
     private final JLabel imageLabel;
     private final LocalDate date;
@@ -43,7 +42,6 @@ class CalendarCell extends RoundedPanel {
     }
 
     public void setToday(boolean today) {
-        this.isToday = today;
         if (today) {
             setBackground(Style.highlight());
         }

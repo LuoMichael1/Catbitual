@@ -3,12 +3,9 @@ import java.util.concurrent.*;
 
 
 public class CatAI {
-    private Cat cat;
     private ScheduledThreadPoolExecutor running = new ScheduledThreadPoolExecutor(2);
 
     public CatAI(Cat cat) {
-        this.cat = cat;
-
         // updates the the cat ~9 times per seconds 
         UpdateState task = new UpdateState(cat);
         running.scheduleAtFixedRate(task, 0, 1000/9, TimeUnit.MILLISECONDS);      

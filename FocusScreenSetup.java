@@ -1,11 +1,9 @@
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -153,11 +151,7 @@ public class FocusScreenSetup extends JPanel implements MouseListener, ActionLis
     }
     
     public void paintComponent(Graphics g) {
-        super.paintComponent(g);  
-
-        // enables antialiasing on the text
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        super.paintComponent(g);
     }
 
 
