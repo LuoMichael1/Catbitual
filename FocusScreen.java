@@ -190,7 +190,7 @@ public class FocusScreen extends JPanel implements MouseListener, ActionListener
         sx1 = imgSizeX+(imgSizeX*animationStep);
         sx2 = imgSizeX*animationStep;
 
-        g.drawImage(Cat.catImage.getImage(), xPos, yPos-drawSizeY, xPos+drawSizeX, yPos, sx1, 0, sx2, imgSizeY, null);        
+        g.drawImage(Cat.SPRITE.getImage(), xPos, yPos-drawSizeY, xPos+drawSizeX, yPos, sx1, 0, sx2, imgSizeY, null);        
     }
     
     

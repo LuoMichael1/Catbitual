@@ -108,7 +108,7 @@ public class ScoreMenu extends JPanel implements ActionListener{
             }
         }
         else if (e.getSource() == waterButton) {
-            if (User.spendCoins(20)) {
+            if (User.spendCoins(5)) {
                 cat.setWater(100);
                 update();
             }

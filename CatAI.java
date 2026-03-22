@@ -51,7 +51,7 @@ class UpdateState implements Runnable {
     }
 
     public void run() {
-        // ** decay logic **
+        // food and water decay logic
         long now = System.currentTimeMillis();
         if (now - lastDecayTick >= User.FOOD_WATER_DECAY_MS) {
             int steps = (int)((now - lastDecayTick) / User.FOOD_WATER_DECAY_MS);

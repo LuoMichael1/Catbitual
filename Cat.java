@@ -2,78 +2,56 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 
-
 public class Cat extends Entities {
     
-    static ImageIcon catImage = new ImageIcon("Assets/Images/animatedcattrimed.png");
-    
-    static final int imgSizeX = 256;
-    static final int imgSizeY = 154;
-    private static int drawSizeX = (int)(256*Main.scaleY*1.1);
-    private static int drawSizeY = (int)(150*Main.scaleY*1.1);
+    public static final ImageIcon SPRITE = new ImageIcon("Assets/Images/animatedcattrimed.png");
+    private static final int IMAGE_WIDTH = 256;
+    private static final int IMAGE_HEIGHT = 154;
+    private static int drawSizeX = (int)(IMAGE_WIDTH*Main.scaleY*1.1);
+    private static int drawSizeY = (int)(IMAGE_HEIGHT*Main.scaleY*1.1);
     private int sx1 = 0;  // updated to flip the cat so that it faces different directions
     private int sx2 = 0;  // matches with the drawimage function
-    private String breed;
     private double food = 10;
     private double water = 100;
-    private double happiness;
+    private Menu m;       // needed for repainting when state changes
 
     // states for the cat
     private int step = 0;  // iterator for animations
     private boolean grabbed = false;
     private boolean petted = false;
     private boolean direction = false;  // false --> left, true --> right  (probably a dumb way to do this :3)
-    private CatAI brain;
-    private Menu m;
     private int speed = 4; //
 
 
-    // currently unused
-    public Cat (String name, int xPos, int yPos, String breed, double water, double happiness, Menu m) {
-        super(name, xPos, yPos, drawSizeX, drawSizeY);
-        this.breed = breed;
-        this.water = water;
-        this.happiness = happiness;
-        this.m = m;
-        brain = new CatAI(this);
-    }
-    // in use
     public Cat (String name, int xPos, int yPos, Menu m) {
         super(name, xPos, yPos, drawSizeX, drawSizeY);
-        breed = "Black";
         water = 100;
-        happiness = 100;
         this.m = m;
-        brain = new CatAI(this);
+        new CatAI(this);
     }
 
 
     public void draw(Graphics g) {
-        g.drawImage(catImage.getImage(), super.getX(), super.getY()-drawSizeY, super.getX()+drawSizeX, super.getY(), 0, 0, imgSizeX, imgSizeY, null);
+        g.drawImage(SPRITE.getImage(), super.getX(), super.getY()-drawSizeY, super.getX()+drawSizeX, super.getY(), 0, 0, IMAGE_WIDTH, IMAGE_HEIGHT, null);
     }
     public void drawState(Graphics g) {
     
         // if statement handles pointing left or right
         if (direction){
-            sx1 = imgSizeX+(imgSizeX*step);
-            sx2 = imgSizeX*step;
+            sx1 = IMAGE_WIDTH+(IMAGE_WIDTH*step);
+            sx2 = IMAGE_WIDTH*step;
         }
         else {
-            sx1 = imgSizeX*step;
-            sx2 = imgSizeX+(imgSizeX*step);
+            sx1 = IMAGE_WIDTH*step;
+            sx2 = IMAGE_WIDTH+(IMAGE_WIDTH*step);
         }
 
         // don't draw the cat if it ran out of water or food 
         if (water >0 && food > 0) {
-            g.drawImage(catImage.getImage(), super.getX(), super.getY()-drawSizeY, super.getX()+drawSizeX, super.getY(), sx1, 0, sx2, imgSizeY, null);        
+            g.drawImage(SPRITE.getImage(), super.getX(), super.getY()-drawSizeY, super.getX()+drawSizeX, super.getY(), sx1, 0, sx2, IMAGE_HEIGHT, null);        
         }
         
     }
-    /* 
-    public boolean withinBounds(int x, int y) {
-        return (x>(xPos) && x<xPos+drawSizeX && y>(yPos-drawSizeY) && y<yPos);
-    }
-    */
 
     public void grabbed() {
         grabbed = true;
@@ -90,12 +68,6 @@ public class Cat extends Entities {
         this.petted = petted;
     }
 
-    public String getBreed() {
-        return breed;
-    }
-    public void setBreed(String breed) {
-        this.breed = breed;
-    }
     public double getFood() {
         return food;
     }
@@ -123,19 +95,12 @@ public class Cat extends Entities {
 
         User.setCatWater(this.water);
     }
-    public double getHappiness() {
-        return happiness;
-    }
-    public void setHappiness(double happiness) {
-        this.happiness = happiness;
-    }
     public boolean getGrabbed() {
         return grabbed;
     }
     public boolean getPetted() {
         return petted;
     }
-
     public int getDrawSize() {
         return drawSizeX;
     }

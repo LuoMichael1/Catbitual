@@ -4,25 +4,11 @@ import javax.swing.ImageIcon;
 
 public class Furniture extends Entities{
     private ImageIcon sprite;     
-    static final int imgSizeX = 256; // the width of the image file
-    static final int imgSizeY = 256; // the height of the image file
-    private static double imageScaler = Main.scaleY;
+    private static double imageScaler = Main.scaleY; // can add a coefficent to scaleY to resize furniture independently of the screen size
     private boolean grabbed = false;
     private int dbId = -1;
     private String filepath = null;
     private String type = ""; // furniture type from DB like carpet or walldeco
-
-    public Furniture(ImageIcon sprite) {
-        super("furniture", 300, 500, (int)(sprite.getIconWidth()*imageScaler), (int)(sprite.getIconHeight()*imageScaler), sprite);
-        this.sprite = sprite;
-    }
-
-    public Furniture(ImageIcon sprite, String filepath, int dbId) {
-        super("furniture", 300, 500, (int)(sprite.getIconWidth()*imageScaler), (int)(sprite.getIconHeight()*imageScaler), sprite);
-        this.sprite = sprite;
-        this.filepath = filepath;
-        this.dbId = dbId;
-    }
 
     public Furniture(ImageIcon sprite, String filepath, int dbId, String type) {
         super("furniture", 300, 500, (int)(sprite.getIconWidth()*imageScaler), (int)(sprite.getIconHeight()*imageScaler), sprite);

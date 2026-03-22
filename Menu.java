@@ -6,14 +6,13 @@ import java.util.ArrayList;
 
 public class Menu extends JPanel implements MouseListener, KeyListener, MouseMotionListener, ActionListener, ComponentListener{
     
+    public static double scale = Main.height/1080.0;
+    public static long lastMoveTime = System.currentTimeMillis();
+    private static ScoreMenu scoreMenu;
+    private static ArrayList<Entities> entities = new ArrayList<Entities>();
     private Room room = new Room();
     private Cat cat = new Cat("Cat", Main.width/2, Main.height/2, this);
-    private static ArrayList<Entities> entities = new ArrayList<Entities>();
     private PetStoreDB petStoreDB = null;
-    public static double scale = Main.height/1080.0;
-
-    // single shared ScoreMenu instance so other classes can request an update
-    private static ScoreMenu theScoreMenu;
 
     private JButton[] sideButtons = new JButton[5];
     private ClipMenu[] clipMenus = new ClipMenu[5];
@@ -21,6 +20,8 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     private int menuIndex = -1;
     private FocusScreenSetup prefocusScreen;
     private Entities currentEntity = null;
+    private Entities temp; // used during mouse dragging to sort entities based on y-height
+
 
     // image icons for the sidebar buttons
     private ImageIcon pet = new ImageIcon("Assets/Icons/pet.png");
@@ -28,10 +29,10 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     private ImageIcon book = new ImageIcon("Assets/Icons/book.png");
     private ImageIcon clipboard = new ImageIcon("Assets/Icons/clipboard.png");
     private ImageIcon fish = new ImageIcon("Assets/Icons/fish.png");
-    private ImageIcon settings = new ImageIcon("Assets/Icons/cog.png");
+    private ImageIcon buttonIcons[] = {pet,furniture,book,clipboard,fish};
 
-    private int buttonSize = 90;
-    private ScoreMenu scoreMenu;
+    private final int BUTTON_SIZE = 90;
+ 
 
 
     public Menu() {
@@ -52,14 +53,10 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         sideBar.setOpaque(false);
         this.add(sideBar, BorderLayout.WEST);
 
-        sideButtons[0] = new JButton(new ImageIcon(pet.getImage().getScaledInstance((int)(buttonSize*scale), (int)(buttonSize*scale), Image.SCALE_SMOOTH)));
-        sideButtons[1] = new JButton(new ImageIcon(furniture.getImage().getScaledInstance((int)(buttonSize*scale), (int)(buttonSize*scale), Image.SCALE_SMOOTH)));
-        sideButtons[2] = new JButton(new ImageIcon(book.getImage().getScaledInstance((int)(buttonSize*scale), (int)(buttonSize*scale), Image.SCALE_SMOOTH)));
-        sideButtons[3] = new JButton(new ImageIcon(clipboard.getImage().getScaledInstance((int)(buttonSize*scale), (int)(buttonSize*scale), Image.SCALE_SMOOTH)));
-        sideButtons[4] = new JButton(new ImageIcon(fish.getImage().getScaledInstance((int)(buttonSize*scale), (int)(buttonSize*scale), Image.SCALE_SMOOTH)));
-        //sideButtons[5] = new JButton(new ImageIcon(settings.getImage().getScaledInstance((int)(buttonSize*scale), (int)(buttonSize*scale), Image.SCALE_SMOOTH)));
-
+    
         for (int i=0; i<sideButtons.length; i++) {
+            sideButtons[i] = new JButton(new ImageIcon(buttonIcons[i].getImage().getScaledInstance((int)(BUTTON_SIZE*scale), (int)(BUTTON_SIZE*scale), Image.SCALE_SMOOTH)));
+
             // remove the gradient and border effect
             sideButtons[i].setContentAreaFilled(false);
             sideButtons[i].setBorderPainted(false);
@@ -82,7 +79,6 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         clipMenus[2] = new HabitMenu("Habits");
         clipMenus[3] = new TaskMenu("To-Do List");
         clipMenus[4] = new ClipMenu("Catformation");
-        //clipMenus[5] = new ClipMenu("Settings");
 
         for (int i=0; i<clipMenus.length; i++) {
             center.add(clipMenus[i], Integer.valueOf(i));
@@ -92,9 +88,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
 
 
         scoreMenu = new ScoreMenu(cat);
-        theScoreMenu = scoreMenu;
         clipMenus[4].add(scoreMenu);
-        //clipMenus[5].add(new SettingsMenu());
        
         entities.add(cat);
 
@@ -185,7 +179,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
         }
         currentEntity = null;
     }
-    private Entities temp;
+    
 
     public void mouseDragged(MouseEvent e) {
         for (int i=0; i<entities.size(); i++) {
@@ -239,7 +233,7 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
 
     
 
-    public static long lastMoveTime = System.currentTimeMillis();
+    
     public void mouseMoved(MouseEvent e) {
         // check if the mouse moves over the cat, which then can be used to trigger a petting animation
         // mouse hovering over the cat should not counting as petting, user must move mouse back and forth to pet it
@@ -334,8 +328,8 @@ public class Menu extends JPanel implements MouseListener, KeyListener, MouseMot
     }
 
     public static void refreshCoins() {
-        if (theScoreMenu != null) {
-            theScoreMenu.update();
+        if (scoreMenu != null) {
+            scoreMenu.update();
         }
     }
 
