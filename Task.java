@@ -18,13 +18,17 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
     private TaskMenu taskmenu;
     private TaskNode data;
     private JPanel j;
-
-    //private JLabel titleLabel;
-    //private JTextField titleLabel;
     private ArrayList<JTextField> titleLabel = new ArrayList<JTextField>();
-
-    private int maxCharacterLength = 15;  // limits how short a task title can appear, lower limits allow for thinner screens
-
+    private final int MAX_CHARACTER_LENGTH = 15;  // limits how short a task title can appear, lower limits allow for thinner screens
+    private boolean dragged = false;
+    private boolean isVerticalDrag = false;
+    private int x1;
+    private int y1;
+    private int taskX = getX();
+    private int taskY = getY();
+    private int verticalDragThreshold = this.getHeight()+5;  // minimum pixels to move before triggering reorder
+    private int verticalAccumulator = 0;  // tracks accumulated vertical movement
+    
     public Task(TaskNode data, TaskMenu taskmenu, JPanel j) {
         super(40, false);
         this.data = data;
@@ -66,7 +70,7 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
         c.ipadx = 0;
         c.ipady = 0;
 
-        titleLabel.add(new JTextField(data.getName()[0], maxCharacterLength));
+        titleLabel.add(new JTextField(data.getName()[0], MAX_CHARACTER_LENGTH));
         titleLabel.get(0).setFont(FontMaker.p);
         titleLabel.get(0).setBorder(javax.swing.BorderFactory.createEmptyBorder());
         titleLabel.get(0).setBackground(Style.bg2());
@@ -108,7 +112,7 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
             c.ipadx = 10;
             this.add(ckb, c);
 
-            titleLabel.add(new JTextField(data.getName()[i], maxCharacterLength));
+            titleLabel.add(new JTextField(data.getName()[i], MAX_CHARACTER_LENGTH));
             titleLabel.get(i).setFont(FontMaker.p);
             titleLabel.get(i).setBorder(javax.swing.BorderFactory.createEmptyBorder());
             titleLabel.get(i).setBackground(Style.bg2());
@@ -155,17 +159,6 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
     public void mouseEntered(MouseEvent e) {}
     @Override
     public void mouseExited(MouseEvent e) {}
-
-
-
-    boolean dragged = false;
-    boolean isVerticalDrag = false;
-    int x1;
-    int y1;
-    int taskX = getX();
-    int taskY = getY();
-    int verticalDragThreshold = this.getHeight()+5;  // minimum pixels to move before triggering reorder
-    int verticalAccumulator = 0;  // tracks accumulated vertical movement
     
 
     public void mousePressed(MouseEvent e) {
