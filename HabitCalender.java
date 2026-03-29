@@ -149,14 +149,19 @@ public class HabitCalender extends JPanel{
                         JOptionPane.showMessageDialog(HabitCalender.this, "You can only check in for today.");
                         return;
                     }
-
                     try {
                         if (db != null) {
-                            db.markCheckIn(cellDate);
-                            calendarCell.setImage(new ImageIcon(new ImageIcon("Assets/Images/paw_stamp.png").getImage().getScaledInstance(width, width, Image.SCALE_SMOOTH)));
-                            // reward coins for checking in
-                            User.addCoins(10);
-                            Menu.refreshCoins();
+
+                            if (db.isCheckedIn(cellDate)) {
+                                JOptionPane.showMessageDialog(HabitCalender.this, "You can only check once today.");
+                            }
+                            else {
+                                db.markCheckIn(cellDate);
+                                calendarCell.setImage(new ImageIcon(new ImageIcon("Assets/Images/paw_stamp.png").getImage().getScaledInstance(width, width, Image.SCALE_SMOOTH)));
+                                // reward coins for checking in
+                                User.addCoins(10);
+                                Menu.refreshCoins();
+                            }
                         }
                     } catch (SQLException ex) {
                         ex.printStackTrace();
