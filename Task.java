@@ -216,17 +216,14 @@ public class Task extends RoundedPanel implements MouseListener, MouseMotionList
             
             // Check how many thresholds have been crossed and move accordingly
             if (verticalAccumulator < -verticalDragThreshold) {
-                // Moving up - keep moving while accumulated movement justifies it
-                if (verticalAccumulator < -verticalDragThreshold) {
-                    taskmenu.moveTaskUp(data.getID(), j);
-                    verticalAccumulator += verticalDragThreshold;
-                }
+            // Moving up
+                taskmenu.moveTaskUp(data.getID(), j);
+                verticalAccumulator += verticalDragThreshold;
+            
+            // Moving down
             } else if (verticalAccumulator > verticalDragThreshold) {
-                // Moving down - keep moving while accumulated movement justifies it
-                if (verticalAccumulator > verticalDragThreshold) {
                     taskmenu.moveTaskDown(data.getID(), j);
                     verticalAccumulator -= verticalDragThreshold;
-                }
             }
         } else {
             // Horizontal drag to delete task
